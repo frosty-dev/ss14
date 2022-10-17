@@ -108,3 +108,19 @@
   path: "/Textures/Shaders/grain.swsl"
   params:
     strength: 100.0
+
+- type: shader
+  id: Crt2
+  kind: source
+  path: "/Textures/Shaders/crt2.swsl"
+  params:
+    res: 900, 600
+    mask_type: 0
+    bloom_type: 0
+    hardScan: -8.0
+    hardPix: -2.0
+    hardBloomScan: -2.0
+    hardBloomPix: -1.5
+    bloomAmount: 16.0
+    maskDark: 0.5
+    maskLight: 1.5
