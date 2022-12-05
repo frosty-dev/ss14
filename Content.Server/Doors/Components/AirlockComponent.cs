@@ -2,8 +2,10 @@ using System.Threading;
 using Content.Server.Power.Components;
 // using Content.Server.WireHacking;
 using Content.Shared.Doors.Components;
+using Content.Shared.MachineLinking;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 // using static Content.Shared.Wires.SharedWiresComponent;
 // using static Content.Shared.Wires.SharedWiresComponent.WiresAction;
 
@@ -136,6 +138,13 @@ namespace Content.Server.Doors.Components
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         public float AutoCloseDelayModifier = 1.0f;
+
+        /// <summary>
+        ///     The receiver port for turning off automatic closing.
+        ///     Needed for brig timers.
+        /// </summary>
+        [DataField("autoClosePort", customTypeSerializer: typeof(PrototypeIdSerializer<ReceiverPortPrototype>))]
+        public string AutoClosePort = "AutoClose";
 
         protected override void Initialize()
         {

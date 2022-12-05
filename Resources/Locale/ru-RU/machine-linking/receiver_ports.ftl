@@ -34,3 +34,5 @@ signal-port-name-artifact-analyzer-sender = Консоль
 signal-port-description-artifact-analyzer-sender = Передатчик сигнала аналитической консоли
 signal-port-name-artifact-analyzer-receiver = Платформа
 signal-port-description-artifact-analyzer-receiver = Приёмник сигнала анализатора артефактов
+signal-port-name-hold-open = Держать открытой.
+signal-port-description-hold-open = Выключает авто закрытие.
