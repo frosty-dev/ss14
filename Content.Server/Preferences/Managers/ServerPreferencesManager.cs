@@ -13,6 +13,9 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
+using Content.Server.White.Sponsors;
+
+
 
 namespace Content.Server.Preferences.Managers
 {
@@ -26,6 +29,8 @@ namespace Content.Server.Preferences.Managers
         [Dependency] private readonly IConfigurationManager _cfg = default!;
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ServerSponsorsManager _sponsors = default!;
+
 
         // Cache player prefs on the server so we don't need as much async hell related to them.
         private readonly Dictionary<NetUserId, PlayerPrefData> _cachedPlayerPrefs =
@@ -100,6 +105,9 @@ namespace Content.Server.Preferences.Managers
             var curPrefs = prefsData.Prefs!;
 
             profile.EnsureValid();
+
+            var allowedNeko = _sponsors.GetSponsorInfo(message.MsgChannel.UserId)?.AllowedNeko ?? false;
+            _sponsors.FilterSponsorMarkings(allowedNeko, profile);
 
             var profiles = new Dictionary<int, ICharacterProfile>(curPrefs.Characters)
             {
@@ -193,6 +201,13 @@ namespace Content.Server.Preferences.Managers
                 async Task LoadPrefs()
                 {
                     var prefs = await GetOrCreatePreferencesAsync(session.UserId);
+
+                    var allowedNeko = _sponsors.GetSponsorInfo(session.UserId)?.AllowedNeko ?? false;
+                    foreach (var (_, profile) in prefs.Characters)
+                    {
+                        _sponsors.FilterSponsorMarkings(allowedNeko, profile);
+                    }
+
                     prefsData.Prefs = prefs;
                     prefsData.PrefsLoaded = true;
 

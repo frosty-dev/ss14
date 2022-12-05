@@ -1,16 +1,16 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Content.Shared.CCVar;
+using Content.Shared.White.Sponsors;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
+using Robust.Shared.Utility;
 
 namespace Content.Server.White.Sponsors;
 
-public sealed class SponsorsManager : ISponsorsManager
+public sealed class ServerSponsorsManager : SponsorsManager
 {
     [Dependency] private readonly IServerNetManager _netMgr = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
@@ -20,18 +20,23 @@ public sealed class SponsorsManager : ISponsorsManager
     private ISawmill _sawmill = default!;
     private string _apiUrl = string.Empty;
 
-    private readonly Dictionary<NetUserId, SponsorInfo> _cache = new();
+    private readonly Dictionary<NetUserId, SponsorInfo> _cachedSponsors = new();
 
     public void Initialize()
     {
         _sawmill = Logger.GetSawmill("sponsors");
         _cfg.OnValueChanged(CCVars.SponsorsApiUrl, s => _apiUrl = s, true);
+
+        _netMgr.RegisterNetMessage<MsgSponsoringInfo>();
+
         _netMgr.Connecting += OnConnecting;
+        _netMgr.Connected += OnConnected;
+        _netMgr.Disconnect += OnDisconnect;
     }
 
-    public ISponsor? GetSponsorInfo(NetUserId userId)
+    public SponsorInfo? GetSponsorInfo(NetUserId userId)
     {
-        if (!_cache.TryGetValue(userId, out var sponsor))
+        if (!_cachedSponsors.TryGetValue(userId, out var sponsor))
             return null;
         return sponsor;
     }
@@ -40,9 +45,41 @@ public sealed class SponsorsManager : ISponsorsManager
     {
         var info = await LoadSponsorInfo(e.UserId);
         if (info?.Tier == null)
+        {
+            _cachedSponsors.Remove(e.UserId); // Remove from cache if sponsor expired
             return;
+        }
 
-        _cache[e.UserId] = info.Value;
+        DebugTools.Assert(!_cachedSponsors.ContainsKey(e.UserId), "Cached data was found on client connect");
+
+        _cachedSponsors[e.UserId] = info;
+    }
+
+    private void OnConnected(object? sender, NetChannelArgs e)
+    {
+        MsgSponsoringInfo msg;
+        if (_cachedSponsors.TryGetValue(e.Channel.UserId, out var info))
+        {
+            msg = new()
+            {
+                IsSponsor = true,
+                AllowedNeko = info.AllowedNeko,
+            };
+        }
+        else
+        {
+            msg = new()
+            {
+                IsSponsor = false,
+                AllowedNeko = false,
+            };
+        }
+        _netMgr.ServerSendMessage(msg, e.Channel);
+    }
+
+    private void OnDisconnect(object? sender, NetDisconnectedArgs e)
+    {
+        _cachedSponsors.Remove(e.Channel.UserId);
     }
 
     private async Task<SponsorInfo?> LoadSponsorInfo(NetUserId userId)
@@ -66,18 +103,5 @@ public sealed class SponsorsManager : ISponsorsManager
         }
 
         return await response.Content.ReadFromJsonAsync<SponsorInfo>();
-    }
-
-
-    private struct SponsorInfo : ISponsor
-    {
-        [JsonPropertyName("tier")]
-        public int? Tier { get; set; }
-
-        [JsonPropertyName("oocColor")]
-        public string? OOCColor { get; set; }
-
-        [JsonPropertyName("priorityJoin")]
-        public bool HavePriorityJoin { get; set; }
     }
 }

@@ -41,6 +41,8 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
+using Content.Client.White.Sponsors;
+
 namespace Content.Client.Entry
 {
     public sealed class EntryPoint : GameClient
@@ -72,6 +74,7 @@ namespace Content.Client.Entry
         [Dependency] private readonly ExtendedDisconnectInformationManager _extendedDisconnectInformation = default!;
         [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
         [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
+        [Dependency] private readonly ClientSponsorsManager _sponsorsManager = default!;
 
         public const int NetBufferSizeOverride = 2;
 
@@ -171,6 +174,7 @@ namespace Content.Client.Entry
             _gamePrototypeLoadManager.Initialize();
             _networkResources.Initialize();
             _userInterfaceManager.SetDefaultTheme("SS14DefaultTheme");
+            _sponsorsManager.Initialize();
 
             _baseClient.RunLevelChanged += (_, args) =>
             {

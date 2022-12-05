@@ -6,6 +6,9 @@ using Robust.Shared.IoC;
 using Robust.Shared.Network;
 using Robust.Shared.Utility;
 
+using Content.Client.White.Sponsors;
+
+
 namespace Content.Client.Preferences
 {
     /// <summary>
@@ -16,6 +19,7 @@ namespace Content.Client.Preferences
     public sealed class ClientPreferencesManager : IClientPreferencesManager
     {
         [Dependency] private readonly IClientNetManager _netManager = default!;
+        [Dependency] private readonly ClientSponsorsManager _sponsorsManager = default!;
 
         public event Action? OnServerDataLoaded;
 
@@ -48,6 +52,7 @@ namespace Content.Client.Preferences
         public void UpdateCharacter(ICharacterProfile profile, int slot)
         {
             profile.EnsureValid();
+            _sponsorsManager.FilterSponsorMarkings(_sponsorsManager.IsSponsor, profile);
             var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) {[slot] = profile};
             Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor);
             var msg = new MsgUpdateCharacter

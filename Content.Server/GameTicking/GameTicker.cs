@@ -29,6 +29,10 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
+using Content.Server.White.Sponsors;
+using Content.Server.Humanoid;
+
+
 namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker : SharedGameTicker
@@ -107,6 +111,8 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly IConsoleHost _consoleHost = default!;
+        [Dependency] private readonly ServerSponsorsManager _sponsorsManager = default!; // Corvax-Sponsors
+
 #if EXCEPTION_TOLERANCE
         [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
 #endif
@@ -120,5 +126,6 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly ServerUpdateManager _serverUpdates = default!;
         [Dependency] private readonly PlayTimeTrackingSystem _playTimeTrackings = default!;
         [Dependency] private readonly UserDbDataManager _userDb = default!;
+        [Dependency] private readonly HumanoidSystem _humanoid = default!;
     }
 }

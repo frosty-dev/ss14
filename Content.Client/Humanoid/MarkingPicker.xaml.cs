@@ -11,6 +11,9 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 
+using Content.Client.White.Sponsors;
+
+
 namespace Content.Client.Humanoid;
 
 [GenerateTypedNameReferences]
@@ -18,6 +21,8 @@ public sealed partial class MarkingPicker : Control
 {
     [Dependency] private readonly MarkingManager _markingManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly ClientSponsorsManager _sponsorsManager = default!;
+
 
     public Action<MarkingSet>? OnMarkingAdded;
     public Action<MarkingSet>? OnMarkingRemoved;
@@ -186,6 +191,7 @@ public sealed partial class MarkingPicker : Control
 
             var item = CMarkingsUnused.AddItem($"{GetMarkingName(marking)}", marking.Sprites[0].Frame0());
             item.Metadata = marking;
+            item.Disabled = marking.SponsorOnly && !_sponsorsManager.AllowedNeko;
         }
 
         CMarkingPoints.Visible = _currentMarkings.PointsLeft(_selectedMarkingCategory) != -1;

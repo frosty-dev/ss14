@@ -35,7 +35,6 @@ using Content.Shared.Localizations;
 
 using Content.Server.White.Sponsors;
 
-
 namespace Content.Server.Entry
 {
     public sealed class EntryPoint : GameServer
@@ -92,7 +91,6 @@ namespace Content.Server.Entry
                 logManager.GetSawmill("Storage").Level = LogLevel.Info;
                 logManager.GetSawmill("db.ef").Level = LogLevel.Info;
 
-                IoCManager.Resolve<ISponsorsManager>().Initialize();
                 IoCManager.Resolve<IAdminLogManager>().Initialize();
                 IoCManager.Resolve<IConnectionManager>().Initialize();
                 IoCManager.Resolve<IServerDbManager>().Init();
@@ -101,6 +99,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<IGamePrototypeLoadManager>().Initialize();
                 IoCManager.Resolve<NetworkResourceManager>().Initialize();
                 IoCManager.Resolve<GhostKickManager>().Initialize();
+                IoCManager.Resolve<ServerSponsorsManager>().Initialize();
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
 
                 _voteManager.Initialize();
