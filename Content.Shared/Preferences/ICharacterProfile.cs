@@ -13,6 +13,7 @@ namespace Content.Shared.Preferences
         /// <summary>
         ///     Makes this profile valid so there's no bad data like negative ages.
         /// </summary>
-        void EnsureValid();
+        void EnsureValid(string[] sponsorMarkings);
+
     }
 }

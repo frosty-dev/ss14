@@ -19,7 +19,7 @@ namespace Content.Client.Preferences
     public sealed class ClientPreferencesManager : IClientPreferencesManager
     {
         [Dependency] private readonly IClientNetManager _netManager = default!;
-        [Dependency] private readonly ClientSponsorsManager _sponsorsManager = default!;
+        [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
 
         public event Action? OnServerDataLoaded;
 
@@ -51,8 +51,8 @@ namespace Content.Client.Preferences
 
         public void UpdateCharacter(ICharacterProfile profile, int slot)
         {
-            profile.EnsureValid();
-            _sponsorsManager.FilterSponsorMarkings(_sponsorsManager.IsSponsor, profile);
+            var allowedMarkings = _sponsorsManager.TryGetInfo(out var sponsor) ? sponsor.AllowedMarkings : new string[]{};
+            profile.EnsureValid(allowedMarkings);
             var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) {[slot] = profile};
             Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor);
             var msg = new MsgUpdateCharacter

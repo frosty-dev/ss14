@@ -62,7 +62,7 @@ namespace Content.Server.IoC
             IoCManager.Register<PlayTimeTrackingManager>();
             IoCManager.Register<UserDbDataManager>();
             IoCManager.Register<ServerInfoManager>();
-            IoCManager.Register<ServerSponsorsManager>();
+            IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
         }
     }

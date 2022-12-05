@@ -198,6 +198,30 @@ public sealed class MarkingSet
         }
     }
 
+    public void FilterSponsor(string[] sponsorMarkings, MarkingManager? markingManager = null)
+    {
+        IoCManager.Resolve(ref markingManager);
+
+        var toRemove = new List<(MarkingCategories category, string id)>();
+        foreach (var (category, list) in _markings)
+        {
+            foreach (var marking in list)
+            {
+                var allowedToHave = sponsorMarkings.Contains(marking.MarkingId);
+                if (!allowedToHave)
+                {
+                    toRemove.Add((category, marking.MarkingId));
+                }
+            }
+        }
+
+        foreach (var marking in toRemove)
+        {
+            Remove(marking.category, marking.id);
+        }
+    }
+
+
     /// <summary>
     ///     Ensures that the default markings as defined by the marking point set in this marking set are applied.
     /// </summary>

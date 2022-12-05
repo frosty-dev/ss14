@@ -47,7 +47,7 @@ namespace Content.Client.IoC
             IoCManager.Register<GhostKickManager>();
             IoCManager.Register<ExtendedDisconnectInformationManager>();
             IoCManager.Register<PlayTimeTrackingManager>();
-            IoCManager.Register<ClientSponsorsManager>();
+            IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
         }
     }

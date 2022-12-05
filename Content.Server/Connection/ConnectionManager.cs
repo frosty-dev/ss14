@@ -33,7 +33,7 @@ namespace Content.Server.Connection
         [Dependency] private readonly IServerNetManager _netMgr = default!;
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly ServerSponsorsManager _sponsorsManager = default!;
+        [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
 
         public void Initialize()
         {
@@ -186,9 +186,8 @@ namespace Content.Server.Connection
         public async Task<bool> HavePrivilegedJoin(NetUserId userId)
         {
             var adminData = await _dbManager.GetAdminDataForAsync(userId);
-            var sponsorData = _sponsorsManager.GetSponsorInfo(userId);
 
-            var havePriorityJoin = sponsorData?.HavePriorityJoin == true;
+            var havePriorityJoin = _sponsorsManager.TryGetInfo(userId, out var sponsorData) && sponsorData.HavePriorityJoin;
             var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
                             ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
                             status == PlayerGameStatus.JoinedGame;
