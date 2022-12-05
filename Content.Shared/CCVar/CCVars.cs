@@ -1189,6 +1189,10 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<bool> ChatPunctuation =
             CVarDef.Create("ic.punctuation", false, CVar.SERVER);
 
+
+        public static readonly CVarDef<bool> ChatSlangFilter =
+            CVarDef.Create("ic.slang_filter", true, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE);
+
         /// <summary>
         /// Enables automatically forcing IC name rules. Uppercases the first letter of the first and last words of the name
         /// </summary>
