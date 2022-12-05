@@ -1398,5 +1398,17 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<string> InfoLinksBugReport =
             CVarDef.Create("infolinks.bug_report", "", CVar.SERVER | CVar.REPLICATED);
+
+        /**
+         * SPONSORS
+         */
+
+        /// <summary>
+        /// URL of the sponsors server API.
+        /// </summary>
+        public static readonly CVarDef<string> SponsorsApiUrl =
+            CVarDef.Create("sponsor.api_url", "", CVar.SERVERONLY);
+
+
     }
 }

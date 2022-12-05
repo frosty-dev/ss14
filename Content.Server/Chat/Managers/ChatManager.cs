@@ -16,6 +16,9 @@ using Robust.Shared.Player;
 using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 
+using Content.Server.White.Sponsors;
+
+
 namespace Content.Server.Chat.Managers
 {
     /// <summary>
@@ -38,6 +41,8 @@ namespace Content.Server.Chat.Managers
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
         [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+        [Dependency] private readonly ISponsorsManager _sponsorsManager = default!;
+
 
         /// <summary>
         /// The maximum length a player-sent message can be sent
@@ -171,6 +176,12 @@ namespace Content.Server.Chat.Managers
                      PatronOocColors.TryGetValue(patron, out var patronColor))
             {
                 wrappedMessage = Loc.GetString("chat-manager-send-ooc-patron-wrap-message", ("patronColor", patronColor),("playerName", player.Name), ("message", FormattedMessage.EscapeText(message)));
+            }
+
+            var sponsorData = _sponsorsManager.GetSponsorInfo(player.UserId);
+            if (sponsorData?.OOCColor != null)
+            {
+                wrappedMessage = Loc.GetString("chat-manager-send-ooc-patron-wrap-message", ("patronColor", sponsorData.OOCColor),("playerName", player.Name));
             }
 
             //TODO: player.Name color, this will need to change the structure of the MsgChatMessage

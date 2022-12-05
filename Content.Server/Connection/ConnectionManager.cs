@@ -10,6 +10,10 @@ using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
+using Content.Server.White.Sponsors;
+
+
+
 
 namespace Content.Server.Connection
 {
@@ -28,6 +32,7 @@ namespace Content.Server.Connection
         [Dependency] private readonly IServerNetManager _netMgr = default!;
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly ISponsorsManager _sponsorsManager = default!;
 
         public void Initialize()
         {
@@ -101,6 +106,8 @@ namespace Content.Server.Connection
             }
 
             var adminData = await _dbManager.GetAdminDataForAsync(e.UserId);
+            var sponsorData = _sponsorsManager.GetSponsorInfo(e.UserId);
+
 
             if (_cfg.GetCVar(CCVars.PanicBunkerEnabled))
             {
@@ -121,7 +128,7 @@ namespace Content.Server.Connection
                 var minOverallHours = _cfg.GetCVar(CCVars.PanicBunkerMinOverallHours);
                 var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
                 var haveMinOverallTime = overallTime != null && overallTime.TimeSpent.TotalHours > minOverallHours;
-                
+
                 if (showReason && !haveMinOverallTime)
                 {
                     return (ConnectionDenyReason.Panic,
@@ -135,10 +142,11 @@ namespace Content.Server.Connection
                 }
             }
 
+            var havePriorityJoin = sponsorData?.HavePriorityJoin == true;
             var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
                             ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
                             status == PlayerGameStatus.JoinedGame;
-            if ((_plyMgr.PlayerCount >= _cfg.GetCVar(CCVars.SoftMaxPlayers) && adminData is null) && !wasInGame)
+            if ((_plyMgr.PlayerCount >= _cfg.GetCVar(CCVars.SoftMaxPlayers) && adminData is null && !havePriorityJoin) && !wasInGame)
             {
                 return (ConnectionDenyReason.Full, Loc.GetString("soft-player-cap-full"), null);
             }
