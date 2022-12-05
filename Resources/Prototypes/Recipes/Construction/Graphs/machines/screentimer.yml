@@ -1,0 +1,97 @@
+﻿#Сборка
+- type: constructionGraph
+  id: SignalTimerGraph
+  start: TimerFrameStart
+  graph:
+    - node: TimerFrameStart
+      edges:
+        - to: frame
+          steps:
+            - material: Steel
+              amount: 3
+              doAfter: 1
+
+    - node: frame
+      entity: ScreenTimerFrame
+      actions:
+        - !type:SpriteStateChange
+          state: "textscreenb1"
+      edges:
+        - to: TimerFrameStart
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetSteel1
+              amount: 3
+            - !type:DeleteEntity {}
+          steps:
+            - tool: Screwing
+              doAfter: 1
+        - to: frame_glass
+          steps:
+            - component: PayloadTrigger
+              store: trigger
+              name: Signal Trigger
+              icon:
+                sprite: Objects/Devices/timer.rsi
+                state: timer
+
+    - node: frame_glass
+      entity: ScreenTimerFrame
+      actions:
+        - !type:SpriteStateChange
+          state: "textscreenb2"
+      edges:
+        - to: frame_screw
+          steps:
+            - material: Glass
+              amount: 3
+              doAfter: 1
+
+    - node: frame_screw
+      entity: ScreenTimerFrame
+      actions:
+        - !type:SpriteStateChange
+          state: "textscreenb1"
+      edges:
+        - to: SignalTimer
+          steps:
+            - tool: Screwing
+              doAfter: 2
+
+    - node: SignalTimer
+      entity: ScreenTimer
+      edges:
+        - to: ScreenTimerDis1
+          steps:
+            - tool: Screwing
+              doAfter: 2
+
+    # Разборка
+
+    - node: ScreenTimerDis1
+      actions:
+        - !type:SpriteStateChange
+          state: "textscreenb1"
+      entity: ScreenTimerFrame
+      edges:
+        - to: ScreenTimerDis2
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetGlass1
+              amount: 3
+          steps:
+            - tool: Prying
+              doAfter: 3
+
+    - node: ScreenTimerDis2
+      entity: ScreenTimerFrame
+      actions:
+        - !type:SpriteStateChange
+          state: "textscreenb2"
+      edges:
+        - to: frame
+          completed:
+            - !type:EmptyAllContainers
+          steps:
+            - tool: Screwing
+              doAfter: 2.5

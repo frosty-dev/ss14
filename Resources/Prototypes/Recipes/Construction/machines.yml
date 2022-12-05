@@ -96,3 +96,19 @@
   canBuildInImpassable: true
   conditions:
     - !type:WallmountCondition
+
+    #Signal Timer
+- type: construction
+  name: цифровой таймер
+  id: SignalTimerRecipe
+  graph: SignalTimerGraph
+  startNode: TimerFrameStart
+  targetNode: SignalTimer
+  category: construction-category-machines
+  icon:
+    sprite: Structures/Wallmounts/textscreen.rsi
+    state: textscreen
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true

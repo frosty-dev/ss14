@@ -47,6 +47,9 @@
       sprite: Structures/Wallmounts/textscreen.rsi
       state: textscreen
       noRot: true
+    - type: Construction
+      graph: SignalTimerGraph
+      node: SignalTimer
 
 - type: entity
   id: BrigTimer
@@ -64,3 +67,28 @@
       noRot: true
     - type: AccessReader
       access: [["Brig"]]
+
+- type: entity
+  noSpawn: true
+  id: ScreenTimerFrame
+  name: рамка цифрового таймера
+  description: цифровой таймер в процессе постройки
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: WallMount
+      arc: 360
+    - type: Transform
+      noRot: true
+    - type: Physics
+      canCollide: false
+      bodyType: Static
+    - type: Clickable
+    - type: InteractionOutline
+    - type: Construction
+      graph: SignalTimerGraph
+      node: frame
+    - type: Sprite
+      drawdepth: WallMountedItems
+      sprite: Structures/Wallmounts/textscreen.rsi
+      state: textscreenb1
