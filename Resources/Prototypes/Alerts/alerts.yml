@@ -4,20 +4,21 @@
   # If item is not in list it will go at the bottom (ties broken by alert type enum value)
   id: BaseAlertOrder
   order:
+    - category: Pressure
+    - alertType: Fire
+    - category: Temperature
+    - alertType: Bleeding
+    - category: Breathing # Vox gang not calling this oxygen
     - category: Health
     - category: Stamina
     - category: Internals
-    - alertType: Fire
-    - alertType: Handcuffed
+    - alertType: Stun
     - alertType: Ensnared
+    - alertType: Handcuffed
     - category: Buckled
     - alertType: Pulling
     - category: Piloting
     - alertType: Corporeal
-    - alertType: Stun
-    - category: Breathing # Vox gang not calling this oxygen
-    - category: Pressure
-    - category: Temperature
     - category: Hunger
     - category: Thirst
     - alertType: Magboots
@@ -176,6 +177,12 @@
   description: alerts-health-desc
   minSeverity: 0
   maxSeverity: 6
+
+- type: alert
+  id: Bleeding
+  icons: [ /Textures/Interface/Alerts/bleeding.png ]
+  name: alerts-bleeding-name
+  description: alerts-bleeding-desc
 
 - type: alert
   id: Internals

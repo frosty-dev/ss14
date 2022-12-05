@@ -146,5 +146,11 @@ namespace Content.Server.Body.Components
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         public Solution BloodTemporarySolution = default!;
+
+        /// <summary>
+        ///     Bool for bleeding alert.
+        /// </summary>
+        public bool IsBleeding => BleedAmount > 0;
+
     }
 }

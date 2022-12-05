@@ -54,3 +54,5 @@ alerts-pulled-name = Вас тянут
 alerts-pulled-desc = Вас тянут за собой. Двигайтесь, чтобы освободиться.
 alerts-pulling-name = Вы тянете
 alerts-pulling-desc = Вы что-то тянете. Щелкните по иконке, чтобы перестать.
+alerts-bleeding-name = Кровотечение
+alerts-bleeding-desc = У вас [color=#C10000]кровотечение[/color], вколите [color=#3D9CBF]экстренный медипен[/color] или перебинтуйтесь.
