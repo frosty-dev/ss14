@@ -233,7 +233,7 @@ namespace Content.Shared.Humanoid
                 markingSet = new MarkingSet(appearance.Markings, speciesProto.MarkingPoints, markingManager, proto);
                 markingSet.EnsureValid(markingManager);
                 markingSet.FilterSpecies(species, markingManager);
-                markingSet.FilterSponsor(sponsorMarkings, markingManager); // Corvax-Sponsors
+                markingSet.FilterSponsor(sponsorMarkings, markingManager);
 
                 switch (speciesProto.SkinColoration)
                 {
