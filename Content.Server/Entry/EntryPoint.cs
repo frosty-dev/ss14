@@ -34,6 +34,7 @@ using Content.Server.Station.Systems;
 using Content.Shared.Localizations;
 
 using Content.Server.White.Sponsors;
+using Content.Server.White.JoinQueue;
 
 namespace Content.Server.Entry
 {
@@ -100,6 +101,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<NetworkResourceManager>().Initialize();
                 IoCManager.Resolve<GhostKickManager>().Initialize();
                 IoCManager.Resolve<ServerSponsorsManager>().Initialize();
+                IoCManager.Resolve<JoinQueueManager>().Initialize();
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
 
                 _voteManager.Initialize();

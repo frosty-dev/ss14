@@ -18,6 +18,7 @@ using Content.Shared.Administration;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Module;
 
+using Content.Client.White.JoinQueue;
 using Content.Client.White.Sponsors;
 
 
@@ -47,6 +48,7 @@ namespace Content.Client.IoC
             IoCManager.Register<ExtendedDisconnectInformationManager>();
             IoCManager.Register<PlayTimeTrackingManager>();
             IoCManager.Register<ClientSponsorsManager>();
+            IoCManager.Register<JoinQueueManager>();
         }
     }
 }

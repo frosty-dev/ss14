@@ -42,6 +42,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 using Content.Client.White.Sponsors;
+using Content.Client.White.JoinQueue;
 
 namespace Content.Client.Entry
 {
@@ -75,6 +76,7 @@ namespace Content.Client.Entry
         [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
         [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
         [Dependency] private readonly ClientSponsorsManager _sponsorsManager = default!;
+        [Dependency] private readonly JoinQueueManager _queueManager = default!;
 
         public const int NetBufferSizeOverride = 2;
 
@@ -175,6 +177,7 @@ namespace Content.Client.Entry
             _networkResources.Initialize();
             _userInterfaceManager.SetDefaultTheme("SS14DefaultTheme");
             _sponsorsManager.Initialize();
+            _queueManager.Initialize();
 
             _baseClient.RunLevelChanged += (_, args) =>
             {
