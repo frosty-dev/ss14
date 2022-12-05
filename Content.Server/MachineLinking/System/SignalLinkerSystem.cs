@@ -147,7 +147,7 @@ namespace Content.Server.MachineLinking.System
             // validate links
             Dictionary<EntityUid, SignalReceiverComponent?> uidCache = new();
             foreach (var tport in transmitter.Outputs)
-                foreach (var rport in tport.Value)
+                foreach (var rport in tport.Value.ToList())
                 {
                     if (!uidCache.TryGetValue(rport.Uid, out var receiver))
                         uidCache.Add(rport.Uid, receiver = CompOrNull<SignalReceiverComponent>(rport.Uid));
@@ -163,7 +163,7 @@ namespace Content.Server.MachineLinking.System
             // validate links
             Dictionary<EntityUid, SignalTransmitterComponent?> uidCache = new();
             foreach (var rport in receiver.Inputs)
-                foreach (var tport in rport.Value)
+                foreach (var tport in rport.Value.ToList())
                 {
                     if (!uidCache.TryGetValue(tport.Uid, out var transmitter))
                         uidCache.Add(tport.Uid, transmitter = CompOrNull<SignalTransmitterComponent>(tport.Uid));
