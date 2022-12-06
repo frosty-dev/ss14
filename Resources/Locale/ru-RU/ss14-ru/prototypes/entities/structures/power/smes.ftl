@@ -1,4 +1,4 @@
-ent-BaseSMES = СМЭС
+ent-BaseSMES = СМЕС
     .desc = Сверхпроводящая Магнитная Энергонакопительная Станция (СМЭС) большой емкости.
     .suffix = { "" }
 ent-SMESBasic = { ent-BaseSMES }

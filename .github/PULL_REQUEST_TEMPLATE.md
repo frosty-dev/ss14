@@ -15,7 +15,6 @@
 - [ ] Feature
 - [ ] Fix
 - [ ] Tweak
-- [ ] Changes
 - [ ] Balance
 
 **Изменения**

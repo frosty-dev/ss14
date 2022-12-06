@@ -1,7 +1,7 @@
-ent-BaseAPC = ЛКП
+ent-BaseAPC = АПЦ
     .desc = Терминал управления локальными электрическими системами.
     .suffix = { "" }
-ent-APCFrame = каркас ЛКП
+ent-APCFrame = каркас АПЦ
     .desc = Терминал управления локальными электрическими системами, без электроники.
     .suffix = { "" }
 ent-APCConstructed = { ent-BaseAPC }

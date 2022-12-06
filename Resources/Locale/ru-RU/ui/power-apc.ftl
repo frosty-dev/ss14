@@ -1,4 +1,4 @@
-apc-menu-title = ЛКП
+apc-menu-title = АПЦ
 apc-menu-breaker-label = Рубильник:{ " " }
 apc-menu-breaker-button = Переключить
 apc-menu-external-label = Внешнее питание:{ " " }
