@@ -1421,5 +1421,16 @@ namespace Content.Shared.CCVar
             QueueEnabled = CVarDef.Create("queue.enabled", false, CVar.SERVERONLY);
 
 
+        /*
+         * Discord
+         */
+
+        public static readonly CVarDef<string> DiscordRoundWebhook =
+            CVarDef.Create("discord.round_webhook", string.Empty, CVar.SERVERONLY);
+
+        public static readonly CVarDef<string> DiscordRoundRoleId =
+            CVarDef.Create("discord.round_roleid", string.Empty, CVar.SERVERONLY);
+
+
     }
 }
