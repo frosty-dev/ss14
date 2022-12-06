@@ -245,6 +245,9 @@ namespace Content.Server.GameTicking
             AnnounceRound();
             UpdateInfoText();
 
+            var roundStartedEvent = new RoundStartedEvent();
+            RaiseLocalEvent(roundStartedEvent);
+
 #if EXCEPTION_TOLERANCE
             }
             catch (Exception e)
