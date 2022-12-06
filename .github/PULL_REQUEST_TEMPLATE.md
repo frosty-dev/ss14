@@ -1,40 +1,38 @@
-<!-- The text between the arrows are comments - they will not be visible on your PR. -->
-<!-- Please read these guidelines before opening your PR: https://docs.spacestation14.io/en/getting-started/pr-guideline -->
+<!-- Текст между стрелками - это комментарии - они не будут видны в вашем PR. -->
 
-## About the PR <!-- Describe the Pull Request here. What does it change? What other things could this impact? -->
+# Описание PR <!-- Опишите здесь ваш Pull Request. Что он изменяет? На что еще это может повлиять? -->
 
-**Media**
-<!-- 
-If applicable, add screenshots or videos to showcase your PR. Small fixes/refactors are exempt, but all PRs which make ingame changes 
-(adding clothing, items, new features, etc) must include ingame media or the PR will not be merged, in accordance with our PR guidelines.
-This makes it much easier for us to merge PRs and find media for progress reports. If you include media in your pull request, we 
-may potentially use it in the SS14 progress reports, with clear credit given.
+## Скриншоты
+<!-- Если приемлемо, добавьте скриншоты для демонстрации вашего PR. Если ваш PR представляет собой визуальное изменение, добавьте
+скриншоты, иначе он может быть закрыт. -->
 
-Use screenshot software like Window's built in snipping tool, ShareX, Lightshot, or recording software like ShareX (gif), ScreenToGif, or Open Broadcaster Software (cross platform).
-If you're unsure whether your PR will require media, ask a maintainer.
+## Чек-лист:
 
-Check one of the boxes below to confirm that you have in fact seen this (put an X in the brackets, like [X]):
--->
+- [ ] Rechecked all my code
 
-- [ ] I have added screenshots/videos to this PR showcasing its changes ingame
-- [ ] This PR does not require an ingame showcase
+## typo:
 
-**Changelog**
+- [ ] Feature
+- [ ] Fix
+- [ ] Tweak
+- [ ] Changes
+- [ ] Balance
+
+**Изменения**
 <!--
-Here you can fill out a changelog that will automatically be added to the game when your PR is merged
-There are 4 icons for changelog entries: add, remove, tweak, fix. I trust you can figure out the rest.
+Здесь вы можете написать список изменений, который будет автоматически добавлен в игру, когда ваш PR будет принят
+Для записей в списке изменений есть 4 значка: add, remove, tweak, fix. Думаю, вы сможете разобраться с остальным.
 
-You can put your name after the :cl: symbol to change the name that shows in the changelog (otherwise it takes your GitHub username)
-Like so: :cl: PJB
+Вы можете поставить свое имя после символа :cl:, чтобы изменить имя, которое будет отображаться в журнале изменений (в противном случае будет использоваться ваше имя пользователя GitHub)
+Например: :cl: PJB
 
-Generally, only put things in changelogs that players actually care about. Stuff like "Refactored X system, no changes should be visible" shouldn't be on a changelog.
+Как правило, в журналы изменений следует помещать только то, что действительно важно игрокам. Вещи вроде "Переработана система X, изменения не должны быть видны" не должны быть в журнале изменений.
 
-For writing actual entries, don't consider the entry type suffix (e.g. add) to be "part" of the sentence:
-bad: - add: a new tool for engineers
-good: - add: added a new tool for engineers
+При написании списка изменений не считайте суффикс типа записи (например, add) "частью" предложения:
+плохо: - add: новый инструмент для инженеров
+хорошо: - add: добавлен новый инструмент для инженеров
 -->
 
 :cl:
-- add: Added fun!
-- remove: Removed fun!
-
+- add: Добавлено веселье!
+- remove: Убрано веселье!
