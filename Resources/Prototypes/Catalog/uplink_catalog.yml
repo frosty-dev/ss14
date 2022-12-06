@@ -153,8 +153,8 @@
 # For the Inspector
 - type: listing
   id: UplinkSpeedLoaderMagnum
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi, state: base }
-  productEntity: SpeedLoaderMagnumHC
+  icon: /Textures/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi/base.png
+  productEntity: SpeedLoaderMagnum
   cost:
     Telecrystal: 2
   categories:
@@ -176,7 +176,7 @@
   id: UplinkHoloparaKit
   name: Holoparasite Kit
   description: The pride and joy of Cybersun. Contains an injector that hosts a sentient metaphysical guardian made of hard light which resides in the user's body when not active. The guardian can punch rapidly and is immune to hazardous environments and bullets, but shares any damage it takes with the user.
-  icon: { sprite: /Textures/Objects/Misc/guardian_info.rsi, state: icon }
+  icon: /Textures/Objects/Misc/guardian_info.rsi/icon.png
   productEntity: BoxHoloparasite
   cost:
     Telecrystal: 14
@@ -233,7 +233,7 @@
   name: Reinforcement Teleporter
   description: Teleport in an agent of extremely questionable quality. No off button, buy this if you're ready to party. They have a pistol with no reserve ammo, and a knife. That's it.
   productEntity: ReinforcementTeleporterSyndicate
-  icon: { sprite: Objects/Devices/communication.rsi, state: old-radio }
+  icon: Objects/Devices/communication.rsi/old-radio.png
   cost:
     Telecrystal: 20
   categories:
@@ -284,7 +284,7 @@
 
 - type: listing
   id: UplinkStorageImplanter
-  icon: { sprite: /Textures/Clothing/Back/Backpacks/backpack.rsi, state: icon }
+  icon: /Textures/Clothing/Back/Backpacks/backpack.rsi/icon.png
   name: Storage Implanter
   description: Hide goodies inside of yourself with new bluespace technology!
   productEntity: StorageImplanter
@@ -300,7 +300,7 @@
 
 - type: listing
   id: UplinkFreedomImplanter
-  icon: { sprite: /Textures/Actions/Implants/implants.rsi, state: freedom }
+  icon: /Textures/Actions/Implants/implants.rsi/freedom.png
   name: Freedom Implanter
   description: Get away from those nasty sec officers with this three use implant!
   productEntity: FreedomImplanter
@@ -316,7 +316,7 @@
 
 - type: listing
   id: UplinkMacroBombImplanter
-  icon: { sprite: /Textures/Actions/Implants/implants.rsi, state: explosive }
+  icon: /Textures/Actions/Implants/implants.rsi/explosive.png
   name: Macro Bomb Implanter
   description: Inject this and on death you'll create a large explosion. Huge team casualty cost, use at own risk. Replaces internal micro bomb.
   productEntity: MacroBombImplanter
@@ -338,7 +338,7 @@
 
 - type: listing
   id: UplinkC20RBundle
-  icon: { sprite: /Textures/Objects/Weapons/Guns/SMGs/c20r.rsi, state: icon }
+  icon: /Textures/Objects/Weapons/Guns/SMGs/c20r.rsi/icon.png
   productEntity: ClothingBackpackDuffelSyndicateFilledSMG
   cost:
     Telecrystal: 25
@@ -347,7 +347,7 @@
 
 - type: listing
   id: UplinkBulldogBundle
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Shotguns/bulldog.rsi, state: icon }
+  icon: /Textures/Objects/Weapons/Guns/Shotguns/bulldog.rsi/icon.png
   productEntity: ClothingBackpackDuffelSyndicateFilledShotgun
   cost:
     Telecrystal: 25
@@ -356,7 +356,7 @@
 
 - type: listing
   id: UplinkGrenadeLauncherBundle
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Launchers/china_lake.rsi, state: icon }
+  icon: /Textures/Objects/Weapons/Guns/Launchers/china_lake.rsi/icon.png
   productEntity: ClothingBackpackDuffelSyndicateFilledGrenadeLauncher
   cost:
     Telecrystal: 30
@@ -365,7 +365,7 @@
 
 - type: listing
   id: UplinkL6SawBundle
-  icon: { sprite: /Textures/Objects/Weapons/Guns/LMGs/l6.rsi, state: icon }
+  icon: /Textures/Objects/Weapons/Guns/LMGs/l6.rsi/icon.png
   productEntity: ClothingBackpackDuffelSyndicateFilledLMG
   cost:
     Telecrystal: 40
@@ -374,7 +374,7 @@
 
 - type: listing
   id: UplinkZombieBundle
-  icon: { sprite: /Textures/Structures/Wallmounts/signs.rsi, state: bio }
+  icon: /Textures/Structures/Wallmounts/signs.rsi/bio.png
   productEntity: ClothingBackpackDuffelZombieBundle
   cost:
     Telecrystal: 40
@@ -509,7 +509,7 @@
   name: Chameleon Kit
   description: A backpack full of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more!
   productEntity: ClothingBackpackChameleonFill
-  icon: { sprite: /Textures/Clothing/Uniforms/Jumpsuit/rainbow.rsi, state: icon }
+  icon: /Textures/Clothing/Uniforms/Jumpsuit/rainbow.rsi/icon.png
   cost:
     Telecrystal: 6
   categories:
