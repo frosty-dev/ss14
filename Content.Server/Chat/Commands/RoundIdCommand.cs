@@ -9,11 +9,13 @@ namespace Content.Server.Chat.Commands
     {
         public string Command => "roundid";
         public string Description => "Shows the id of the current round.";
-        public string Help => "Output RoundID + #roundID";
+        public string Help => "Write roundid, output *Current round #roundId*";
+
+        public int roundid => EntitySystem.Get<GameTicker>().RoundId;
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
-            shell.WriteLine($"RoundID #{EntitySystem.Get<GameTicker>().RoundId}");
+            shell.WriteLine($"Current round #{roundid}");
         }
     }
 }
