@@ -222,6 +222,13 @@ namespace Content.Client.Preferences.UI
                     Parent?.RemoveChild(confirmDeleteButton);
                     preferencesManager.DeleteCharacter(profile);
                 };
+                deleteButton.OnPressed += _ =>
+                {
+
+                    deleteButton.Visible = false;
+                    confirmDeleteButton.Visible = true;
+
+                };
 
                 deleteButton.OnPressed += _ =>
                 {
