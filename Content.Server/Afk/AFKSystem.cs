@@ -86,12 +86,9 @@ public sealed class AFKSystem : EntitySystem
             {
                 var ev = new AFKEvent(pSession);
                 RaiseLocalEvent(ref ev);
-<<<<<<< HEAD
 
                 _chatManager.DispatchServerMessage(pSession, Loc.GetString("afk-system-kick-warning"));
-=======
                 continue;
->>>>>>> 8bf0d16fa (Revert "Kicking AFK players (#12812)" (#12909))
             }
 
             if (!isAfk && _afkPlayers.Remove(pSession))
