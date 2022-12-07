@@ -1,6 +1,6 @@
 admin-player-actions-window-title = Действия с игроками
 admin-player-actions-window-ban = Бан
-admin-player-actions-window-jobban = Бан
+admin-player-actions-window-jobban = Джоб Бан
 admin-player-actions-window-admin-ghost = Админ призрак
 admin-player-actions-window-teleport = Телепорт
 admin-player-actions-window-permissions = Панель доступов
