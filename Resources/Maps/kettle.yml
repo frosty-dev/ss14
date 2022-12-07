@@ -174647,7 +174647,7 @@ entities:
     parent: 82
     type: Transform
 - uid: 20324
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: 54.724228,-14.352061
     parent: 82
@@ -174690,7 +174690,7 @@ entities:
     parent: 82
     type: Transform
 - uid: 20331
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: 54.363117,-14.143728
     parent: 82

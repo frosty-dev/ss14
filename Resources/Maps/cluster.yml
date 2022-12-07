@@ -48928,7 +48928,7 @@ entities:
     parent: 127
     type: Transform
 - uid: 5803
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - flags: InContainer
     type: MetaData
@@ -48937,7 +48937,7 @@ entities:
   - canCollide: False
     type: Physics
 - uid: 5804
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - flags: InContainer
     type: MetaData

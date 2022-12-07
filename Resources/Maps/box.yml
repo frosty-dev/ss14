@@ -86586,7 +86586,7 @@ entities:
         uid: 9641
     type: SignalTransmitter
 - uid: 9422
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -12.522934,34.660255
     parent: 8364
@@ -156618,7 +156618,7 @@ entities:
     parent: 8364
     type: Transform
 - uid: 20175
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -12.382309,34.58213
     parent: 8364

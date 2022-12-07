@@ -1,0 +1,93 @@
+<DefaultWindow
+    xmlns="https://spacestation14.io"
+    xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
+    Title="{Loc Job Ban}" MinSize="425 325">
+    <BoxContainer Orientation="Horizontal">
+        <BoxContainer Orientation="Vertical">
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc Player}" MinWidth="100" />
+                <Control MinWidth="50" />
+                <LineEdit Name="PlayerNameLine" MinWidth="100" HorizontalExpand="True" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc Role}" MinWidth="100" />
+                <Control MinWidth="50" />
+                <LineEdit Name="JobNameLine" MinWidth="100" HorizontalExpand="True" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc Reason}" MinSize="100 0" />
+                <Control MinSize="50 0" />
+                <LineEdit Name="ReasonLine" MinSize="100 0" HorizontalExpand="True" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc Minutes}" MinWidth="100" />
+                <Control MinWidth="50" />
+                <LineEdit Name="MinutesLine" MinWidth="100" HorizontalExpand="True" PlaceHolder="{Loc 0 minutes for a permanent ban}" />
+                <Button Name="HourButton" Text="+1h (0)"/>
+                <Button Name="DayButton" Text="+1d (0)"/>
+                <Button Name="WeekButton" Text="+1w (0)"/>
+                <Button Name="MonthButton" Text="+1M (0)"/>
+            </BoxContainer>
+            <cc:PlayerListControl Name="PlayerList" VerticalExpand="True" />
+            <Control MinWidth="50" />
+            <Button Name="SubmitButton" Text="{Loc Ban}" />
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical">
+            <Label Text="{Loc Command}"/>
+            <Button Name="CaptainJobButton" Text="{Loc Captain}"/>
+            <Button Name="HOPJobButton" Text="{Loc Head Of Personal}"/>
+            <Button Name="HOSJobButton" Text="{Loc Head Of Security}"/>
+            <Button Name="CEJobButton" Text="{Loc Chief Engineer}"/>
+            <Button Name="CMOJobButton" Text="{Loc Chief Medical Officer}"/>
+            <Button Name="QMJobButton" Text="{Loc Quartermaster}"/>
+            <Button Name="RDJobButton" Text="{Loc Research Director}"/>
+
+            <Label Text="{Loc Security}"/>
+            <!-- <Button Name="HOSJobButton" Text="{Loc Head Of Security}"/> -->
+            <Button Name="WardenJobButton" Text="{Loc Warden}"/>
+            <Button Name="OfficerJobButton" Text="{Loc Officer}"/>
+            <Button Name="DetectiveJobButton" Text="{Loc Detective}"/>
+            <Button Name="CadetJobButton" Text="{Loc Cadet}"/>
+
+            <Label Text="{Loc Medical}"/>
+            <!-- <Button Name="CMOJobButton" Text="{Loc Chief Medical Officer}"/> -->
+            <Button Name="ChemistJobButton" Text="{Loc Chemist}"/>
+            <Button Name="DoctorJobButton" Text="{Loc Doctor}"/>
+            <Button Name="InternJobButton" Text="{Loc Intern}"/>
+            <Button Name="PsychologistJobButton" Text="{Loc Psychologist}"/>
+
+            <Label Text="{Loc Engineer}"/>
+            <!-- <Button Name="CEJobButton" Text="{Loc Chief Engineer}"/> -->
+            <Button Name="AtmosTechJobButton" Text="{Loc Atmospheric Technician}"/>
+            <Button Name="EngineerJobButton" Text="{Loc Engineer}"/>
+            <Button Name="TechAssistJobButton" Text="{Loc Technical Assistant}"/>
+
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical">
+            <Label Text="{Loc Juridical}"/>
+            <Button Name="LawyerJobButton" Text="{Loc Lawyer}"/>
+
+            <Label Text="{Loc Scientific}"/>
+            <!-- <Button Name="RDJobButton" Text="{Loc Research Director}"/> -->
+            <Button Name="ScientistJobButton" Text="{Loc Scientist}"/>
+
+            <Label Text="{Loc Supply}"/>
+            <!-- <Button Name="QMJobButton" Text="{Loc Quartermaster}"/> -->
+            <Button Name="CargoTechJobButton" Text="{Loc Cargo Technician}"/>
+            <Button Name="SalvageSpecJobButton" Text="{Loc Salvage Specialist}"/>
+
+            <Label Text="{Loc Civilian}"/>
+            <!-- <Button Name="HOPJobButton" Text="{Loc Head Of Personal}"/> -->
+            <Button Name="ServiceWorkerJobButton" Text="{Loc Service Worker}"/>
+            <Button Name="BotanistJobButton" Text="{Loc Botanist}"/>
+            <Button Name="ChefJobButton" Text="{Loc Chef}"/>
+            <Button Name="BartenderJobButton" Text="{Loc Bartender}"/>
+            <Button Name="JanitorJobButton" Text="{Loc Janitor}"/>
+            <Button Name="ClownJobButton" Text="{Loc Clown}"/>
+            <Button Name="MimeJobButton" Text="{Loc Mime}"/>
+            <Button Name="ChaplainJobButton" Text="{Loc Chaplain}"/>
+            <Button Name="LibrarianJobButton" Text="{Loc Librarian}"/>
+            <Button Name="MusicianJobButton" Text="{Loc Musician}"/>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>
