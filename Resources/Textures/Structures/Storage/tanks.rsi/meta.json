@@ -17,7 +17,13 @@
       "name": "highwatertank"
     },
     {
-      "name": "watercooler"
+      "name": "watercooler",
+	  "delays": [
+        [
+          1,
+          1
+        ]
+      ]
     }
   ]
 }

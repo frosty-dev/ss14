@@ -13,16 +13,18 @@
         },
         {
             "name": "mw_unlit"
-
         },
         {
             "name": "mw0"
-
         },
         {
             "name": "mw_running_unlit",
             "delays": [
                 [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0,
                     1.0,
                     1.0
                 ]
@@ -30,20 +32,21 @@
         },
         {
             "name": "mwb"
-
         },
         {
             "name": "mwbloody"
-
         },
         {
             "name": "mwbloody0"
-
         },
         {
             "name": "mwbloody1",
             "delays": [
                 [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
                     0.1,
                     0.1
                 ]
@@ -66,6 +69,9 @@
                     0.1
                 ]
             ]
-        }
+        },
+       {
+           "name": "mw-o"
+       }
     ]
 }
