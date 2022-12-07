@@ -107,9 +107,6 @@
     node: airlock
     containers:
     - board
-  - type: IconSmooth
-    key: walls
-    mode: NoSprite
   - type: PaintableAirlock
     group: Standard
   - type: StaticPrice
