@@ -3,6 +3,8 @@ using Content.Shared.CCVar;
 using Robust.Server.ServerStatus;
 using Robust.Shared.Configuration;
 
+using Content.Server.White.JoinQueue;
+
 namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker
@@ -22,6 +24,7 @@ namespace Content.Server.GameTicking
         ///     For access to CVars in status responses.
         /// </summary>
         [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly JoinQueueManager _queueManager = default!;
 
         private void InitializeStatusShell()
         {
@@ -34,7 +37,7 @@ namespace Content.Server.GameTicking
             lock (_statusShellLock)
             {
                 jObject["name"] = _baseServer.ServerName;
-                jObject["players"] = _playerManager.PlayerCount;
+                jObject["players"] = _queueManager.ActualPlayersCount;
                 jObject["soft_max_players"] = _cfg.GetCVar(CCVars.SoftMaxPlayers);
                 jObject["run_level"] = (int) _runLevel;
                 if (_runLevel >= GameRunLevel.InRound)

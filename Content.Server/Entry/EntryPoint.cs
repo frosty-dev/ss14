@@ -33,6 +33,9 @@ using Robust.Shared.Utility;
 using Content.Server.Station.Systems;
 using Content.Shared.Localizations;
 
+using Content.Server.White.Sponsors;
+using Content.Server.White.JoinQueue;
+
 namespace Content.Server.Entry
 {
     public sealed class EntryPoint : GameServer
@@ -97,6 +100,8 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<IGamePrototypeLoadManager>().Initialize();
                 IoCManager.Resolve<NetworkResourceManager>().Initialize();
                 IoCManager.Resolve<GhostKickManager>().Initialize();
+                IoCManager.Resolve<SponsorsManager>().Initialize();
+                IoCManager.Resolve<JoinQueueManager>().Initialize();
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
 
                 _voteManager.Initialize();

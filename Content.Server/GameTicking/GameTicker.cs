@@ -29,6 +29,10 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
+using Content.Server.White.Sponsors;
+using Content.Server.Humanoid;
+
+
 namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker : SharedGameTicker

@@ -41,6 +41,9 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
+using Content.Client.White.Sponsors;
+using Content.Client.White.JoinQueue;
+
 namespace Content.Client.Entry
 {
     public sealed class EntryPoint : GameClient
@@ -72,6 +75,8 @@ namespace Content.Client.Entry
         [Dependency] private readonly ExtendedDisconnectInformationManager _extendedDisconnectInformation = default!;
         [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
         [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
+        [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
+        [Dependency] private readonly JoinQueueManager _queueManager = default!;
 
         public const int NetBufferSizeOverride = 2;
 
@@ -131,6 +136,7 @@ namespace Content.Client.Entry
             _prototypeManager.RegisterIgnore("wireLayout");
             _prototypeManager.RegisterIgnore("alertLevels");
             _prototypeManager.RegisterIgnore("nukeopsRole");
+            _prototypeManager.RegisterIgnore("stationGoal");
             _prototypeManager.RegisterIgnore("flavor");
 
             _componentFactory.GenerateNetIds();
@@ -171,6 +177,8 @@ namespace Content.Client.Entry
             _gamePrototypeLoadManager.Initialize();
             _networkResources.Initialize();
             _userInterfaceManager.SetDefaultTheme("SS14DefaultTheme");
+            _sponsorsManager.Initialize();
+            _queueManager.Initialize();
 
             _baseClient.RunLevelChanged += (_, args) =>
             {

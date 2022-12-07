@@ -18,6 +18,11 @@ using Content.Shared.Administration;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Module;
 
+using Content.Client.White.JoinQueue;
+using Content.Client.White.Sponsors;
+
+
+
 namespace Content.Client.IoC
 {
     internal static class ClientContentIoC
@@ -42,6 +47,8 @@ namespace Content.Client.IoC
             IoCManager.Register<GhostKickManager>();
             IoCManager.Register<ExtendedDisconnectInformationManager>();
             IoCManager.Register<PlayTimeTrackingManager>();
+            IoCManager.Register<SponsorsManager>();
+            IoCManager.Register<JoinQueueManager>();
         }
     }
 }

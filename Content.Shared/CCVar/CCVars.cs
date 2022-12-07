@@ -1134,7 +1134,7 @@ namespace Content.Shared.CCVar
          */
 
         public static readonly CVarDef<string> UILayout =
-            CVarDef.Create("ui.layout", "Default", CVar.CLIENTONLY | CVar.ARCHIVE);
+            CVarDef.Create("ui.layout", "Separated", CVar.CLIENTONLY | CVar.ARCHIVE);
 
 
 
@@ -1188,6 +1188,10 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<bool> ChatPunctuation =
             CVarDef.Create("ic.punctuation", false, CVar.SERVER);
+
+
+        public static readonly CVarDef<bool> ChatSlangFilter =
+            CVarDef.Create("ic.slang_filter", true, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE);
 
         /// <summary>
         /// Enables automatically forcing IC name rules. Uppercases the first letter of the first and last words of the name
@@ -1394,5 +1398,39 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<string> InfoLinksBugReport =
             CVarDef.Create("infolinks.bug_report", "", CVar.SERVER | CVar.REPLICATED);
+
+        /**
+         * SPONSORS
+         */
+
+        /// <summary>
+        /// URL of the sponsors server API.
+        /// </summary>
+        public static readonly CVarDef<string> SponsorsApiUrl =
+            CVarDef.Create("sponsor.api_url", "", CVar.SERVERONLY);
+
+
+        /*
+         * Queue
+         */
+
+        /// <summary>
+        ///     Controls if the connections queue is enabled. If enabled stop kicking new players after `SoftMaxPlayers` cap and instead add them to queue.
+        /// </summary>
+        public static readonly CVarDef<bool>
+            QueueEnabled = CVarDef.Create("queue.enabled", false, CVar.SERVERONLY);
+
+
+        /*
+         * Discord
+         */
+
+        public static readonly CVarDef<string> DiscordRoundWebhook =
+            CVarDef.Create("discord.round_webhook", string.Empty, CVar.SERVERONLY);
+
+        public static readonly CVarDef<string> DiscordRoundRoleId =
+            CVarDef.Create("discord.round_roleid", string.Empty, CVar.SERVERONLY);
+
+
     }
 }

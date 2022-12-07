@@ -24,6 +24,11 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Kitchen;
 using Content.Shared.Module;
 
+using Content.Server.White.JoinQueue;
+using Content.Server.White.Sponsors;
+
+
+
 namespace Content.Server.IoC
 {
     internal static class ServerContentIoC
@@ -57,6 +62,8 @@ namespace Content.Server.IoC
             IoCManager.Register<PlayTimeTrackingManager>();
             IoCManager.Register<UserDbDataManager>();
             IoCManager.Register<ServerInfoManager>();
+            IoCManager.Register<SponsorsManager>();
+            IoCManager.Register<JoinQueueManager>();
         }
     }
 }

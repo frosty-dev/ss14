@@ -10,12 +10,17 @@ using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
+using Content.Server.White.Sponsors;
+
+
+
 
 namespace Content.Server.Connection
 {
     public interface IConnectionManager
     {
         void Initialize();
+        Task<bool> HavePrivilegedJoin(NetUserId userId);
     }
 
     /// <summary>
@@ -28,6 +33,7 @@ namespace Content.Server.Connection
         [Dependency] private readonly IServerNetManager _netMgr = default!;
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
 
         public void Initialize()
         {
@@ -121,7 +127,7 @@ namespace Content.Server.Connection
                 var minOverallHours = _cfg.GetCVar(CCVars.PanicBunkerMinOverallHours);
                 var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
                 var haveMinOverallTime = overallTime != null && overallTime.TimeSpent.TotalHours > minOverallHours;
-                
+
                 if (showReason && !haveMinOverallTime)
                 {
                     return (ConnectionDenyReason.Panic,
@@ -135,10 +141,9 @@ namespace Content.Server.Connection
                 }
             }
 
-            var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
-                            ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
-                            status == PlayerGameStatus.JoinedGame;
-            if ((_plyMgr.PlayerCount >= _cfg.GetCVar(CCVars.SoftMaxPlayers) && adminData is null) && !wasInGame)
+            var isPrivileged = await HavePrivilegedJoin(e.UserId);
+            var isQueueEnabled = _cfg.GetCVar(CCVars.QueueEnabled);
+            if (_plyMgr.PlayerCount >= _cfg.GetCVar(CCVars.SoftMaxPlayers) && !isPrivileged && !isQueueEnabled)
             {
                 return (ConnectionDenyReason.Full, Loc.GetString("soft-player-cap-full"), null);
             }
@@ -177,5 +182,19 @@ namespace Content.Server.Connection
             await _db.AssignUserIdAsync(name, assigned);
             return assigned;
         }
+
+        public async Task<bool> HavePrivilegedJoin(NetUserId userId)
+        {
+            var adminData = await _dbManager.GetAdminDataForAsync(userId);
+
+            var havePriorityJoin = _sponsorsManager.TryGetInfo(userId, out var sponsorData) && sponsorData.HavePriorityJoin;
+            var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
+                            ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
+                            status == PlayerGameStatus.JoinedGame;
+            return adminData != null ||
+                   havePriorityJoin ||
+                   wasInGame;
+        }
+
     }
 }

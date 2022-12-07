@@ -1,84 +1,111 @@
-[color=#ff0000]YOU MUST BE AT LEAST 16 YEARS OF AGE TO PLAY ON WIZARD'S DEN SERVERS. ANY USER SUSPECTED OF BEING UNDER 16 YEARS OF AGE WILL BE BANNED UNTIL THEY ARE OF AGE.[/color]
+[color=#ff0000]ОЧЕНЬ БЛЯТЬ КРАТКО:[/color]
 
-[color=#ff0000]DISCONNECTING FROM OR IGNORING/EVADING ADMIN-HELPS WILL RESULT IN AN APPEAL ONLY BAN.[/color]
+[color=#ff0000]НЕ[/color] убивай людей без роли антагониста(предатель, ядерные оперативник)
+[color=#ff0000]НЕ[/color] ставь себе [color=#900000]НИКАКИЕ[/color] смешные имена, имена известных людей, соблюдай формат Имя Фамилия
+[color=#ff0000]ПОМНИ[/color] про понятия OOC и IC каналов(описание есть ниже). НЕ ПИШИ БЛЯТЬ В ЧАТ, ЧТО НА ВИКИ НЕТ ОПИСАНИЯ ТВОЕЙ РОЛИ, А В ООЦ, ЧТО ТЕБЯ УБИЛ НЮКЕР В ПРИБЫТИИ
+[color=#cc4125]НЕ ИЗБИВАЙ ВСЕХ ПОДРЯД, НИКОМУ КРОМЕ ТЕБЯ ЭТО НЕ НРАВИТСЯ.[/color]
 
-This is the "short" form of the rules, which has all the information any regular player should need. You can find the "long" form of the rules with more examples & clarifications of any ambiguity on our wiki at [color=#a4885c]wiki.spacestation14.io[/color], should you need it.
+[color=#ff0000]Подробно:[/color]
 
-[color=#a4885c]0.[/color] [color=#a4885c]The[/color] [color=#ffd700]Golden[/color] [color=#a4885c]Rule.[/color] Admins may excercise discretion with rules as they see fit. If you rule lawyer or line skirt, you will get removed. Admins will answer for use of this privilege.
+[color=#ff0000]Главное правило[/color]
+[color=#FFAC4A]0.[/color] Не будь мудаком. Игра на сервере должна приносить удовольствие не только тебе, но и другим игрокам.
 
-[color=#ff0000]ZERO TOLERANCE RULES[/color]
+[color=#ff0000]I[/color] - Гриф.
 
-[color=#a4885c]1.[/color] Absolutely no hate speech, slurs, bigotry, IC specism (demeaning other characters in-game due to their in-game race), or anything even remotely similar. (YOU WILL GET PERMABANNED)
+[color=#FFAC4A]1.[/color] Убийство без причины. Если убийство произошло в результате ваших намеренных действий, при условии, что конфликт начат вами, то вы будете наказаны.
+Однако если это была необходимая самооборона, или же у вас есть некоторое ролевое оправдание своих действий, администратор может отнестись к этому мягче.
+	[color=#0CBE00]-[/color] Оправдания вроде "Он оскорбил мою мать!" и "Он украл мой сладкий рулет!" приниматься не будут.
+	[color=#0CBE00]-[/color] Отыгрыш "психопата" также не дает вам право убивать просто из-за того, что ваш персонаж психопат. Замените слово психопат на другое, если понадобится(вор, бывший заключенный, нарушитель закона).
 
-[color=#a4885c]2.[/color] Absolutely no Erotic Roleplay (ERP) or sexual content, including direct or indirect mentions of sexual behavior or actions. (YOU WILL GET PERMABANNED) (Leeway is given to insults, ex: 'You are a dickhead', do not push it)
+[color=#FFAC4A]2.[/color] Изоляция. Заваривание в шкафчике в техах, арест и пермабригирование без существенных причин, или иной способ запрятать жертву так, чтобы она не имела шансов выбраться.
+По сути, таким действием игрок лишается игры ровно так же, как если бы его просто убили. А значит и отношение администрации к подобным поступкам аналогичное.
 
-[color=#a4885c]3.[/color] Don't communicate in-game/in-character information through methods outside of the game (such as talking in Discord with other users actively playing or by talking to your sibling across the room while you are both playing). This is referred to as "Metacomming" and we are not able to police it, therefore it is strictly forbidden. (BOTH OR ALL OF YOU WILL GET PERMABANNED)
+[color=#FFAC4A]3.[/color] Гриф. Обычному члену экипажа запрещено просто так портить игру окружающим.
+В это широкое понятие входит как беспричинное избиение всех подряд, кражу всех вещей, распространение разгермитезаций, уничтожение важных обьектов и прочее.
+Просто подумайте, насколько сильно может навредить ваше действие другим, перед тем, как что-то сделать.
 
-[color=#a4885c]4.[/color] Attempting to evade game bans will result in an automatic appeal-only permanent ban that is only appealable after six months. Attempting to evade job bans will result in an appeal-only permanent ban. (YOU WILL GET BANNED MUCH WORSE THAN YOU ALREADY WERE)
+[color=#ff0000]II[/color] - Выход из роли.
+Немного введения:
+	[color=#0CBE00]-[/color] Было бы глупо ограничивать вашего персонажа только теми знаниями, которые относятся к его должности. На других серверах вы могли слышать обратную позицию, и ботаник там не способен даже стрелять с лазера. Но если вы в реальной жизни почините в своем доме кран, телевизор или пробьете стену, вопросы возникнут только у ваших соседей по поводу стены, но никто не спросит о ваших подозрительных навыках обращения с паяльником и гаечным ключом. Так что допустимы минимальные медицинские (пользование аптечками первой помощи), инженерные (взлом, разборка и разграбление автолатов на детали), а так же кулинарные, ботанические и прочие навыки, вроде владения оружием. Помимо этого, если ваши обязанности связанны с наукой, техникой или медициной, вы можете выполнять все работы в этой отрасли, пусть и некоторые с натяжкой.
+	[color=#0CBE00]-[/color] ﻿Выше описано то, за что вас трогать не будут. Вы так же можете выполнять работы сверх ваших знаний, если их делать больше некому. То есть, капитан находящийся на станции ночью один, может запускать двигатель, работать с научными исследованиями, и делать иные вещи. Тот же капитан, но находящийся на станции, где 40 человек экипажа, должен искать работников для этих целей, и раздавать им приказы. В чем же смысл такого подхода?
+	[color=#0CBE00]-[/color] ﻿Вы не один играете в эту игру, и гораздо веселее, когда вы вместе работаете над какой-то идеей. Хочется построить вторую сингулярность в церкви, но вы всего лишь интерн? Позовите на помощь инженерный отсек, это ведь их работа, подвергать станцию неоправданной опасности. Вас обокрали, и вы хотите свои вещи назад? Не стоит сразу хвататься за огнетушитель и кидать преступника в космос, с этим справится и Служба Безопасности. Из этого следует самый важный момент этого правила:
+	[color=#0CBE00]-[/color] ﻿Помните о своих и чужих обязанностях по работе. Задачи лучше всего поручать тем, кто должен их выполнять. Вы за медика поймали преступника в коридоре? Что же, поздравляю. Но если, пока вы бегали, у вас в приемной медбея истекло кровью несколько человек без медицинской помощи, то вас может ожидать бан, и совет идти играть за охрану. Глава Персонала ввалился в генетику, и молча клонирует кучу ассистентов, когда вполне живой и активный генетик находится в помещении? Вы знаете, что ждет нашего героя. К главам это правило применяется еще сильнее, люди от Главы Персонала ждут работы в очереди, а не клонированных ассистентов, от которых избавлялись всей станцией.
 
-[color=#ff0000]GENERAL ETIQUETTE[/color]
+[color=#FFAC4A]1.[/color] Метагейм - знания о режимах и спецролях. Тут все достаточно просто. Экипаж знает, что на станции могут быть предатели и агенты Синдиката, голодные зомби и прочие антагонисты. Единственное что экипаж не знает, так это арсенал их возможностей, и что же именно от них ожидать, кроме таких очевидных вещей, как красные скафандры и револьверы в лицо. И уж точно экипаж не знает, как активировать аплинк в ПДА.
 
-[color=#a4885c]5.[/color] These are English servers. Speak only English in IC and OOC.
+[color=#FFAC4A]2.[/color] Пауэргейм.
+Правило, в основном, основано на приказах. Если вооруженный человек грозится вас расстрелять при каком-то условии, а вы не имеете реальной возможности спастись от этого - вы обязаны выполнить его условие.
+	[color=#ff0000]ПРИМЕР[/color]: Мим находится в камере брига и постоянно ставит невидимые стены у ее входа, не давая сотрудникам СБ войти. Подходит варден и грозит миму с лазером в руках, что расстреляет его, если тот не перестанет. Мим игнорирует угрозу вардена и оказывается расстрелянным.
+В таком случае мало того, что варден не получит ничего за убийство мима, так еще и мим получит свой бан за нарушение данного правила.
+Важно помнить, что ваш персонаж в конце концов обычный человек (ну или гуманоид), который также чувствует боль и страх.
 
-[color=#a4885c]6.[/color] Don't use exploits or external programs to play, gain an advantage, or disrupt the round/server. This includes autoclickers and auto-hotkey scripts.
+[color=#FFAC4A]3.[/color] Манчкинизм. Разумеется, в игре много полезных вещей, но не стоит перегибать палку.
+Если Глава Персонала бегает в изоляционных перчатках, магнитных ботинках СЕ и полным оружием рюкзаком на спине в мирное время, то это явно не будет смотреться адекватно. И если у него не найдется достойных причин носить все это на себе, администратор может применить меры.
 
-[color=#a4885c]7.[/color] Don't "multi-key" (utilize multiple alt accounts). Users knowingly using multiple SS14 accounts will have all of their accounts banned.
+[color=#ff0000]III[/color] - Нарушение игровой атмосферы.
+  ﻿
+	[color=#0CBE00]-[/color] IC ("In character") - то, что говорит ваш персонаж.За общение IC отвечает "Рядом" и "Рация". В этом канале категорически запрещены смайлики и выход из роли. "Общий канал" является каналом радиосвязи, а не каналом чата.
+	[color=#0CBE00]-[/color] OOC ("Out of character") - общение вне роли.За общение OOC отвечает "ООС" и "LOOC". Здесь можно задать вопросы по механике игры или обсудить что-то, к ней не относящееся. В OOC абсолютно запрещено обсуждать события текущего раунда.
+	[color=#0CBE00]-[/color] LOOC ("Local out of character") - локальное общение вне роли. Чат аналогичен OOC с той лишь разницей, что сообщения из LOOC распространяются лишь на экран вокруг говорящего.
+   ﻿
+[color=#FFAC4A]1.[/color] OOC в IC. Господь упаси вас спросить IC что-то в духе "Как в этой игре включить режим пвп?" или же сказать "(( Этот нонрп рдм я админу напишу ))"
 
-[color=#a4885c]8.[/color] Do not ignore the admin help relay or abuse it by flooding it with garbage, checking for admins before stating a problem (ex: "hello?", "any admins?"), or sending messages of no substance. All admin helps are sent to the SS14 Discord.
+[color=#FFAC4A]2.[/color] Использование в IC сленга, незнакомого персонажу. Ваша речь должна соответствовать отыгрышу роли, а не вашему обычному поведению в чатах. Примеры:
+	[color=#0CBE00]-[/color] Morgan James says, "Лагает!!!"
+	[color=#0CBE00]-[/color] Morgan James says, "Включите ООС!"
+Использование ООС-сленга ("лагает", "ООС") запрещено всегда, даже если нет возможности писать в OOC и исправить лаги.
+	[color=#0CBE00]-[/color] Morgan James says, "Капитан, бегите за мной в бриг! При обыске я обнаружил у Сокаля емаг!"
+Где "емаг" - сленг агентов и оперативников Синдиката, незнакомый обычным сотрудникам.
+	[color=#0CBE00]-[/color] Morgan James says, "Это кринж"Где "кринж" - молодежный сленг.
+Вариант "сленг стал популярен среди масс и дожил до XXVI века" не рассматривается.
 
-[color=#ff0000]IN GAME & ROLEPLAY RULES[/color]
+[color=#FFAC4A]3.[/color] Отыгрыш, идущий вразрез с сеттингом и/или https://wiki.station13.ru/Backstory.
+Руководствуйтесь предысторией, здравым смыслом и помните:Во вселенной данной игры планета Земля есть, но она давным-давно покинута людьми.
+Не забывайте, что ваш начальник это, черт возьми, ваш начальник. Он может уволить вас, он может урезать вам зарплату. Уважайте начальство и не идете с ним открыто на конфликт сразу же. Увольняться и закатывать истерики начальнику можно, но только когда это действительно обоснованно.Соответствуйте своей должности. Не берите главу, если вы еще не освоили игру на должном уровне. Понимайте законы при игре за СБ.
 
-[color=#a4885c]9.[/color] Pick a realistic name that could appear on a birth certificate with at least a first and last name (leeway is given to this for Clowns, Mimes, and non-human races).
-    - Names of notable famous or fictional persons or names that resemble/parody them are strictly forbidden. You are not clever if you slightly change a famous name around. Terrible names open you up to being politely reminded to change it, smited, or instantly banned, depending on severity.
+[color=#FFAC4A]4.[/color] Использование нестандартных имён персонажей.
+Что важно знать при выборе имени:
+	[color=#0CBE00]-[/color] Имя должно соответствовать стандарту: Имя Фамилия. Пример: Morgan James.
+	[color=#0CBE00]-[/color] Никаких сокращений (Morgan. J) и кличек (Morgan "Griefietty" James). Исключение - ксенорасы.
+	[color=#0CBE00]-[/color] Ящеры обязаны иметь имя формата Слово1-Слово2. Пример - Ящиу-Уиитх
+Подойдите всерьёз к созданию своего персонажа. Не следует называть его в честь какой-нибудь знаменитости или известного персонажа(напр. Сол Гудман или Адольф Гитлер) или каким-нибудь нелепым именем (напр. Боба Абобус).
+В связи с этим администрация может попросить сменить имя или убить вашего персонажа, отправив в лобби, но если же вы его не смените, к вам могут быть применены более серьезные меры.
 
-[color=#a4885c]10.[/color] Act like an actual human being on a space station in a low-roleplay (LRP) environment. Do not use text speak or emoticons IC, and do not refer to OOC things like admins in-game.
+[color=#FFAC4A]5.[/color] Безграмотность. Сложно говорить о какой-то ролевой атмосфере вообще, когда взрослые персонажи, работники научной станции, разговаривают как шестиклассники на перемене.
+Старайтесь допускать как можно меньше ошибок, и говорить на приятном для чтения языке, без слов вроде "плз", "спс", и прочих "прив". Язык сервера - русский, и независимо от того, является он вам родным или нет, ко всем предъявляются равные требования.
 
-[color=#a4885c]11.[/color] Don't be a dick. You are playing a multiplayer game with other people who also want to enjoy the game.
-    - Do not intentionally make other players' lives hell for your own amusement.
-    - Antagonists have lots of leeway with this rule and may kill/sabotage as they see fit, but if it degrades the experience for majority of the rest of the server you will be told to stop.
-    - [color=#ff0000]THE ROUND IS NOT OVER UNTIL THE END-ROUND SUMMARY APPEARS. KILLING SOMEONE FOR NO REASON BEFORE THIS WILL BE HANDLED ACCORDINGLY.[/color]
+[color=#FFAC4A]6.[/color] Роллинг антагонистов. Регулярно проверять выпал ли вам антагонист в начале раунда и при отсутствии оного покидание раунда (любыми способами). Это также включает любые попытки повысить шанс выпадения роли антагониста.
 
-[color=#a4885c]12.[/color] Don't harass or target players across rounds for actions in prior rounds or for actions outside of the game (this is referred to as "Metagrudging".)
-    - Annoying players for IC reasons in the current round is fine; doing it across rounds or as a ghost role after they kill you is not.
+[color=#ff0000]IV[/color] - Вредоносное внеигровое взаимодействие
 
-[color=#a4885c]13.[/color] Don't use information gained from outside your character's knowledge to gain an advantage (this is referred to as "Metagaming").
-    - Using information you gain from outside your own character (such as spectating while a ghost, through screenshots or metacomms, or other means) to your advantage is strictly forbidden. You remember all events up until you fall unconscious, even after cloning. If you take a ghost role, unless otherwise stated, you DO NOT REMEMBER ANYTHING from your past life.
+[color=#FFAC4A]1.[/color] IC в OOC. Обсуждение или упоминание событий текущего раунда в канале OOC строго карается. Особенно наказуемы сообщения в духе "X меня убил" или "клонируйте меня".
+	[color=#0CBE00]-[/color] Это так же касается голосовых и текстовых каналов, форумов и иных способов общения и распространения информации. Прежде чем публиковать туда любую информацию из раунда, например, для просьбы о снятии бана, дождитесь конца раунда, или выждите пару часов, если узнать о конце раунда невозможно.Разрешено обсуждать все, что можно увидеть из лобби, не заходя в игру. Это автоматические предупреждения о различных угрозах, а так же манифест должностей.
+	[color=#0CBE00]-[/color] Администрация может игнорировать это правило, если это необходимо для разбора определенной ситуации, или чего-то подобного.
 
-[color=#a4885c]14.[/color] Follow escalation rules and don't murder someone for slipping you, use common sense.
-    - You can defend yourself to the extent of protecting your own life.
-    - Security is unique in escalation and can escalate to less lethal to arrest criminals as needed.
-    - Don't outright leave people to die if you get in a fight, make an effort to heal them or bring them to Medbay.
-    - Adminhelp the situation if you think someone is over-escalating.
-    - Department strikes, revolutions (ex: cargonia and any variation thereof), or cults are antagonist-only activites and are forbidden without admin permission.
+[color=#FFAC4A]2.[/color] Кооперация. Использование внеигровых средств общения для координации действий в игре. Проще говоря, если после своей смерти вы бежите в дискорд, вызываете своих друзей, и натравливаете их на своего убийцу, то вы нарушаете это правило. Ваш персонаж должен знать то только то, что видел, а не то что вам лично поведали ваши соучастники вне игры. Любые подобные действия караются достаточно строго.
 
-[color=#a4885c]15.[/color] Don't immediately ghost or suicide from your role if you do not get antagonist (referred to as "Antag-rolling").
-    - This is not fair to other players actually waiting patiently for an antagonist round. Alternatively, if you do not want to play an antagonist or do not want to cause conflict, do not opt-in for antagonist roles.
+[color=#FFAC4A]3.[/color] Читы и Использование багов игры (багоюзерство). Как и в любой игре, всегда найдутся умельцы, которые смогут своей задницой достать сингулярность или намешать бомбы вне лимита мерных стаканов. Иногда это весело и забавно, а иногда может убить сервер, сломав всё удовольствие от игры.
 
-[color=#a4885c]16.[/color] Don't rush for or prepare equipment unrelated to your job for no purpose other then to have it "just in case" (referred to as "Powergaming").
-    - A medical doctor does not need insulated gloves, and the Head of Personnel does not need to give themselves armory access so they can go grab a gun.
-    - Don't manufacture weapons, bombs, or death poisons before you know of any reason you would need them.
+[color=#FFAC4A]4.[/color] Использование мультиаккаунтов. В большинстве случаев используются для того, чтобы обойти блокировку, или преодолеть порог смерти и отомстить обидчику в этом же раунде.
+	[color=#0CBE00]-[/color]Если вы хотите сменить основной аккаунт - предупредите, дабы избежать наказания.
 
-[color=#a4885c]17.[/color] Intentionally making yourself a major problem/annoyance/disruption for the crew or other players at large while not an antagonist is forbidden (referred to as "self-antagging").
+[color=#ff0000]Политика антагонистов и призрачных ролей[/color]
+[color=#FFAC4A]1.[/color] Антагонисты существуют, чтобы продвинуть раунд вперед и сделать все интересным и веселым для всех участников. Смысл не в том, чтобы «победить», убить всех остальных или что-то в этом роде. Но при этом каждый антагонист имеет право делать все, что захочет. Наличие или отсутствие кого-то в целях не запрещает его убить.
+Также каждый предатель имеет право убить другого предателя, чтобы завладеть его экипировкой или по любой другой причине.
 
-[color=#ff0000]SECURITY & COMMAND RULES[/color]
-If you regularly play Security or Command roles and got this far, I applaud you for reading.
+[color=#ff0000]Правила эскалации и создания конфликтов.[/color]
 
-[color=#a4885c]18.[/color] If you sign up for a Command or Security role, you are expected to know the basics of the game, your job, and the job(s) you supervise, if any.
-    - Failure to know your job or how to play the game in general as Command or Security is liable to result in a job ban.
-    - As a Command or Security role, don't make friends with antagonists and trade contraband with them.
-    - Don't engage in common troublemaker behavior and lawbreaking as a Command or Security role.
-    - Do not immediately abandon your position as a Command role and go do whatever you want instead of managing your department/the station.
+Для обьяснения этого правила приведем несколько ситуаций:
 
-[color=#a4885c]19.[/color] Security/Command should try to remain non-lethal and effect arrests, except in the following special circumstances, where they may choose to use lethal force:
-    - Lethal force is used against you (ex: firearms, lasers, disabling weapons with intent to kill, deadly melee weapons)
-    - Suspect is wearing clothing or showing immediately dangerous equipment only used by enemy agents/antagonists (ex: Syndicate EVA Suit, Bloodred Hardsuit, Holoparasite, C-20R, etc.)
-    - You determine that your life or the life of an innocent is in immediate danger
-    - The suspect is unable to be safely detained by less-lethal means
-    - If no other reasonable options are readily available and allowing the suspect to continue would be an unreasonable danger to the station/crew
+	[color=#0CBE00]-[/color] Инженер решил взломать арсенал. У него могут быть на это причины, и администрация за такое обычно не наказывает, но начиная осознанно нарушать закон, он будет отвечать за все убийства, сделанные в процессе. Взлом арсенала заметил варден, и открыл по нашему герою огонь из лазера. Инженер берет лазер с соседней полки, и убивает вардена. Вполне возможно, что иного выхода у него просто могло не быть, и отступить в космос он не успел бы. Но это не имеет значения. Он [color=#ff0000]сам [/color]создал эту ситуацию, он осознанно начал провоцировать службу охраны, а значит получит свою блокировку за убийство.
 
-Security/Command will be expected to answer for use of lethal force. Security/Command will be expected to effect arrests on criminals and prevent them from dying while in custody, even if lethal force is used, unless there is strong reason to believe the criminal is an antagonist. Security/Command is strongly encouraged, but not required, to clone antagonists and effect a permabrigging or other sentence as deemed appropriate.
+Речь о самообороне идет скорее тогда, когда эту ситуацию создает ваш противник.
 
-[color=#a4885c]20.[/color] Security/Command are expected to protect detainees in their custody to the best of their ability so as long as it does not come to unreasonable risk to themselves, the crew or the station at large to do so.
-    - Brig times should generally not exceed 10 minutes. Repeat offenders or antagonists may be permabrigged.
-    - Detainees that die in your custody must be cloned unless they have been (legally) executed or there is strong reason to believe they are an antagonist.
-    - Executions must be for a permabriggable crime and approved by the Captain/Acting Captain, who will answer for approving it alongside Security's chain of command. As there is no space law, Security/Command acts to maintain the safety of the station and its inhabitants, as well as Nanotrasen assets.
+	[color=#0CBE00]-[/color] Например, повар начал ломиться в атмосферный отсек, угрожая атмосферному технику дробовиком. Волею судеб у атмосферного техника оказался пистолет, он стреляет в повара один раз, и приказывает ему проваливать. Получив пулю, повар чует смертельную битву, и продолжает свой крестовый поход на земли Атмосии. Закономерно он получает еще свинца, и на этот раз уже летальную дозу, после чего начинает жаловаться администрации на своего противника. Это реальная ситуация, и в ней атмосферный техник не получил ничего. Он защищался от неадекватного идиота с оружием, у которого просто не было причин все это делать.
+
+[color=#ff0000]Взаимодействия с администратором[/color]
+	[color=#0CBE00]-[/color] Используйте ahelp (помощь администратора), чтобы предупредить администратора, когда кто-то нарушает правила или возникла проблема, и вам нужна помощь.
+	[color=#0CBE00]-[/color] Отправляя жалобу администрации распишите все максимально подробно, с указанием имен персонажей, мест события, ключевых действий (ударов, выстрелов, краж) и указанием своих причин на содеянное.
+	[color=#0CBE00]-[/color] Отправляя сообщение, будьте вежливы и не лгите. За ложь при оправдании своего действия ваше наказание увеличится вдвое.
+	[color=#0CBE00]-[/color] Получая помощь от администратора, относитесь к сообщению серьезно и своевременно отвечайте.
+	[color=#0CBE00]-[/color] Слово администрации - закон - следуй ему, не спорь с ним. Если вы считаете, что администратор действует несправедливо или иным образом злоупотребляет своим положением, вы можете подать жалобу на администратора главному администратору через Discord.

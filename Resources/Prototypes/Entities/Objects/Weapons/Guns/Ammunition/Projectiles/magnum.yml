@@ -7,10 +7,32 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 22
+        Piercing: 42
 
 - type: entity
   id: BulletMagnumHighVelocity
+  name: bullet (.40 magnum high-velocity)
+  parent: BaseBulletHighVelocity
+  noSpawn: true
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 44
+
+- type: entity
+  id: BulletMagnumHC
+  name: bullet (.45 magnum)
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 54
+
+- type: entity
+  id: BulletMagnumHCHighVelocity
   name: bullet (.45 magnum high-velocity)
   parent: BaseBulletHighVelocity
   noSpawn: true
@@ -18,7 +40,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 24
+        Piercing: 56
 
 - type: entity
   id: BulletMagnumPractice

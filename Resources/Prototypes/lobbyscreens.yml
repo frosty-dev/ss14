@@ -15,5 +15,21 @@
   background: /Textures/LobbyScreens/pharmacy.png
 
 - type: lobbyBackground
+  id: ClownHos
+  background: /Textures/LobbyScreens/clown_and_hos.png
+
+- type: lobbyBackground
+  id: Box
+  background: /Textures/LobbyScreens/box.png
+
+- type: lobbyBackground
+  id: Sraka
+  background: /Textures/LobbyScreens/sraka.png
+
+- type: lobbyBackground
+  id: White
+  background: /Textures/LobbyScreens/white.png
+
+- type: lobbyBackground
   id: SSXIV
   background: /Textures/LobbyScreens/ssxiv.png

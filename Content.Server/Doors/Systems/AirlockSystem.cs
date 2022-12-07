@@ -9,6 +9,9 @@ using Content.Shared.Doors.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
+using Content.Server.MachineLinking.Events;
+using Content.Server.MachineLinking.System;
+using Content.Server.MachineLinking.Components;
 
 namespace Content.Server.Doors.Systems
 {
@@ -16,11 +19,13 @@ namespace Content.Server.Doors.Systems
     {
         [Dependency] private readonly WiresSystem _wiresSystem = default!;
         [Dependency] private readonly PowerReceiverSystem _power = default!;
+        [Dependency] private readonly SignalLinkerSystem _signalSystem = default!;
 
         public override void Initialize()
         {
             base.Initialize();
 
+            SubscribeLocalEvent<AirlockComponent, SignalReceivedEvent>(OnSignalReceived);
             SubscribeLocalEvent<AirlockComponent, PowerChangedEvent>(OnPowerChanged);
             SubscribeLocalEvent<AirlockComponent, DoorStateChangedEvent>(OnStateChanged);
             SubscribeLocalEvent<AirlockComponent, BeforeDoorOpenedEvent>(OnBeforeDoorOpened);
@@ -28,6 +33,15 @@ namespace Content.Server.Doors.Systems
             SubscribeLocalEvent<AirlockComponent, ActivateInWorldEvent>(OnActivate, before: new [] {typeof(DoorSystem)});
             SubscribeLocalEvent<AirlockComponent, DoorGetPryTimeModifierEvent>(OnGetPryMod);
             SubscribeLocalEvent<AirlockComponent, BeforeDoorPryEvent>(OnDoorPry);
+
+        }
+
+        private void OnSignalReceived(EntityUid uid, AirlockComponent component, SignalReceivedEvent args)
+        {
+            if (args.Port == component.AutoClosePort)
+            {
+                component.AutoClose = false;
+            }
         }
 
         private void OnPowerChanged(EntityUid uid, AirlockComponent component, ref PowerChangedEvent args)

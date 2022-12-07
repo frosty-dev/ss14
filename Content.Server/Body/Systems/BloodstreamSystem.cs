@@ -4,6 +4,7 @@ using Content.Server.Chemistry.ReactionEffects;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.HealthExaminable;
 using Content.Server.Popups;
+using Content.Shared.Alert;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Damage;
@@ -23,6 +24,7 @@ namespace Content.Server.Body.Systems;
 
 public sealed class BloodstreamSystem : EntitySystem
 {
+    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
     [Dependency] private readonly SolutionContainerSystem _solutionContainerSystem = default!;
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
     [Dependency] private readonly SpillableSystem _spillableSystem = default!;
@@ -92,6 +94,15 @@ public sealed class BloodstreamSystem : EntitySystem
             var uid = bloodstream.Owner;
             if (TryComp<MobStateComponent>(uid, out var state) && state.IsDead())
                 continue;
+
+            if (bloodstream.IsBleeding)
+            {
+                _alertsSystem.ShowAlert(bloodstream.Owner, AlertType.Bleeding);
+            }
+            else
+            {
+                _alertsSystem.ClearAlert(bloodstream.Owner, AlertType.Bleeding);
+            }
 
             // First, let's refresh their blood if possible.
             if (bloodstream.BloodSolution.CurrentVolume < bloodstream.BloodSolution.MaxVolume)

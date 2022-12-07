@@ -80,6 +80,7 @@
       Open: []
       Close: []
       Toggle: []
+      AutoClose: []
   - type: UserInterface
     interfaces:
     - key: enum.WiresUiKey.Key

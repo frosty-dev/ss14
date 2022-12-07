@@ -1,0 +1,94 @@
+﻿- type: entity
+  id: SignalTimer
+  name: signal timer
+  description: It's a timer for sending timed signals to things.
+  placement:
+    mode: SnapgridCenter
+    snap:
+      - Wallmount
+  components:
+    - type: WallMount
+      arc: 360
+    - type: Clickable
+    - type: InteractionOutline
+    - type: Physics
+      canCollide: false
+    - type: Sprite
+      sprite: Structures/Wallmounts/switch.rsi
+      netsync: false
+      state: on
+    - type: Appearance
+    - type: Rotatable
+    - type: Fixtures
+    - type: SignalTimer
+      canEditLabel: false
+    - type: SignalTransmitter
+      outputs:
+        Start: []
+        Timer: []
+    - type: ActivatableUI
+      key: enum.SignalTimerUiKey.Key
+    - type: UserInterface
+      interfaces:
+        - key: enum.SignalTimerUiKey.Key
+          type: SignalTimerBoundUserInterface
+
+- type: entity
+  id: ScreenTimer
+  parent: SignalTimer
+  name: цифровой таймер
+  description: It's a timer for sending signals to things, with a built-in screen.
+  components:
+    - type: SignalTimer
+      canEditLabel: true
+      timerCanAnnounce: false
+    - type: TextScreenVisuals
+    - type: Sprite
+      sprite: Structures/Wallmounts/textscreen.rsi
+      state: textscreen
+      noRot: true
+    - type: Construction
+      graph: SignalTimerGraph
+      node: SignalTimer
+
+- type: entity
+  id: BrigTimer
+  parent: SignalTimer
+  name: камерный таймер
+  description: It's a timer for brig cells.
+  components:
+    - type: SignalTimer
+      canEditLabel: true
+      timerCanAnnounce: true
+    - type: TextScreenVisuals
+    - type: Sprite
+      sprite: Structures/Wallmounts/textscreen.rsi
+      state: textscreen
+      noRot: true
+    - type: AccessReader
+      access: [["Brig"]]
+
+- type: entity
+  noSpawn: true
+  id: ScreenTimerFrame
+  name: рамка цифрового таймера
+  description: цифровой таймер в процессе постройки
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: WallMount
+      arc: 360
+    - type: Transform
+      noRot: true
+    - type: Physics
+      canCollide: false
+      bodyType: Static
+    - type: Clickable
+    - type: InteractionOutline
+    - type: Construction
+      graph: SignalTimerGraph
+      node: frame
+    - type: Sprite
+      drawdepth: WallMountedItems
+      sprite: Structures/Wallmounts/textscreen.rsi
+      state: textscreenb1

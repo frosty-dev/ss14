@@ -83,3 +83,6 @@ alerts-pulled-desc = You're being pulled. Move to break free.
 
 alerts-pulling-name = Pulling
 alerts-pulling-desc = You're pulling something. Click the alert to stop.
+
+alerts-bleeding-name = Bleeding
+alerts-bleeding-desc = You`re [color=#C10000]bleeding[/color], inject an [color=#3D9CBF]emergency medipen[/color] or bandage yourself.

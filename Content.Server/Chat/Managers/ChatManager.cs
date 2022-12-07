@@ -16,6 +16,9 @@ using Robust.Shared.Player;
 using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 
+using Content.Server.White.Sponsors;
+
+
 namespace Content.Server.Chat.Managers
 {
     /// <summary>
@@ -38,6 +41,8 @@ namespace Content.Server.Chat.Managers
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
         [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+        [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
+
 
         /// <summary>
         /// The maximum length a player-sent message can be sent
@@ -82,12 +87,13 @@ namespace Content.Server.Chat.Managers
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Server announcement: {message}");
         }
 
-        public void DispatchServerMessage(IPlayerSession player, string message)
+        public void DispatchServerMessage(IPlayerSession player, string message, bool suppressLog = false)
         {
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", FormattedMessage.EscapeText(message)));
             ChatMessageToOne(ChatChannel.Server, message, wrappedMessage, default, false, player.ConnectedClient);
 
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Server message to {player:Player}: {message}");
+            if (!suppressLog)
+                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Server message to {player:Player}: {message}");
         }
 
         public void SendAdminAnnouncement(string message)
@@ -171,6 +177,11 @@ namespace Content.Server.Chat.Managers
                      PatronOocColors.TryGetValue(patron, out var patronColor))
             {
                 wrappedMessage = Loc.GetString("chat-manager-send-ooc-patron-wrap-message", ("patronColor", patronColor),("playerName", player.Name), ("message", FormattedMessage.EscapeText(message)));
+            }
+
+            if (_sponsorsManager.TryGetInfo(player.UserId, out var sponsorData) && sponsorData.OOCColor != null)
+            {
+                wrappedMessage = Loc.GetString("chat-manager-send-ooc-patron-wrap-message", ("patronColor", sponsorData.OOCColor),("playerName", player.Name), ("message", FormattedMessage.EscapeText(message)));
             }
 
             //TODO: player.Name color, this will need to change the structure of the MsgChatMessage
