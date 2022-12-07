@@ -154,7 +154,7 @@
 - type: listing
   id: UplinkSpeedLoaderMagnum
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi, state: base }
-  productEntity: SpeedLoaderMagnumHC
+  productEntity: SpeedLoaderMagnum
   cost:
     Telecrystal: 2
   categories:
