@@ -534,10 +534,8 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
     private string GetCharacterHexColor(string characterName)
     {
 
-        using MD5 md5HashAlgorithm = MD5.Create();
-        var hash = md5HashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(characterName));
-
-        var guid = new Guid(hash);
+        var hash = characterName.GetHashCode();
+        var guid = GenerateSeededGuid(hash);
 
         var hexColorValue = guid.ToString().Substring(0, 6);
         var decimalColorValue = int.Parse(hexColorValue, NumberStyles.HexNumber);
@@ -549,5 +547,14 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         }
 
         return decimalColorValue.ToString("X"); // back to hex
+    }
+
+    private Guid GenerateSeededGuid(int seed)
+    {
+        var random = new Random(seed);
+        var guid = new byte[16];
+        random.NextBytes(guid);
+
+        return new Guid(guid);
     }
 }
