@@ -8,22 +8,25 @@ namespace Content.Client.White.Trail;
 
 public sealed class TrailOverlay : Overlay
 {
-    private readonly TrailSystem _system;
-    private readonly IEntityManager _entManager;
     private readonly IPrototypeManager _protoManager;
     private readonly IResourceCache _cache;
+    private readonly ITrailLineManager<ITrailLine> _lineManager;
 
     private readonly Dictionary<string, ShaderInstance?> _shaderDict;
     private readonly Dictionary<string, Texture?> _textureDict;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities;
 
-    public TrailOverlay(TrailSystem system, IEntityManager entManager, IPrototypeManager protoManager, IResourceCache cache)
+    public TrailOverlay(
+        IPrototypeManager protoManager,
+        IResourceCache cache,
+        ITrailLineManager<ITrailLine> lineManager
+        )
     {
-        _system = system;
-        _entManager = entManager;
         _protoManager = protoManager;
         _cache = cache;
+        _lineManager = lineManager;
+
         _shaderDict = new();
         _textureDict = new();
 
@@ -32,20 +35,17 @@ public sealed class TrailOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        foreach (var comp in _entManager.EntityQuery<TrailComponent>(true))
-            if (comp.Data != null)
-                ProcessTrailData(args.WorldHandle, comp.Data);
-
-        foreach (var data in _system.DetachedTrails)
-            ProcessTrailData(args.WorldHandle, data);
+        foreach (var item in _lineManager.GetLines())
+            ProcessTrailData(args.WorldHandle, item);
     }
 
-    private void ProcessTrailData(DrawingHandleWorld handle, TrailData data)
+    private void ProcessTrailData(DrawingHandleWorld handle, ITrailLine line)
     {
-        if (!data.CalculatedDrawData.Any())
+        var drawData = line.GetDrawData();
+        if (!drawData.Any())
             return;
 
-        var settings = data.Settings;
+        var settings = line.Settings;
 
         var shader = settings.ShaderSettings != null ? GetCachedShader(settings.ShaderSettings.ShaderId) : null;
         if (shader != null)
@@ -56,8 +56,8 @@ public sealed class TrailOverlay : Overlay
         var tex = GetCachedTexture(settings.TexurePath);
         if (tex != null)
         {
-            TrailSegmentDrawData prev = data.CalculatedDrawData.First();
-            foreach (var cur in data.CalculatedDrawData.Skip(1))
+            var prev = drawData.First();
+            foreach (var cur in drawData.Skip(1))
             {
                 var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
                 RenderTrailTexture(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, tex, color);
@@ -66,8 +66,8 @@ public sealed class TrailOverlay : Overlay
         }
         else
         {
-            TrailSegmentDrawData prev = data.CalculatedDrawData.First();
-            foreach (var cur in data.CalculatedDrawData.Skip(1))
+            var prev = drawData.First();
+            foreach (var cur in drawData.Skip(1))
             {
                 var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
                 RenderTrailColor(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, color);
@@ -80,8 +80,8 @@ public sealed class TrailOverlay : Overlay
 #if DEBUG
         if (false)
         {
-            TrailSegmentDrawData prev = data.CalculatedDrawData.First();
-            foreach (var cur in data.CalculatedDrawData.Skip(1))
+            var prev = drawData.First();
+            foreach (var cur in drawData.Skip(1))
             {
                 //var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
                 RenderTrailDebugBox(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2);

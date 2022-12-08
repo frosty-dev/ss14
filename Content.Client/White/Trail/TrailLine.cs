@@ -1,6 +1,8 @@
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
+using Robust.Client.ResourceManagement;
 using Robust.Shared.Map;
+using Robust.Shared.Sandboxing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -15,14 +17,17 @@ public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
 {
     private readonly LinkedList<ITrailLine> _lines = new();
 
+    private static readonly ISandboxHelper SandboxHelper = IoCManager.Resolve<ISandboxHelper>();
+
+    public IEnumerable<ITrailLine> GetLines() => _lines;
+
     public ITrailLine Create(TrailSettings settings, MapId mapId)
     {
-        TTrailLine tline = new()
-        {
-            Attached = true,
-            Settings = settings,
-            MapId = mapId
-        };
+        var tline = (TTrailLine)SandboxHelper.CreateInstance(typeof(TTrailLine));
+        tline.Attached = true;
+        tline.Settings = settings;
+        tline.MapId = mapId;
+
         _lines.AddLast(tline);
         return tline;
     }
@@ -47,14 +52,21 @@ public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
 
 public sealed class TrailLine : ITrailLine
 {
+    [ViewVariables]
     private readonly LinkedList<TrailLineSegment> _segments = new();
+    [ViewVariables]
     private readonly TrailLineSegment _headSegment = new();
 
+    [ViewVariables]
     private float _lifetime;
+    [ViewVariables]
     private Vector2? _virtualSegmentPos = null;
 
+    [ViewVariables]
     public MapId MapId { get; set; }
+    [ViewVariables]
     public bool Attached { get; set; }
+    [ViewVariables]
     public TrailSettings Settings { get; set; } = TrailSettings.Default;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -144,7 +156,7 @@ public sealed class TrailLine : ITrailLine
             prev = item;
         }
 
-        if(Attached)
+        if (Attached)
         {
             var headPos = _headSegment.Position;
             var headAngle = _segments.Last.Value.DrawData.AngleRight;
@@ -169,8 +181,11 @@ public sealed class TrailLine : ITrailLine
 
     private class TrailLineSegment
     {
+        [ViewVariables]
         public Vector2 Position { get; set; }
+        [ViewVariables]
         public float ExistTil { get; init; }
+        [ViewVariables]
         public TrailLineDrawData DrawData { get; set; }
     }
 }
