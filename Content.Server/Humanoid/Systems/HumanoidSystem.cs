@@ -1,4 +1,7 @@
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Content.Server.GameTicking;
 using Content.Shared.Examine;
 using Content.Shared.Humanoid;
@@ -116,7 +119,7 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         }
 
         humanoid.Age = profile.Age;
-
+        humanoid.HumanoidSpeakColor = GetCharacterHexColor(Name(uid));
         Synchronize(uid);
     }
 
@@ -529,5 +532,25 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         }
 
         humanoid.CurrentMarkings.EnsureDefault(humanoid.SkinColor, _markingManager);
+    }
+
+    private string GetCharacterHexColor(string characterName)
+    {
+
+        using MD5 md5HashAlgorithm = MD5.Create();
+        var hash = md5HashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(characterName));
+
+        var guid = new Guid(hash);
+
+        var hexColorValue = guid.ToString().Substring(0, 6);
+        var decimalColorValue = int.Parse(hexColorValue, NumberStyles.HexNumber);
+
+        /* It's making sure the color is not too dark. */
+        if (decimalColorValue < 0x7F7F7F)
+        {
+            decimalColorValue += 0x7F7F7F;
+        }
+
+        return decimalColorValue.ToString("X"); // back to hex
     }
 }
