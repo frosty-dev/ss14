@@ -59,7 +59,7 @@ public sealed class TrailSystem : EntitySystem
         )
             return;
 
-        comp.Line.TryCreateSegment(args.Component.MapPosition.Position);
+        comp.Line.TryCreateSegment(args.Component.MapPosition);
     }
 
     public override void FrameUpdate(float frameTime)
@@ -74,7 +74,7 @@ public sealed class TrailSystem : EntitySystem
                 comp.Line = _lineManager.Create(comp.Settings, xform.MapID);
 
             if (comp.Settings.СreationMethod == PointCreationMethod.OnFrameUpdate)
-                comp.Line.TryCreateSegment(xform.MapPosition.Position);
+                comp.Line.TryCreateSegment(xform.MapPosition);
         }
     }
 }

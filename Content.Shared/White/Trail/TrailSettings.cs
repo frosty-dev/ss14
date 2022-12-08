@@ -22,7 +22,7 @@ public sealed class TrailSettings
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("сreationDistanceThresholdSquared")]
-    public float СreationDistanceThresholdSquared { get; set; } = 0.2f;
+    public float СreationDistanceThresholdSquared { get; set; } = 0.001f;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("сreationMethod")]

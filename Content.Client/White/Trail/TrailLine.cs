@@ -1,9 +1,7 @@
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
-using Robust.Client.ResourceManagement;
 using Robust.Shared.Map;
 using Robust.Shared.Sandboxing;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Content.Client.White.Trail;
@@ -23,7 +21,7 @@ public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
 
     public ITrailLine Create(TrailSettings settings, MapId mapId)
     {
-        var tline = (TTrailLine)SandboxHelper.CreateInstance(typeof(TTrailLine));
+        var tline = (TTrailLine) SandboxHelper.CreateInstance(typeof(TTrailLine));
         tline.Attached = true;
         tline.Settings = settings;
         tline.MapId = mapId;
@@ -55,7 +53,7 @@ public sealed class TrailLine : ITrailLine
     [ViewVariables]
     private readonly LinkedList<TrailLineSegment> _segments = new();
     [ViewVariables]
-    private readonly TrailLineSegment _headSegment = new();
+    private Vector2 _lastHeadPos;
 
     [ViewVariables]
     private float _lifetime;
@@ -76,20 +74,28 @@ public sealed class TrailLine : ITrailLine
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void ResetLifetime() => _lifetime = 0f;
 
-    public void TryCreateSegment(Vector2 pos)
+    public void TryCreateSegment(MapCoordinates coords)
     {
         if (!Attached)
             return;
 
-        _headSegment.Position = pos;
+        if (coords.MapId != MapId)
+            return;
+
+        var pos = coords.Position;
+        if (pos == Vector2.Zero)
+            return;
+
+        _lastHeadPos = pos;
 
         if (_virtualSegmentPos.HasValue)
         {
-            if (_virtualSegmentPos != pos)
+            var vPos = _virtualSegmentPos.Value;
+            if ((vPos - pos).LengthSquared > Settings.СreationDistanceThresholdSquared)
             {
                 TrailLineSegment segment = new()
                 {
-                    Position = pos,
+                    Position = vPos,
                     ExistTil = _lifetime + Settings.Lifetime
                 };
 
@@ -139,44 +145,44 @@ public sealed class TrailLine : ITrailLine
         var baseOffset = Settings.Offset;
         var segmentLifetime = Settings.Lifetime;
 
-        var prev = _headSegment;
-        foreach (var item in _segments.AsEnumerable().Reverse())
+        var curNode = _segments.Last;
+        while (curNode != null)
         {
-            var curPos = item.Position;
-            var angle = (curPos - prev.Position).ToWorldAngle();
+            var curSegment = curNode.Value;
+
+            var prevPos = curNode.Next?.Value.Position ?? _lastHeadPos;
+            var curPos = curSegment.Position;
+            var angle = (curPos - prevPos).ToWorldAngle();
             var rotatedOffset = angle.RotateVec(baseOffset);
 
-            item.DrawData = new(
+            curSegment.DrawData = new(
                 curPos - rotatedOffset,
                 curPos + rotatedOffset,
                 angle,
-                (item.ExistTil - _lifetime) / segmentLifetime
+                (curSegment.ExistTil - _lifetime) / segmentLifetime
                 );
 
-            prev = item;
-        }
-
-        if (Attached)
-        {
-            var headPos = _headSegment.Position;
-            var headAngle = _segments.Last.Value.DrawData.AngleRight;
-            var headRotatedOffset = headAngle.RotateVec(baseOffset);
-
-            _headSegment.DrawData = new(
-                headPos - headRotatedOffset,
-                headPos + headRotatedOffset,
-                headAngle,
-                1f
-                );
+            curNode = curNode.Previous;
         }
     }
 
     public IEnumerable<TrailLineDrawData> GetDrawData()
     {
         foreach (var item in _segments)
-            yield return item.DrawData;
+            if (item.DrawData.HasValue)
+                yield return item.DrawData.Value;
+
         if (Attached)
-            yield return _headSegment.DrawData;
+        {
+            var lastPos = _segments.Last?.Value.Position;
+            if (lastPos != null)
+            {
+                var angle = (lastPos.Value - _lastHeadPos).ToWorldAngle();
+                var rotatedOffset = angle.RotateVec(Settings.Offset);
+
+                yield return new(_lastHeadPos - rotatedOffset, _lastHeadPos + rotatedOffset, angle, 1f);
+            }
+        }
     }
 
     private class TrailLineSegment
@@ -186,7 +192,7 @@ public sealed class TrailLine : ITrailLine
         [ViewVariables]
         public float ExistTil { get; init; }
         [ViewVariables]
-        public TrailLineDrawData DrawData { get; set; }
+        public TrailLineDrawData? DrawData { get; set; } = null;
     }
 }
 
