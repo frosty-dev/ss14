@@ -35,4 +35,6 @@ public sealed class HumanoidComponent : SharedHumanoidComponent
     // Couldn't these be somewhere else?
     [ViewVariables] public Gender Gender = default!;
     [ViewVariables] public int Age = 18;
+    //White
+    [ViewVariables(VVAccess.ReadWrite)] public string? HumanoidSpeakColor { get; set; }
 }
