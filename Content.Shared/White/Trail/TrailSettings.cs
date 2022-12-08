@@ -21,6 +21,10 @@ public sealed class TrailSettings
     public float СreationDistanceThreshold { get; set; } = 0.1f;
 
     [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("сreationDistanceThresholdSquared")]
+    public float СreationDistanceThresholdSquared { get; set; } = 0.2f;
+
+    [ViewVariables(VVAccess.ReadWrite)]
     [DataField("сreationMethod")]
     public PointCreationMethod СreationMethod { get; set; } = PointCreationMethod.OnMove;
 
