@@ -5,6 +5,7 @@ using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Components;
+using Content.Server.Humanoid;
 using Content.Server.MobState;
 using Content.Server.Players;
 using Content.Server.Popups;
@@ -124,6 +125,12 @@ public sealed partial class ChatSystem : SharedChatSystem
             // Ghosts can only send dead chat messages, so we'll forward it to InGame OOC.
             TrySendInGameOOCMessage(source, message, InGameOOCChatType.Dead, hideChat, shell, player);
             return;
+        }
+
+        if (HasComp<HumanoidComponent>(source))
+        {
+            var whiteMedatada = EntityManager.GetComponent<HumanoidComponent>(source);
+            nameOverride = $"[color=#{whiteMedatada.HumanoidSpeakColor}]{Name(source)}[/color]";
         }
 
         // Sus
@@ -292,7 +299,6 @@ public sealed partial class ChatSystem : SharedChatSystem
             name = nameEv.Name;
         }
 
-        name = FormattedMessage.EscapeText(name);
         var wrappedMessage = Loc.GetString("chat-manager-entity-say-wrap-message",
             ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
 
@@ -334,7 +340,6 @@ public sealed partial class ChatSystem : SharedChatSystem
             RaiseLocalEvent(source, nameEv);
             name = nameEv.Name;
         }
-        name = FormattedMessage.EscapeText(name);
 
 
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
