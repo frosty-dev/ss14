@@ -340,7 +340,6 @@ public sealed partial class ChatSystem : SharedChatSystem
             RaiseLocalEvent(source, nameEv);
             name = nameEv.Name;
         }
-        name = FormattedMessage.EscapeText(name);
 
 
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
