@@ -6,7 +6,6 @@ using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Components;
 using Content.Server.Humanoid;
-using Content.Server.Mind.Components;
 using Content.Server.MobState;
 using Content.Server.Players;
 using Content.Server.Popups;
