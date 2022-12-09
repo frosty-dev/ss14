@@ -116,8 +116,8 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         }
 
         humanoid.Age = profile.Age;
-        humanoid.HumanoidSpeakColor = GetCharacterHexColor(Name(uid));
         Synchronize(uid);
+        humanoid.HumanoidSpeakColor = GetCharacterHexColor(profile.Name);
     }
 
     // this was done enough times that it only made sense to do it here
