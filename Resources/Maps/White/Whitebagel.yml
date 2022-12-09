@@ -118137,13 +118137,13 @@ entities:
     parent: 60
     type: Transform
 - uid: 13671
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -6.6243186,-18.287552
     parent: 60
     type: Transform
 - uid: 13672
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -6.4055686,-18.490677
     parent: 60

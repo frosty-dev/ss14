@@ -145,6 +145,35 @@
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitEngineeringWhite
 
+- type: entity
+  parent: ClothingOuterHardsuitBase
+  id:  ClothingOuterHardsuitPrisoner
+  name: prisoner hardsuit
+  description: A lightweight space suit for prisoners to protect them from the vacuum of space during emergencies.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Hardsuits/prisoner.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Hardsuits/prisoner.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.02
+    lowPressureMultiplier: 1000
+  - type: ClothingSpeedModifier
+    walkModifier: 0.75
+    sprintModifier: 0.75
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.6
+        Radiation: 0.6
+  - type: ExplosionResistance
+    damageCoefficient: 0.6
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitPrisoner
+
 #The voidsuit and eva suit are not techically 'hardsuits' but this seems to be the place for all EVA-capable outer clothing. This may be worth reevaluating when we have a lot more items.
 - type: entity
   parent: ClothingOuterHardsuitBase
@@ -188,17 +217,6 @@
     sprite: Clothing/OuterClothing/Suits/syndicate.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Suits/syndicate.rsi
-
-- type: entity
-  parent: ClothingOuterEVASuitBase
-  id:  ClothingOuterHardsuitEVAPrisoner
-  name: prisoner EVA suit
-  description: A lightweight space suit for prisoners to protect them from the vacuum of space during emergencies.
-  components:
-  - type: Sprite
-    sprite: Clothing/OuterClothing/Hardsuits/evaprisoner.rsi
-  - type: Clothing
-    sprite: Clothing/OuterClothing/Hardsuits/evaprisoner.rsi
 
 - type: entity
   parent: ClothingOuterHardsuitBase

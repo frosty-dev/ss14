@@ -59371,19 +59371,19 @@ entities:
     parent: 8
     type: Transform
 - uid: 4358
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -30.5,38.5
     parent: 8
     type: Transform
 - uid: 4359
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -30.5,37.5
     parent: 8
     type: Transform
 - uid: 4360
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -30.5,36.5
     parent: 8
