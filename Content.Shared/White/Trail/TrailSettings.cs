@@ -26,7 +26,7 @@ public sealed class TrailSettings
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("сreationMethod")]
-    public PointCreationMethod СreationMethod { get; set; } = PointCreationMethod.OnMove;
+    public SegmentCreationMethod СreationMethod { get; set; } = SegmentCreationMethod.OnMove;
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("gravity")]
@@ -56,7 +56,7 @@ public sealed class TrailSettings
     [DataField("shaderSettings")]
     public TrailShaderSettings? ShaderSettings { get; set; }
 }
-public enum PointCreationMethod : byte
+public enum SegmentCreationMethod : byte
 {
     OnFrameUpdate,
     OnMove

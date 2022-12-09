@@ -36,10 +36,10 @@ public sealed class TrailOverlay : Overlay
     protected override void Draw(in OverlayDrawArgs args)
     {
         foreach (var item in _lineManager.GetLines())
-            ProcessTrailData(args.WorldHandle, item);
+            ProcessTrailLine(args.WorldHandle, item);
     }
 
-    private void ProcessTrailData(DrawingHandleWorld handle, ITrailLine line)
+    private void ProcessTrailLine(DrawingHandleWorld handle, ITrailLine line)
     {
         var drawData = line.GetDrawData();
         if (!drawData.Any())

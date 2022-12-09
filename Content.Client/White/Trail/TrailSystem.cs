@@ -52,7 +52,7 @@ public sealed class TrailSystem : EntitySystem
     private void OnTrailMove(EntityUid uid, TrailComponent comp, ref MoveEvent args)
     {
         if (
-            comp.Settings.СreationMethod != PointCreationMethod.OnMove
+            comp.Settings.СreationMethod != SegmentCreationMethod.OnMove
             || _gameTiming.InPrediction
             || args.NewPosition.InRange(EntityManager, args.OldPosition, comp.Settings.СreationDistanceThreshold)
         )
@@ -77,7 +77,7 @@ public sealed class TrailSystem : EntitySystem
         _lineManager.Update(frameTime);
 
         foreach (var (comp, xform) in EntityQuery<TrailComponent, TransformComponent>())
-            if (comp.Settings.СreationMethod == PointCreationMethod.OnFrameUpdate)
+            if (comp.Settings.СreationMethod == SegmentCreationMethod.OnFrameUpdate)
                 TryCreateSegment(comp, xform.MapPosition);
     }
 }
