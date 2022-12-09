@@ -85,7 +85,7 @@ public sealed class TrailOverlay : Overlay
             {
                 //var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
                 RenderTrailDebugBox(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2);
-                //handle.DrawLine(cur.Point1, cur.Point1 + cur.AngleLeft.RotateVec(Vector2.UnitX), Color.Red);
+                //handle.DrawLine(cur.Point1, cur.Point1 + cur.AngleRight.RotateVec(Vector2.UnitX), Color.Red);
                 prev = cur;
             }
         }

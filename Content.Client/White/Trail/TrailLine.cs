@@ -1,6 +1,7 @@
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
 using Robust.Shared.Map;
+using Robust.Shared.Random;
 using Robust.Shared.Sandboxing;
 using System.Runtime.CompilerServices;
 
@@ -32,24 +33,33 @@ public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
 
     public void Update(float dt)
     {
-        foreach (var item in _lines)
+        var curNode = _lines.First;
+        while (curNode != null)
         {
-            if (!item.HasSegments())
+            var curLine = curNode.Value;
+            curNode = curNode.Next;
+
+            if (!curLine.HasSegments())
             {
-                item.ResetLifetime();
+                if (curLine.Attached)
+                    curLine.ResetLifetime();
+                else
+                    _lines.Remove(curLine);
                 continue;
             }
 
-            item.AddLifetime(dt);
-            item.RemoveExpiredSegments();
-            item.UpdateSegments(dt);
-            item.RecalculateDrawData();
+            curLine.AddLifetime(dt);
+            curLine.RemoveExpiredSegments();
+            curLine.UpdateSegments(dt);
+            curLine.RecalculateDrawData();
         }
     }
 }
 
 public sealed class TrailLine : ITrailLine
 {
+    private static readonly IRobustRandom Random = IoCManager.Resolve<IRobustRandom>();
+
     [ViewVariables]
     private readonly LinkedList<TrailLineSegment> _segments = new();
     [ViewVariables]
@@ -117,18 +127,20 @@ public sealed class TrailLine : ITrailLine
 
         foreach (var item in _segments)
         {
-
             var offset = gravity;
-            /*
-            if (maxRandomWalk != Vector2.Zero && cur.AngleRight != float.NaN)
+
+            if (maxRandomWalk != Vector2.Zero && item.DrawData.HasValue)
             {
-                var alignedWalk = cur.AngleRight.RotateVec(maxRandomWalk);
-                offset += new Vector2(alignedWalk.X * _random.NextFloat(-1.0f, 1.0f), alignedWalk.Y * _random.NextFloat(-1.0f, 1.0f)) * cur.LifetimePercent;
+                var drawData = item.DrawData.Value;
+                var alignedWalk = drawData.AngleRight.RotateVec(maxRandomWalk);
+                offset += new Vector2(alignedWalk.X * Random.NextFloat(-1.0f, 1.0f), alignedWalk.Y * Random.NextFloat(-1.0f, 1.0f)) * drawData.LifetimePercent;
             }
-            */
 
             item.Position += offset;
         }
+
+        if (_virtualSegmentPos.HasValue)
+            _virtualSegmentPos = _virtualSegmentPos.Value + gravity;
     }
 
     public void RemoveExpiredSegments()
@@ -172,20 +184,17 @@ public sealed class TrailLine : ITrailLine
             if (item.DrawData.HasValue)
                 yield return item.DrawData.Value;
 
-        if (Attached)
+        var lastPos = _segments.Last?.Value.Position;
+        if (lastPos != null)
         {
-            var lastPos = _segments.Last?.Value.Position;
-            if (lastPos != null)
-            {
-                var angle = (lastPos.Value - _lastHeadPos).ToWorldAngle();
-                var rotatedOffset = angle.RotateVec(Settings.Offset);
+            var angle = (lastPos.Value - _lastHeadPos).ToWorldAngle();
+            var rotatedOffset = angle.RotateVec(Settings.Offset);
 
-                yield return new(_lastHeadPos - rotatedOffset, _lastHeadPos + rotatedOffset, angle, 1f);
-            }
+            yield return new(_lastHeadPos - rotatedOffset, _lastHeadPos + rotatedOffset, angle, 1f);
         }
     }
 
-    private class TrailLineSegment
+    private sealed class TrailLineSegment
     {
         [ViewVariables]
         public Vector2 Position { get; set; }

@@ -55,11 +55,19 @@ public sealed class TrailSystem : EntitySystem
             comp.Settings.СreationMethod != PointCreationMethod.OnMove
             || _gameTiming.InPrediction
             || args.NewPosition.InRange(EntityManager, args.OldPosition, comp.Settings.СreationDistanceThreshold)
-            || comp.Line == null
         )
             return;
 
-        comp.Line.TryCreateSegment(args.Component.MapPosition);
+        TryCreateSegment(comp, args.Component.MapPosition);
+    }
+
+    private void TryCreateSegment(TrailComponent comp, MapCoordinates coords)
+    {
+        if (coords.MapId == MapId.Nullspace)
+            return;
+
+        comp.Line ??= _lineManager.Create(comp.Settings, coords.MapId);
+        comp.Line.TryCreateSegment(coords);
     }
 
     public override void FrameUpdate(float frameTime)
@@ -69,12 +77,7 @@ public sealed class TrailSystem : EntitySystem
         _lineManager.Update(frameTime);
 
         foreach (var (comp, xform) in EntityQuery<TrailComponent, TransformComponent>())
-        {
-            if (comp.Line == null)
-                comp.Line = _lineManager.Create(comp.Settings, xform.MapID);
-
             if (comp.Settings.СreationMethod == PointCreationMethod.OnFrameUpdate)
-                comp.Line.TryCreateSegment(xform.MapPosition);
-        }
+                TryCreateSegment(comp, xform.MapPosition);
     }
 }

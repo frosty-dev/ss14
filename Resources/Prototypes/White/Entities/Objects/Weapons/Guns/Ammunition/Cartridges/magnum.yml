@@ -1,0 +1,7 @@
+- type: entity
+  id: CartridgeMagnumSaloKEP
+  name: cartridge (.4X APFSDS tungsten-salo alloy core impact kinetic energy penetrator charge)
+  parent: BaseCartridgeMagnum
+  components:
+  - type: CartridgeAmmo
+    proto: BulletMagnumSaloKEP
