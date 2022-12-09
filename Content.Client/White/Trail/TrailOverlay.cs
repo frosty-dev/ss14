@@ -47,13 +47,7 @@ public sealed class TrailOverlay : Overlay
 
         var settings = line.Settings;
 
-        var shader = settings.ShaderSettings != null ? GetCachedShader(settings.ShaderSettings.ShaderId) : null;
-        if (shader != null)
-        {
-            handle.UseShader(shader);
-        }
-
-        var tex = GetCachedTexture(settings.TexurePath);
+        var tex = GetCachedTexture(settings.TexurePath ?? "");
         if (tex != null)
         {
             var prev = drawData.First();
@@ -74,8 +68,6 @@ public sealed class TrailOverlay : Overlay
                 prev = cur;
             }
         }
-
-        handle.UseShader(null);
 
 #if DEBUG
         if (false)
@@ -127,7 +119,7 @@ public sealed class TrailOverlay : Overlay
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, tex, verts, color);
     }
 
-    private static void RenderTrailColor(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2,Color color)
+    private static void RenderTrailColor(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2, Color color)
     {
         var verts = new Vector2[] {
             from1,

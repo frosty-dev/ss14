@@ -13,20 +13,6 @@ public sealed class TrailSystem : EntitySystem
     }
     private void OnGetState(EntityUid uid, TrailComponent component, ref ComponentGetState args)
     {
-        args.State = new TrailComponentState(component.Settings);
-    }
-
-    public override void Update(float frameTime)
-    {
-        base.Update(frameTime);
-
-        foreach (var comp in EntityManager.EntityQuery<TrailComponent>())
-        {
-            if (comp.MakeDirtyKostil)
-            {
-                Dirty(comp);
-                comp.MakeDirtyKostil = false;
-            }
-        }
+        args.State = new TrailComponentState(component.ToTrailSettings());
     }
 }

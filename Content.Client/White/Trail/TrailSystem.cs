@@ -4,17 +4,13 @@ using Robust.Client.ResourceManagement;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using System.Linq;
-using TerraFX.Interop.Windows;
 
 namespace Content.Client.White.Trail;
 
 public sealed class TrailSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ITrailLineManager<ITrailLine> _lineManager = default!;
 
     public override void Initialize()
@@ -37,25 +33,31 @@ public sealed class TrailSystem : EntitySystem
     {
         if (args.Current is not TrailComponentState state)
             return;
+        var srvSettings = state.Settings;
 
-        component.Settings = state.Settings;
-        if(component.Line != null)
-            component.Line.Settings = state.Settings;
+        component.Offset = srvSettings.Offset;
+        component.СreationDistanceThresholdSquared = srvSettings.СreationDistanceThresholdSquared;
+        component.СreationMethod = srvSettings.СreationMethod;
+        component.Gravity = srvSettings.Gravity;
+        component.MaxRandomWalk = srvSettings.MaxRandomWalk;
+        component.Lifetime = srvSettings.Lifetime;
+        component.TexurePath = srvSettings.TexurePath;
+        component.ColorBase = srvSettings.ColorBase;
+        component.ColorLifetimeMod = srvSettings.ColorLifetimeMod;
     }
 
     private void OnTrailRemove(EntityUid uid, TrailComponent comp, ComponentRemove args)
     {
         if (comp.Line != null)
+        {
             comp.Line.Attached = false;
+            comp.Line.Settings = comp.ToTrailSettings();
+        }
     }
 
     private void OnTrailMove(EntityUid uid, TrailComponent comp, ref MoveEvent args)
     {
-        if (
-            comp.Settings.СreationMethod != SegmentCreationMethod.OnMove
-            || _gameTiming.InPrediction
-            || args.NewPosition.InRange(EntityManager, args.OldPosition, comp.Settings.СreationDistanceThreshold)
-        )
+        if (comp.СreationMethod != SegmentCreationMethod.OnMove || _gameTiming.InPrediction)
             return;
 
         TryCreateSegment(comp, args.Component.MapPosition);
@@ -66,7 +68,7 @@ public sealed class TrailSystem : EntitySystem
         if (coords.MapId == MapId.Nullspace)
             return;
 
-        comp.Line ??= _lineManager.Create(comp.Settings, coords.MapId);
+        comp.Line ??= _lineManager.Create(comp, coords.MapId);
         comp.Line.TryCreateSegment(coords);
     }
 
@@ -77,7 +79,7 @@ public sealed class TrailSystem : EntitySystem
         _lineManager.Update(frameTime);
 
         foreach (var (comp, xform) in EntityQuery<TrailComponent, TransformComponent>())
-            if (comp.Settings.СreationMethod == SegmentCreationMethod.OnFrameUpdate)
+            if (comp.СreationMethod == SegmentCreationMethod.OnFrameUpdate)
                 TryCreateSegment(comp, xform.MapPosition);
     }
 }

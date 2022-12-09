@@ -4,60 +4,50 @@ namespace Content.Shared.White.Trail;
 
 [DataDefinition]
 [Serializable, NetSerializable]
-public sealed class TrailSettings
+public sealed class TrailSettings : ITrailSettings
 {
-    public readonly static TrailSettings Default = new()
-    {
-        Gravity = new Vector2(0.05f, 0.05f),
-        MaxRandomWalk = new Vector2(0.005f, 0.005f),
-    };
+    public static readonly TrailSettings Default = new();
 
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("offset", required: true)]
-    public Vector2 Offset { get; set; } = Vector2.UnitX;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("сreationDistanceThreshold")]
-    public float СreationDistanceThreshold { get; set; } = 0.1f;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("сreationDistanceThresholdSquared")]
+    public Vector2 Offset { get; set; } = new Vector2(0.5f, 0.0f);
     public float СreationDistanceThresholdSquared { get; set; } = 0.001f;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("сreationMethod")]
-    public SegmentCreationMethod СreationMethod { get; set; } = SegmentCreationMethod.OnMove;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("gravity")]
-    public Vector2 Gravity { get; set; } = Vector2.Zero;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("randomWalk")]
-    public Vector2 MaxRandomWalk { get; set; } = Vector2.Zero;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("lifetime", required: true)]
+    public SegmentCreationMethod СreationMethod { get; set; } = SegmentCreationMethod.OnFrameUpdate;
+    public Vector2 Gravity { get; set; } = new Vector2(0.05f, 0.05f);
+    public Vector2 MaxRandomWalk { get; set; } = new Vector2(0.005f, 0.005f);
     public float Lifetime { get; set; } = 1f;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("texturePath", required: true)]
-    public string TexurePath { get; set; } = string.Empty;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("colorBase")]
+    public string? TexurePath { get; set; } = string.Empty;
     public Color ColorBase { get; set; } = Color.White;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("colorLifetimeMod")]
     public Color ColorLifetimeMod { get; set; } = Color.Transparent;
 
-    [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("shaderSettings")]
-    public TrailShaderSettings? ShaderSettings { get; set; }
+    public TrailSettings ToTrailSettings()
+        => new()
+        {
+            Offset = Offset,
+            СreationDistanceThresholdSquared = СreationDistanceThresholdSquared,
+            СreationMethod = СreationMethod,
+            Gravity = Gravity,
+            MaxRandomWalk = MaxRandomWalk,
+            Lifetime = Lifetime,
+            TexurePath = TexurePath,
+            ColorBase = ColorBase,
+            ColorLifetimeMod = ColorLifetimeMod,
+        };
 }
 public enum SegmentCreationMethod : byte
 {
     OnFrameUpdate,
     OnMove
+}
+
+public interface ITrailSettings
+{
+    Color ColorBase { get; set; }
+    Color ColorLifetimeMod { get; set; }
+    Vector2 Gravity { get; set; }
+    float Lifetime { get; set; }
+    Vector2 MaxRandomWalk { get; set; }
+    Vector2 Offset { get; set; }
+    string? TexurePath { get; set; }
+    float СreationDistanceThresholdSquared { get; set; }
+    SegmentCreationMethod СreationMethod { get; set; }
+    TrailSettings ToTrailSettings();
 }

@@ -7,9 +7,9 @@ using System.Runtime.CompilerServices;
 
 namespace Content.Client.White.Trail;
 
-public interface ITrailLine : ITimedLine, IAttachedLine, IDynamicLine<TrailSettings>, IDrawableLine<TrailLineDrawData> { }
+public interface ITrailLine : ITimedLine, IAttachedLine, IDynamicLine<ITrailSettings>, IDrawableLine<TrailLineDrawData> { }
 
-public interface ITrailLineManager<out TTrailLine> : IDynamicLineManager<TTrailLine, TrailSettings> where TTrailLine : ITrailLine { }
+public interface ITrailLineManager<out TTrailLine> : IDynamicLineManager<TTrailLine, ITrailSettings> where TTrailLine : ITrailLine { }
 
 public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
     where TTrailLine : class, ITrailLine, new()
@@ -18,9 +18,10 @@ public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
 
     private static readonly ISandboxHelper SandboxHelper = IoCManager.Resolve<ISandboxHelper>();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public IEnumerable<ITrailLine> GetLines() => _lines;
 
-    public ITrailLine Create(TrailSettings settings, MapId mapId)
+    public ITrailLine Create(ITrailSettings settings, MapId mapId)
     {
         var tline = (TTrailLine) SandboxHelper.CreateInstance(typeof(TTrailLine));
         tline.Attached = true;
@@ -75,7 +76,7 @@ public sealed class TrailLine : ITrailLine
     [ViewVariables]
     public bool Attached { get; set; }
     [ViewVariables]
-    public TrailSettings Settings { get; set; } = TrailSettings.Default;
+    public ITrailSettings Settings { get; set; } = TrailSettings.Default;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool HasSegments() => _segments.Count > 0;
