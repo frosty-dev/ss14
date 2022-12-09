@@ -9,6 +9,8 @@
     <OutputPath>..\bin\Content.Server.Database\</OutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Client and server</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <NoWarn>RA0003</NoWarn>

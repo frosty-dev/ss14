@@ -4,6 +4,8 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>$(TargetFramework)</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Configurations>Debug;Release;Client and server</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

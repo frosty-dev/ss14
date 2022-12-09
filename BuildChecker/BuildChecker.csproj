@@ -32,6 +32,9 @@ https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client and server|AnyCPU' ">
+    <OutputPath>bin\Client and server\</OutputPath>
+  </PropertyGroup>
   <Target Name="Build">
     <Exec Command="$(Python) git_helper.py" CustomErrorRegularExpression="^Error" />
   </Target>

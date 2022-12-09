@@ -40,7 +40,8 @@ namespace Content.Client.CloningConsole.UI
                 GeneticScannerContents.Visible = true;
                 GeneticScannerFar.Visible = false;
                 GeneticScannerMissing.Visible = false;
-                CloneButton.Disabled = state.CloningStatus != ClonerStatus.Ready;
+                CloneButton.Disabled = state.CloningStatus != ClonerStatus.Ready &&
+                                       state.CloningStatus != ClonerStatus.ScannerOccupantAlive;
 
                 switch (state.CloningStatus)
                     {

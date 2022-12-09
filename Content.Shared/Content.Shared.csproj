@@ -6,7 +6,7 @@
     <LangVersion>10</LangVersion>
     <IsPackable>false</IsPackable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Configurations>Release;Debug</Configurations>
+    <Configurations>Release;Debug;Client and server</Configurations>
     <Platforms>AnyCPU</Platforms>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <Nullable>enable</Nullable>

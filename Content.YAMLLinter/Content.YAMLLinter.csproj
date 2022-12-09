@@ -6,6 +6,8 @@
         <OutputPath>..\bin\Content.YAMLLinter\</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ServerGarbageCollection>true</ServerGarbageCollection>
+        <Configurations>Debug;Release;Client and server</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
   <ItemGroup>

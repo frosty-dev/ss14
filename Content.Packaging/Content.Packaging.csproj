@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\RobustToolbox\MSBuild\Robust.Properties.targets"/>
+  <Import Project="..\RobustToolbox\MSBuild\Robust.Properties.targets" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Client and server</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RobustToolbox\Robust.Packaging\Robust.Packaging.csproj"/>
+    <ProjectReference Include="..\RobustToolbox\Robust.Packaging\Robust.Packaging.csproj" />
   </ItemGroup>
 
 </Project>

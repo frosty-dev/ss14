@@ -13,6 +13,8 @@
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <Nullable>enable</Nullable>
     <ServerGarbageCollection>true</ServerGarbageCollection>
+    <Configurations>Debug;Release;Client and server</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <Import Project="..\RobustToolbox\MSBuild\Robust.DefineConstants.targets" />
   <ItemGroup>
