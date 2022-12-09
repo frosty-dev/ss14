@@ -19,9 +19,11 @@ using Content.Server.Fluids.EntitySystems;
 using Content.Server.Chat.Systems;
 using Content.Server.Construction;
 using Content.Server.Construction.Components;
+using Content.Server.Ghost.Roles.Components;
 using Content.Server.Materials;
 using Content.Server.Stack;
 using Content.Server.Jobs;
+using Content.Shared.Cloning.CloningConsole;
 using Content.Shared.Humanoid.Prototypes;
 using Robust.Server.GameObjects;
 using Robust.Server.Containers;
@@ -31,6 +33,8 @@ using Robust.Shared.Random;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
+
+
 
 namespace Content.Server.Cloning
 {
@@ -107,7 +111,6 @@ namespace Content.Server.Cloning
                 !TryComp<MindComponent>(entity, out var mindComp) ||
                 mindComp.Mind != null)
                 return;
-
             mind.TransferTo(entity, ghostCheckOverride: true);
             mind.UnVisit();
             ClonesWaitingForMind.Remove(mind);
@@ -154,6 +157,7 @@ namespace Content.Server.Cloning
 
         public bool TryCloning(EntityUid uid, EntityUid bodyToClone, Mind.Mind mind, CloningPodComponent? clonePod, float failChanceModifier = 1)
         {
+
             if (!Resolve(uid, ref clonePod))
                 return false;
 
@@ -171,15 +175,17 @@ namespace Content.Server.Cloning
                 ClonesWaitingForMind.Remove(mind);
             }
 
-            if (mind.OwnedEntity != null && !_mobStateSystem.IsDead(mind.OwnedEntity.Value))
-                return false; // Body controlled by mind is not dead
+            bool occupantAlive = mind.OwnedEntity != null && !_mobStateSystem.IsDead(mind.OwnedEntity.Value);
 
             // Yes, we still need to track down the client because we need to open the Eui
             if (mind.UserId == null || !_playerManager.TryGetSessionById(mind.UserId.Value, out var client))
                 return false; // If we can't track down the client, we can't offer transfer. That'd be quite bad.
 
-            if (!TryComp<HumanoidComponent>(bodyToClone, out var humanoid))
+            if (!TryComp<HumanoidComponent>(bodyToClone, out var humanoid)) {
+                if (clonePod.ConnectedConsole != null)
+                    _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-chat-scanner-no-humanoid_error"), InGameICChatType.Speak, false);
                 return false; // whatever body was to be cloned, was not a humanoid
+            }
 
             if (!_prototype.TryIndex<SpeciesPrototype>(humanoid.Species, out var speciesPrototype))
                 return false;
@@ -230,15 +236,13 @@ namespace Content.Server.Cloning
             _humanoidSystem.CloneAppearance(bodyToClone, mob);
 
             MetaData(mob).EntityName = MetaData(bodyToClone).EntityName;
-
             var cloneMindReturn = EntityManager.AddComponent<BeingClonedComponent>(mob);
             cloneMindReturn.Mind = mind;
             cloneMindReturn.Parent = clonePod.Owner;
             clonePod.BodyContainer.Insert(mob);
             ClonesWaitingForMind.Add(mind, mob);
             UpdateStatus(CloningPodStatus.NoMind, clonePod);
-            _euiManager.OpenEui(new AcceptCloningEui(mind, this), client);
-
+            _euiManager.OpenEui(new AcceptCloningEui(mind, this, occupantAlive, bodyToClone, mob), client);
             AddComp<ActiveCloningPodComponent>(uid);
 
             // TODO: Ideally, components like this should be on a mind entity so this isn't neccesary.
@@ -249,13 +253,17 @@ namespace Content.Server.Cloning
                 foreach (var special in mind.CurrentJob.Prototype.Special)
                 {
                     if (special is AddComponentSpecial)
-                        special.AfterEquip(mob);
+                            special.AfterEquip(mob);
                 }
             }
 
             return true;
         }
 
+        internal void FreeForGhosts(EntityUid body)
+        {
+            EntityManager.AddComponent<GhostTakeoverAvailableComponent>(body);
+        }
         public void UpdateStatus(CloningPodStatus status, CloningPodComponent cloningPod)
         {
             cloningPod.Status = status;

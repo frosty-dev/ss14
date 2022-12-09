@@ -12,13 +12,14 @@ cloning-console-window-no-scanner-detected-label = Соедините с ген�
 cloning-console-window-no-clone-pod-detected-label = Соедините с капсулой клонирования при помощи мультитула.
 cloning-console-window-scanner-far-label = Генетический сканер слишком далеко
 cloning-console-window-clone-pod-far-label = Капсула клонирования слишком далеко
+cloning-console-chat-scanner-no-humanoid_error = Невозможно клонировать это существо!
 cloning-console-eject-body-button = Извлечь тело
 cloning-console-neural-interface-label = Нейроинтерфейс:
 cloning-console-no-mind-activity-text = Нейроинтерфейс: [color=red]Активность отсутствует[/color]
 cloning-console-mind-present-text = Нейроинтерфейс: [color=green]Сознание обнаружено[/color]
 cloning-console-component-msg-ready = Готов к клонированию
 cloning-console-component-msg-empty = Тело отсутствует
-cloning-console-component-msg-scanner-occupant-alive = Не готово: Тело в сканере живо
+cloning-console-component-msg-scanner-occupant-alive = Предупреждение: Тело в сканере живо
 cloning-console-component-msg-already-alive = Не готово: Метафизический конфликт
 cloning-console-component-msg-occupied = Не готово: В капсуле уже присутствует клон
 cloning-console-component-msg-already-cloning = Не готово: Конфликт сети капсул
