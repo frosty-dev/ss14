@@ -10,11 +10,6 @@
                 <LineEdit Name="PlayerNameLine" MinWidth="100" HorizontalExpand="True" />
             </BoxContainer>
             <BoxContainer Orientation="Horizontal">
-                <Label Text="{Loc Role}" MinWidth="100" />
-                <Control MinWidth="50" />
-                <LineEdit Name="JobNameLine" MinWidth="100" HorizontalExpand="True" />
-            </BoxContainer>
-            <BoxContainer Orientation="Horizontal">
                 <Label Text="{Loc Reason}" MinSize="100 0" />
                 <Control MinSize="50 0" />
                 <LineEdit Name="ReasonLine" MinSize="100 0" HorizontalExpand="True" />
@@ -28,66 +23,75 @@
                 <Button Name="WeekButton" Text="+1w (0)"/>
                 <Button Name="MonthButton" Text="+1M (0)"/>
             </BoxContainer>
-            <cc:PlayerListControl Name="PlayerList" VerticalExpand="True" />
-            <Control MinWidth="50" />
-            <Button Name="SubmitButton" Text="{Loc Ban}" />
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc Job Name}" MinSize="100 0" />
+                <Control MinSize="50 0" />
+                <LineEdit Name="JobNameLine" MinSize="100 0" HorizontalExpand="True" />
+                <Button Name="SubmitButtonByName" Text="{Loc Ban by name}" />
+            </BoxContainer>
+            <cc:PlayerListControl Name="PlayerList" VerticalExpand="True" MinHeight="40"/>
         </BoxContainer>
         <BoxContainer Orientation="Vertical">
-            <Label Text="{Loc Command}"/>
-            <Button Name="CaptainJobButton" Text="{Loc Captain}"/>
-            <Button Name="HOPJobButton" Text="{Loc Head Of Personal}"/>
-            <Button Name="HOSJobButton" Text="{Loc Head Of Security}"/>
-            <Button Name="CEJobButton" Text="{Loc Chief Engineer}"/>
-            <Button Name="CMOJobButton" Text="{Loc Chief Medical Officer}"/>
-            <Button Name="QMJobButton" Text="{Loc Quartermaster}"/>
-            <Button Name="RDJobButton" Text="{Loc Research Director}"/>
+            <BoxContainer Orientation="Horizontal">
+                <BoxContainer Orientation="Vertical">
+                    <Label Text="Command" FontColorOverride="Yellow"/>
+                    <CheckBox Name="CaptainCheckBox" Text="{Loc Captain}"/>
+                    <CheckBox Name="HeadOfPersonnelCheckBox" Text="{Loc Head Of Personnel}"/>
+                    <CheckBox Name="HeadOfSecurityCheckBox" Text="{Loc Head Of Security}"/>
+                    <CheckBox Name="ChiefMedicalOfficerCheckBox" Text="{Loc Chief Medical Officer}"/>
+                    <CheckBox Name="ChiefEngineerCheckBox" Text="{Loc Chief Engineer}"/>
+                    <CheckBox Name="QuartermasterCheckBox" Text="{Loc Quartermaster}"/>
+                    <CheckBox Name="ResearchDirectorCheckBox" Text="{Loc Research Director}"/>
 
-            <Label Text="{Loc Security}"/>
-            <!-- <Button Name="HOSJobButton" Text="{Loc Head Of Security}"/> -->
-            <Button Name="WardenJobButton" Text="{Loc Warden}"/>
-            <Button Name="OfficerJobButton" Text="{Loc Officer}"/>
-            <Button Name="DetectiveJobButton" Text="{Loc Detective}"/>
-            <Button Name="CadetJobButton" Text="{Loc Cadet}"/>
+                    <Label Text="Security" FontColorOverride="DarkRed"/>
+                    <CheckBox Name="HeadOfSecurityCheckBox2" Text="{Loc Head Of Security}"/>
+                    <CheckBox Name="WardenCheckBox" Text="{Loc Warden}"/>
+                    <CheckBox Name="SecurityOfficerCheckBox" Text="{Loc Officer}"/>
+                    <CheckBox Name="DetectiveCheckBox" Text="{Loc Detective}"/>
+                    <CheckBox Name="SecurityCadetCheckBox" Text="{Loc Cadet}"/>
 
-            <Label Text="{Loc Medical}"/>
-            <!-- <Button Name="CMOJobButton" Text="{Loc Chief Medical Officer}"/> -->
-            <Button Name="ChemistJobButton" Text="{Loc Chemist}"/>
-            <Button Name="DoctorJobButton" Text="{Loc Doctor}"/>
-            <Button Name="InternJobButton" Text="{Loc Intern}"/>
-            <Button Name="PsychologistJobButton" Text="{Loc Psychologist}"/>
+                    <Label Text="Medical" FontColorOverride="DodgerBlue"/>
+                    <CheckBox Name="ChiefMedicalOfficerCheckBox2" Text="{Loc Chief Medical Officer}"/>
+                    <CheckBox Name="ChemistCheckBox" Text="{Loc Chemist}"/>
+                    <CheckBox Name="MedicalDoctorCheckBox" Text="{Loc Doctor}"/>
+                    <CheckBox Name="MedicalInternCheckBox" Text="{Loc Intern}"/>
 
-            <Label Text="{Loc Engineer}"/>
-            <!-- <Button Name="CEJobButton" Text="{Loc Chief Engineer}"/> -->
-            <Button Name="AtmosTechJobButton" Text="{Loc Atmospheric Technician}"/>
-            <Button Name="EngineerJobButton" Text="{Loc Engineer}"/>
-            <Button Name="TechAssistJobButton" Text="{Loc Technical Assistant}"/>
+                    <Label Text="Engineering" FontColorOverride="DarkOrange"/>
+                    <CheckBox Name="ChiefEngineerCheckBox2" Text="{Loc Chief Engineer}"/>
+                    <CheckBox Name="AtmosphericTechnicianCheckBox" Text="{Loc Atmospheric Technician}"/>
+                    <CheckBox Name="StationEngineerCheckBox" Text="{Loc Engineer}"/>
+                    <CheckBox Name="TechnicalAssistantCheckBox" Text="{Loc Technical Assistant}"/>
+                </BoxContainer>
+                <BoxContainer Orientation="Vertical">
+                    <Label Text="Cargo" FontColorOverride="DarkGoldenrod"/>
+                    <CheckBox Name="QuartermasterCheckBox2"  Text="{Loc Quartermaster}" />
+                    <CheckBox Name="CargoTechnicianCheckBox" Text="{Loc Cargo Technician}"/>
+                    <CheckBox Name="SalvageSpecialistCheckBox" Text="{Loc SalvageSpecialist}"/>
 
-        </BoxContainer>
-        <BoxContainer Orientation="Vertical">
-            <Label Text="{Loc Juridical}"/>
-            <Button Name="LawyerJobButton" Text="{Loc Lawyer}"/>
+                    <Label Text="Scientific" FontColorOverride="MediumOrchid"/>
+                    <CheckBox Name="ResearchDirectorCheckBox2" Text="{Loc Research Director}"/>
+                    <CheckBox Name="ScientistCheckBox" Text="{Loc Scientist}"/>
 
-            <Label Text="{Loc Scientific}"/>
-            <!-- <Button Name="RDJobButton" Text="{Loc Research Director}"/> -->
-            <Button Name="ScientistJobButton" Text="{Loc Scientist}"/>
+                    <Label Text="Juridical"/>
+                    <CheckBox Name="LawyerCheckBox" Text="{Loc Lawyer}"/>
 
-            <Label Text="{Loc Supply}"/>
-            <!-- <Button Name="QMJobButton" Text="{Loc Quartermaster}"/> -->
-            <Button Name="CargoTechJobButton" Text="{Loc Cargo Technician}"/>
-            <Button Name="SalvageSpecJobButton" Text="{Loc Salvage Specialist}"/>
-
-            <Label Text="{Loc Civilian}"/>
-            <!-- <Button Name="HOPJobButton" Text="{Loc Head Of Personal}"/> -->
-            <Button Name="ServiceWorkerJobButton" Text="{Loc Service Worker}"/>
-            <Button Name="BotanistJobButton" Text="{Loc Botanist}"/>
-            <Button Name="ChefJobButton" Text="{Loc Chef}"/>
-            <Button Name="BartenderJobButton" Text="{Loc Bartender}"/>
-            <Button Name="JanitorJobButton" Text="{Loc Janitor}"/>
-            <Button Name="ClownJobButton" Text="{Loc Clown}"/>
-            <Button Name="MimeJobButton" Text="{Loc Mime}"/>
-            <Button Name="ChaplainJobButton" Text="{Loc Chaplain}"/>
-            <Button Name="LibrarianJobButton" Text="{Loc Librarian}"/>
-            <Button Name="MusicianJobButton" Text="{Loc Musician}"/>
+                    <Label Text="Civilian and Service" FontColorOverride="Green"/>
+                    <CheckBox Name="ServiceWorkerCheckBox" Text="{Loc Service Worker}"/>
+                    <CheckBox Name="BotanistCheckBox" Text="{Loc Botanist}"/>
+                    <CheckBox Name="ChefCheckBox" Text="{Loc Chef}"/>
+                    <CheckBox Name="BartenderCheckBox" Text="{Loc Bartender}"/>
+                    <CheckBox Name="JanitorCheckBox" Text="{Loc Janitor}"/>
+                    <CheckBox Name="ClownCheckBox" Text="{Loc Clown}"/>
+                    <CheckBox Name="MimeCheckBox" Text="{Loc Mime}"/>
+                    <CheckBox Name="LibrarianCheckBox" Text="{Loc Librarian}"/>
+                    <CheckBox Name="MusicianCheckBox" Text="{Loc Musician}"/>
+                    <CheckBox Name="ChaplainCheckBox" Text="{Loc Chaplain}"/>
+                </BoxContainer>
+            </BoxContainer>
+            <Button Name="SubmitButtonList" Text="{Loc Ban list}" />
         </BoxContainer>
     </BoxContainer>
 </DefaultWindow>
+
+
+
