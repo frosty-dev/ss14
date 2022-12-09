@@ -1,7 +1,7 @@
 ﻿- type: gameMap
   id: WhiteCluster
   mapName: 'Cluster'
-  mapPath: /Maps/White/whitecluster.yml
+  mapPath: /Maps/White/Whitecluster.yml
   minPlayers: 0
   maxPlayers: 35
   stations:
