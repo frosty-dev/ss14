@@ -3874,7 +3874,7 @@ entities:
   - dockJointId: docking46345
     dockedWith: 21828
     type: Docking
-  - SecondsUntilStateChange: -1778.5627
+  - SecondsUntilStateChange: -1847.2404
     changeAirtight: False
     state: Opening
     type: Door
@@ -14062,7 +14062,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -35543,7 +35545,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -35700,7 +35704,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -42269,7 +42275,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -66003,7 +66011,7 @@ entities:
       26,-40: 0
       26,-39: 0
       26,-38: 0
-      26,-37: 1
+      26,-37: 8
       26,-36: 0
       26,-35: 0
       26,-34: 0
@@ -66694,7 +66702,7 @@ entities:
       -10,19: 0
       -10,20: 0
       -10,21: 0
-      -10,22: 8
+      -10,22: 9
       -10,23: 0
       -10,24: 0
       -10,25: 0
@@ -66710,7 +66718,7 @@ entities:
       -9,19: 0
       -9,20: 0
       -9,21: 0
-      -9,22: 9
+      -9,22: 10
       -9,23: 2
       -9,24: 0
       -9,25: 0
@@ -66742,7 +66750,7 @@ entities:
       -7,19: 0
       -7,20: 0
       -7,21: 0
-      -7,22: 10
+      -7,22: 11
       -7,23: 0
       -7,24: 0
       -7,25: 0
@@ -66758,7 +66766,7 @@ entities:
       -6,19: 0
       -6,20: 0
       -6,21: 0
-      -6,22: 11
+      -6,22: 12
       -6,23: 0
       -6,24: 0
       -6,25: 0
@@ -66774,7 +66782,7 @@ entities:
       -5,19: 0
       -5,20: 0
       -5,21: 0
-      -5,22: 12
+      -5,22: 13
       -5,23: 2
       -5,24: 0
       -5,25: 0
@@ -66806,7 +66814,7 @@ entities:
       -3,19: 0
       -3,20: 0
       -3,21: 0
-      -3,22: 10
+      -3,22: 11
       -3,23: 0
       -3,24: 0
       -3,25: 0
@@ -66822,7 +66830,7 @@ entities:
       -2,19: 0
       -2,20: 0
       -2,21: 0
-      -2,22: 11
+      -2,22: 12
       -2,23: 0
       -2,24: 0
       -2,25: 0
@@ -66838,7 +66846,7 @@ entities:
       -1,19: 0
       -1,20: 0
       -1,21: 0
-      -1,22: 12
+      -1,22: 13
       -1,23: 2
       -1,24: 0
       -1,25: 0
@@ -67823,7 +67831,7 @@ entities:
       34,13: 0
       34,14: 0
       34,15: 0
-      35,0: 13
+      35,0: 14
       35,1: 0
       35,2: 0
       35,3: 0
@@ -67838,7 +67846,7 @@ entities:
       35,13: 0
       35,14: 0
       35,15: 0
-      36,0: 14
+      36,0: 15
       36,1: 0
       36,2: 0
       36,3: 0
@@ -67853,7 +67861,7 @@ entities:
       36,13: 0
       36,14: 0
       36,15: 0
-      37,0: 14
+      37,0: 15
       37,1: 0
       37,2: 0
       37,3: 0
@@ -67868,7 +67876,7 @@ entities:
       37,13: 0
       37,14: 0
       37,15: 0
-      38,0: 14
+      38,0: 15
       38,1: 0
       38,2: 0
       38,3: 0
@@ -67884,7 +67892,7 @@ entities:
       38,13: 0
       38,14: 0
       38,15: 0
-      39,0: 14
+      39,0: 15
       39,1: 0
       39,2: 0
       39,3: 0
@@ -67899,7 +67907,7 @@ entities:
       39,12: 0
       39,13: 0
       39,14: 0
-      40,0: 14
+      40,0: 15
       40,1: 0
       40,2: 0
       40,3: 0
@@ -68562,7 +68570,7 @@ entities:
       -45,16: 0
       -45,17: 0
       -45,19: 0
-      -45,20: 15
+      -45,20: 16
       -45,21: 0
       -45,22: 0
       -45,23: 0
@@ -70251,9 +70259,9 @@ entities:
       35,-6: 0
       35,-5: 2
       35,-4: 0
-      35,-3: 14
-      35,-2: 14
-      35,-1: 14
+      35,-3: 15
+      35,-2: 15
+      35,-1: 15
       36,-16: 0
       36,-15: 0
       36,-14: 0
@@ -70267,9 +70275,9 @@ entities:
       36,-6: 0
       36,-5: 0
       36,-4: 0
-      36,-3: 14
-      36,-2: 14
-      36,-1: 14
+      36,-3: 15
+      36,-2: 15
+      36,-1: 15
       37,-16: 0
       37,-15: 0
       37,-14: 0
@@ -70283,9 +70291,9 @@ entities:
       37,-6: 0
       37,-5: 1
       37,-4: 0
-      37,-3: 14
-      37,-2: 14
-      37,-1: 14
+      37,-3: 15
+      37,-2: 15
+      37,-1: 15
       38,-16: 0
       38,-15: 0
       38,-14: 0
@@ -70299,9 +70307,9 @@ entities:
       38,-6: 0
       38,-5: 0
       38,-4: 0
-      38,-3: 14
-      38,-2: 14
-      38,-1: 14
+      38,-3: 15
+      38,-2: 15
+      38,-1: 15
       39,-16: 0
       39,-15: 0
       39,-14: 0
@@ -70315,9 +70323,9 @@ entities:
       39,-6: 0
       39,-5: 0
       39,-4: 0
-      39,-3: 14
-      39,-2: 14
-      39,-1: 14
+      39,-3: 15
+      39,-2: 15
+      39,-1: 15
       40,-16: 0
       40,-15: 0
       40,-14: 0
@@ -70331,9 +70339,9 @@ entities:
       40,-6: 0
       40,-5: 0
       40,-4: 0
-      40,-3: 14
-      40,-2: 14
-      40,-1: 14
+      40,-3: 15
+      40,-2: 15
+      40,-1: 15
       41,-16: 0
       41,-15: 0
       41,-14: 0
@@ -70605,7 +70613,7 @@ entities:
       64,28: 0
       65,16: 0
       65,17: 2
-      65,18: 16
+      65,18: 17
       65,19: 2
       65,20: 0
       65,21: 0
@@ -72178,14 +72186,14 @@ entities:
       3,-53: 0
       3,-52: 0
       3,-51: 0
-      3,-50: 17
+      3,-50: 18
       3,-49: 2
       4,-64: 0
       4,-63: 0
       4,-62: 0
       4,-61: 0
       4,-60: 0
-      4,-59: 8
+      4,-59: 9
       4,-58: 0
       4,-57: 0
       4,-56: 0
@@ -72194,14 +72202,14 @@ entities:
       4,-53: 0
       4,-52: 0
       4,-51: 0
-      4,-50: 18
+      4,-50: 19
       4,-49: 0
       5,-64: 0
       5,-63: 0
       5,-62: 0
       5,-61: 0
       5,-60: 2
-      5,-59: 9
+      5,-59: 10
       5,-58: 0
       5,-57: 0
       5,-56: 0
@@ -72210,7 +72218,7 @@ entities:
       5,-53: 0
       5,-52: 2
       5,-51: 0
-      5,-50: 19
+      5,-50: 20
       5,-49: 0
       6,-64: 0
       6,-63: 0
@@ -72229,7 +72237,7 @@ entities:
       6,-50: 0
       6,-49: 0
       7,-64: 0
-      7,-63: 20
+      7,-63: 21
       7,-62: 0
       7,-61: 0
       7,-60: 0
@@ -72245,7 +72253,7 @@ entities:
       7,-50: 0
       7,-49: 0
       8,-64: 0
-      8,-63: 21
+      8,-63: 22
       8,-62: 0
       8,-61: 0
       8,-60: 0
@@ -72261,7 +72269,7 @@ entities:
       8,-50: 0
       8,-49: 0
       9,-64: 0
-      9,-63: 22
+      9,-63: 23
       9,-62: 2
       9,-61: 2
       9,-60: 0
@@ -72800,9 +72808,9 @@ entities:
       42,-23: 0
       42,-22: 0
       42,-21: 0
-      42,-20: 16
-      42,-19: 16
-      42,-18: 16
+      42,-20: 17
+      42,-19: 17
+      42,-18: 17
       42,-17: 0
       43,-32: 0
       43,-31: 0
@@ -72865,9 +72873,9 @@ entities:
       46,-22: 0
       46,-21: 0
       46,-20: 2
-      46,-19: 16
-      46,-18: 16
-      46,-17: 16
+      46,-19: 17
+      46,-18: 17
+      46,-17: 17
       47,-32: 0
       47,-31: 0
       47,-30: 0
@@ -73628,7 +73636,7 @@ entities:
       78,-27: 0
       78,-26: 0
       78,-25: 0
-      78,-24: 23
+      78,-24: 24
       78,-23: 0
       78,-22: 0
       78,-21: 0
@@ -73659,7 +73667,7 @@ entities:
       80,-27: 0
       80,-26: 0
       80,-25: 0
-      80,-24: 23
+      80,-24: 24
       80,-23: 0
       80,-22: 0
       80,-21: 0
@@ -75980,9 +75988,9 @@ entities:
       16,-71: 0
       16,-70: 0
       16,-68: 0
-      16,-67: 24
-      16,-66: 24
-      16,-65: 24
+      16,-67: 25
+      16,-66: 25
+      16,-65: 25
       17,-75: 0
       17,-74: 0
       17,-73: 0
@@ -75990,9 +75998,9 @@ entities:
       17,-71: 0
       17,-70: 0
       17,-68: 0
-      17,-67: 24
-      17,-66: 24
-      17,-65: 24
+      17,-67: 25
+      17,-66: 25
+      17,-65: 25
       18,-75: 0
       18,-74: 0
       18,-73: 0
@@ -76000,9 +76008,9 @@ entities:
       18,-71: 0
       18,-70: 0
       18,-68: 0
-      18,-67: 24
-      18,-66: 24
-      18,-65: 24
+      18,-67: 25
+      18,-66: 25
+      18,-65: 25
       19,-75: 0
       19,-74: 0
       19,-73: 0
@@ -77251,9 +77259,9 @@ entities:
       12,-71: 0
       12,-70: 0
       12,-68: 0
-      12,-67: 25
-      12,-66: 25
-      12,-65: 25
+      12,-67: 26
+      12,-66: 26
+      12,-65: 26
       13,-79: 0
       13,-78: 0
       13,-77: 0
@@ -77265,9 +77273,9 @@ entities:
       13,-71: 0
       13,-70: 0
       13,-68: 0
-      13,-67: 25
-      13,-66: 25
-      13,-65: 25
+      13,-67: 26
+      13,-66: 26
+      13,-65: 26
       14,-75: 0
       14,-74: 0
       14,-73: 0
@@ -77275,9 +77283,9 @@ entities:
       14,-71: 0
       14,-70: 0
       14,-68: 0
-      14,-67: 25
-      14,-66: 25
-      14,-65: 25
+      14,-67: 26
+      14,-66: 26
+      14,-65: 26
       15,-75: 0
       15,-74: 0
       15,-73: 0
@@ -79167,8 +79175,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 20.619795
-      - 77.56971
+      - 20.04244
+      - 75.39776
       - 0
       - 0
       - 0
@@ -79182,23 +79190,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 18.405577
-      - 69.24003
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 293.15
-      moles:
-      - 19.481253
-      - 73.28662
+      - 17.89022
+      - 67.30131
       - 0
       - 0
       - 0
@@ -79214,6 +79207,21 @@ entities:
       moles:
       - 18.935778
       - 71.2346
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
+      - 18.405577
+      - 69.24003
       - 0
       - 0
       - 0
@@ -79259,6 +79267,21 @@ entities:
       moles:
       - 0
       - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
+      - 20.619795
+      - 77.56971
       - 0
       - 0
       - 0
@@ -79347,8 +79370,8 @@ entities:
     - volume: 2500
       temperature: 235
       moles:
-      - 20.619795
-      - 77.56971
+      - 20.04244
+      - 75.39776
       - 0
       - 0
       - 0
@@ -79392,8 +79415,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 15.521976
-      - 58.3922
+      - 14.664915
+      - 55.168015
       - 0
       - 0
       - 0
@@ -79497,8 +79520,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 20.04244
-      - 75.39776
+      - 19.481253
+      - 73.28662
       - 0
       - 0
       - 0
@@ -79540,7 +79563,15 @@ entities:
       - 0
       - 0
     type: GridAtmosphere
-  - joints: {}
+  - joints:
+      docking46345: !type:WeldJoint
+        bodyB: 11906
+        bodyA: 8364
+        id: docking46345
+        localAnchorB: -0.5,-1
+        localAnchorA: -66.5,22
+        damping: 42.400665
+        stiffness: 380.5875
     type: Joint
   - type: OccluderTree
   - type: Shuttle
@@ -80852,6 +80883,18 @@ entities:
   - pos: 9.5,25.5
     parent: 8364
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 26040
+      Close:
+      - port: Start
+        uid: 26040
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 26040
+    type: SignalReceiver
 - uid: 8570
   type: Rack
   components:
@@ -81249,6 +81292,18 @@ entities:
   - pos: -1.5,25.5
     parent: 8364
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 26039
+      Close:
+      - port: Start
+        uid: 26039
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 26039
+    type: SignalReceiver
 - uid: 8625
   type: WindoorSecurityLocked
   components:
@@ -81257,6 +81312,18 @@ entities:
   - pos: -5.5,25.5
     parent: 8364
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 26038
+      Close:
+      - port: Start
+        uid: 26038
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 26038
+    type: SignalReceiver
 - uid: 8626
   type: WindoorSecurityLocked
   components:
@@ -81265,6 +81332,18 @@ entities:
   - pos: -9.5,25.5
     parent: 8364
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 26037
+      Close:
+      - port: Start
+        uid: 26037
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 26037
+    type: SignalReceiver
 - uid: 8627
   type: BedsheetWhite
   components:
@@ -82554,7 +82633,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -84560,7 +84641,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -86446,7 +86529,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -88499,7 +88584,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -88529,7 +88616,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -95996,7 +96085,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -96014,7 +96105,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -96032,7 +96125,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -102804,7 +102899,15 @@ entities:
     type: Gravity
   - chunkCollection: {}
     type: DecalGrid
-  - joints: {}
+  - joints:
+      docking46345: !type:WeldJoint
+        bodyB: 11906
+        bodyA: 8364
+        id: docking46345
+        localAnchorB: -0.5,-1
+        localAnchorA: -66.5,22
+        damping: 42.400665
+        stiffness: 380.5875
     type: Joint
   - type: OccluderTree
   - type: Shuttle
@@ -108072,7 +108175,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -118851,7 +118956,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -140354,7 +140461,9 @@ entities:
     parent: 8364
     type: Transform
   - toggleAction:
-      icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
+      icon:
+        sprite: Objects/Tools/flashlight.rsi
+        state: flashlight
       iconOn: Objects/Tools/flashlight.rsi/flashlight-on.png
       name: action-name-toggle-light
       description: action-description-toggle-light
@@ -167343,7 +167452,7 @@ entities:
   - dockJointId: docking46345
     dockedWith: 562
     type: Docking
-  - SecondsUntilStateChange: -1778.5627
+  - SecondsUntilStateChange: -1847.2404
     changeAirtight: False
     state: Opening
     type: Door
@@ -172644,7 +172753,7 @@ entities:
     - 14126
     - 14127
     - 14128
-    - null
+    - invalid
     - 22602
     - 14129
     - 14601
@@ -172665,7 +172774,7 @@ entities:
     - 14126
     - 14127
     - 14128
-    - null
+    - invalid
     - 22602
     - 14129
     - 14601
@@ -172682,7 +172791,7 @@ entities:
     - 14126
     - 14127
     - 14128
-    - null
+    - invalid
     - 22602
     - 14129
     - 14601
@@ -173621,7 +173730,7 @@ entities:
     - 24879
     - 24850
     - 24880
-    - null
+    - invalid
     - 24830
     - 24831
     type: DeviceList
@@ -202341,4 +202450,68 @@ entities:
   - pos: -10.1175785,-13.843024
     parent: 8364
     type: Transform
+- uid: 26037
+  type: BrigTimer
+  components:
+  - pos: -8.5,25.5
+    parent: 8364
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 8626
+      Timer:
+      - port: AutoClose
+        uid: 8626
+      - port: Open
+        uid: 8626
+    type: SignalTransmitter
+- uid: 26038
+  type: BrigTimer
+  components:
+  - pos: -4.5,25.5
+    parent: 8364
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 8625
+      Timer:
+      - port: AutoClose
+        uid: 8625
+      - port: Open
+        uid: 8625
+    type: SignalTransmitter
+- uid: 26039
+  type: BrigTimer
+  components:
+  - pos: -0.5,25.5
+    parent: 8364
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 8624
+      Timer:
+      - port: AutoClose
+        uid: 8624
+      - port: Open
+        uid: 8624
+    type: SignalTransmitter
+- uid: 26040
+  type: BrigTimer
+  components:
+  - pos: 10.5,25.5
+    parent: 8364
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 8569
+      Timer:
+      - port: AutoClose
+        uid: 8569
+      - port: Open
+        uid: 8569
+    type: SignalTransmitter
 ...

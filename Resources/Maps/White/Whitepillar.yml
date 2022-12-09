@@ -146,7 +146,7 @@ entities:
   components:
   - type: MetaData
   - pos: 0.4558292,0.42837813
-    parent: null
+    parent: 3962
     type: Transform
   - chunks:
       -1,-1:
@@ -30882,8 +30882,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 20.619795
-      - 77.56971
+      - 20.04244
+      - 75.39776
       - 0
       - 0
       - 0
@@ -30897,8 +30897,8 @@ entities:
     - volume: 2500
       temperature: 235
       moles:
-      - 20.619795
-      - 77.56971
+      - 20.04244
+      - 75.39776
       - 0
       - 0
       - 0
@@ -30972,8 +30972,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 19.481253
-      - 73.28662
+      - 18.405577
+      - 69.24003
       - 0
       - 0
       - 0
@@ -52855,36 +52855,108 @@ entities:
   - pos: -36.5,30.5
     parent: 8
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 24465
+      Close:
+      - port: Start
+        uid: 24465
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 24465
+    type: SignalReceiver
 - uid: 3403
   type: AirlockSecurityGlassLocked
   components:
   - pos: -36.5,26.5
     parent: 8
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 24464
+      Close:
+      - port: Start
+        uid: 24464
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 24464
+    type: SignalReceiver
 - uid: 3404
   type: AirlockSecurityGlassLocked
   components:
   - pos: -36.5,22.5
     parent: 8
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 24463
+      Close:
+      - port: Start
+        uid: 24463
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 24463
+    type: SignalReceiver
 - uid: 3405
   type: AirlockSecurityGlassLocked
   components:
   - pos: -36.5,18.5
     parent: 8
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 24462
+      Close:
+      - port: Start
+        uid: 24462
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 24462
+    type: SignalReceiver
 - uid: 3406
   type: AirlockSecurityGlassLocked
   components:
   - pos: -20.5,25.5
     parent: 8
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 4545
+      Close:
+      - port: Start
+        uid: 4545
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 4545
+    type: SignalReceiver
 - uid: 3407
   type: AirlockSecurityGlassLocked
   components:
   - pos: -20.5,21.5
     parent: 8
     type: Transform
+  - inputs:
+      Open:
+      - port: Timer
+        uid: 24466
+      Close:
+      - port: Start
+        uid: 24466
+      Toggle: []
+      AutoClose:
+      - port: Timer
+        uid: 24466
+    type: SignalReceiver
 - uid: 3408
   type: SignMedical
   components:
@@ -56574,6 +56646,15 @@ entities:
   - pos: -32.5,42.5
     parent: 8
     type: Transform
+- uid: 3962
+  components:
+  - type: MetaData
+  - type: Transform
+  - index: 10
+    type: Map
+  - type: PhysicsMap
+  - type: Broadphase
+  - type: OccluderTree
 - uid: 3963
   type: ReinforcedWindow
   components:
@@ -60443,11 +60524,21 @@ entities:
     parent: 8
     type: Transform
 - uid: 4545
-  type: LockerEvidence
+  type: BrigTimer
   components:
-  - pos: -35.5,29.5
+  - pos: -20.5,26.5
     parent: 8
     type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 3406
+      Timer:
+      - port: AutoClose
+        uid: 3406
+      - port: Open
+        uid: 3406
+    type: SignalTransmitter
 - uid: 4546
   type: LockerEvidence
   components:
@@ -84976,7 +85067,7 @@ entities:
 - uid: 8201
   type: Paper
   components:
-  - desc: ''
+  - desc: ""
     type: MetaData
   - pos: -93.47361,2.5478919
     parent: 8
@@ -198197,4 +198288,84 @@ entities:
   - pos: -78.5,1.5
     parent: 8
     type: Transform
+- uid: 24462
+  type: BrigTimer
+  components:
+  - pos: -36.5,17.5
+    parent: 8
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 3405
+      Timer:
+      - port: AutoClose
+        uid: 3405
+      - port: Open
+        uid: 3405
+    type: SignalTransmitter
+- uid: 24463
+  type: BrigTimer
+  components:
+  - pos: -36.5,21.5
+    parent: 8
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 3404
+      Timer:
+      - port: AutoClose
+        uid: 3404
+      - port: Open
+        uid: 3404
+    type: SignalTransmitter
+- uid: 24464
+  type: BrigTimer
+  components:
+  - pos: -36.5,25.5
+    parent: 8
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 3403
+      Timer:
+      - port: AutoClose
+        uid: 3403
+      - port: Open
+        uid: 3403
+    type: SignalTransmitter
+- uid: 24465
+  type: BrigTimer
+  components:
+  - pos: -36.5,29.5
+    parent: 8
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 3402
+      Timer:
+      - port: AutoClose
+        uid: 3402
+      - port: Open
+        uid: 3402
+    type: SignalTransmitter
+- uid: 24466
+  type: BrigTimer
+  components:
+  - pos: -20.5,22.5
+    parent: 8
+    type: Transform
+  - outputs:
+      Start:
+      - port: Close
+        uid: 3407
+      Timer:
+      - port: AutoClose
+        uid: 3407
+      - port: Open
+        uid: 3407
+    type: SignalTransmitter
 ...
