@@ -53,7 +53,11 @@ public sealed class TrailOverlay : Overlay
             var prev = drawData.First();
             foreach (var cur in drawData.Skip(1))
             {
-                var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
+                Color color;
+                if(settings.ColorLifetimeDeltaLambda == null)
+                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, cur.LifetimePercent);
+                else
+                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, settings.ColorLifetimeDeltaLambda(cur.LifetimePercent));
                 RenderTrailTexture(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, tex, color);
                 prev = cur;
             }
@@ -63,7 +67,11 @@ public sealed class TrailOverlay : Overlay
             var prev = drawData.First();
             foreach (var cur in drawData.Skip(1))
             {
-                var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
+                Color color;
+                if (settings.ColorLifetimeDeltaLambda == null)
+                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, cur.LifetimePercent);
+                else
+                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, settings.ColorLifetimeDeltaLambda(cur.LifetimePercent));
                 RenderTrailColor(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, color);
                 prev = cur;
             }

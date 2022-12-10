@@ -42,8 +42,9 @@ public sealed class TrailSystem : EntitySystem
         component.MaxRandomWalk = srvSettings.MaxRandomWalk;
         component.Lifetime = srvSettings.Lifetime;
         component.TexurePath = srvSettings.TexurePath;
-        component.ColorBase = srvSettings.ColorBase;
-        component.ColorLifetimeMod = srvSettings.ColorLifetimeMod;
+        component.ColorLifetimeStart = srvSettings.ColorLifetimeStart;
+        component.ColorLifetimeEnd = srvSettings.ColorLifetimeEnd;
+        component.ColorLifetimeDeltaLambdaOperations = srvSettings.ColorLifetimeDeltaLambdaOperations;
     }
 
     private void OnTrailRemove(EntityUid uid, TrailComponent comp, ComponentRemove args)

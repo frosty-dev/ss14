@@ -8,16 +8,20 @@ public sealed class TrailSettings : ITrailSettings
 {
     public static readonly TrailSettings Default = new();
 
+    [NonSerialized]
+    private readonly Func<float, float>? _colorLifetimeDeltaLambda;
+
     public Vector2 Offset { get; set; } = new Vector2(0.5f, 0.0f);
     public float СreationDistanceThresholdSquared { get; set; } = 0.001f;
     public SegmentCreationMethod СreationMethod { get; set; } = SegmentCreationMethod.OnFrameUpdate;
     public Vector2 Gravity { get; set; } = new Vector2(0.05f, 0.05f);
     public Vector2 MaxRandomWalk { get; set; } = new Vector2(0.005f, 0.005f);
     public float Lifetime { get; set; } = 1f;
-    public string? TexurePath { get; set; } = string.Empty;
-    public Color ColorBase { get; set; } = Color.White;
-    public Color ColorLifetimeMod { get; set; } = Color.Transparent;
-
+    public string? TexurePath { get; set; }
+    public Color ColorLifetimeStart { get; set; } = Color.White;
+    public Color ColorLifetimeEnd { get; set; } = Color.Transparent;
+    public string? ColorLifetimeDeltaLambdaOperations { get; set; }
+    public Func<float, float>? ColorLifetimeDeltaLambda => _colorLifetimeDeltaLambda;
     public TrailSettings ToTrailSettings()
         => new()
         {
@@ -28,8 +32,8 @@ public sealed class TrailSettings : ITrailSettings
             MaxRandomWalk = MaxRandomWalk,
             Lifetime = Lifetime,
             TexurePath = TexurePath,
-            ColorBase = ColorBase,
-            ColorLifetimeMod = ColorLifetimeMod,
+            ColorLifetimeStart = ColorLifetimeStart,
+            ColorLifetimeEnd = ColorLifetimeEnd,
         };
 }
 public enum SegmentCreationMethod : byte
@@ -40,8 +44,10 @@ public enum SegmentCreationMethod : byte
 
 public interface ITrailSettings
 {
-    Color ColorBase { get; set; }
-    Color ColorLifetimeMod { get; set; }
+    Color ColorLifetimeStart { get; set; }
+    Color ColorLifetimeEnd { get; set; }
+    string? ColorLifetimeDeltaLambdaOperations { get; set; }
+    Func<float, float>? ColorLifetimeDeltaLambda { get; }
     Vector2 Gravity { get; set; }
     float Lifetime { get; set; }
     Vector2 MaxRandomWalk { get; set; }

@@ -1,3 +1,4 @@
+using Content.Shared.White.LambdaParser;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
@@ -6,8 +7,11 @@ namespace Content.Shared.White.Trail;
 [NetworkedComponent()]
 public abstract class SharedTrailComponent : Component, ITrailSettings
 {
-    private Color _colorBase = Color.White;
-    private Color _colorLifetimeMod = Color.Transparent;
+    private Color _colorLifetimeStart = Color.White;
+    private Color _colorLifetimeEnd = Color.Transparent;
+    private string? _colorLifetimeDeltaLambdaOperations;
+    [NonSerialized]
+    private Func<float, float>? _colorLifetimeDeltaLambda;
     private Vector2 _gravity = new Vector2(0.05f, 0.05f);
     private float _lifetime = 1f;
     private Vector2 _maxRandomWalk = new Vector2(0.005f, 0.005f);
@@ -16,32 +20,51 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     private float _сreationDistanceThresholdSquared = 0.001f;
     private SegmentCreationMethod _сreationMethod = SegmentCreationMethod.OnFrameUpdate;
 
-    [DataField("colorBase")]
+    [DataField("colorLifetimeStart")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public Color ColorBase
+    public Color ColorLifetimeStart
     {
-        get => _colorBase;
+        get => _colorLifetimeStart;
         set
         {
-            if (_colorBase == value)
+            if (_colorLifetimeStart == value)
                 return;
-            _colorBase = value;
+            _colorLifetimeStart = value;
             Dirty();
         }
     }
-    [DataField("colorLifetimeMod")]
+    [DataField("colorLifetimeEnd")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public Color ColorLifetimeMod
+    public Color ColorLifetimeEnd
     {
-        get => _colorLifetimeMod;
+        get => _colorLifetimeEnd;
         set
         {
-            if (_colorLifetimeMod == value)
+            if (_colorLifetimeEnd == value)
                 return;
-            _colorLifetimeMod = value;
+            _colorLifetimeEnd = value;
             Dirty();
         }
     }
+
+    [DataField("colorLifetimeDeltaLambdaOperations")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public string? ColorLifetimeDeltaLambdaOperations
+    {
+        get => _colorLifetimeDeltaLambdaOperations;
+        set
+        {
+            if (_colorLifetimeDeltaLambdaOperations == value)
+                return;
+            _colorLifetimeDeltaLambdaOperations = value;
+            _colorLifetimeDeltaLambda = MathsLambdaParser.ToFloatLambda(value);
+
+            Dirty();
+        }
+    }
+
+    public Func<float, float>? ColorLifetimeDeltaLambda => _colorLifetimeDeltaLambda;
+
     [DataField("gravity")]
     [ViewVariables(VVAccess.ReadWrite)]
     public Vector2 Gravity
@@ -133,6 +156,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
+
     public TrailSettings ToTrailSettings()
         => new()
         {
@@ -143,8 +167,9 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             MaxRandomWalk = MaxRandomWalk,
             Lifetime = Lifetime,
             TexurePath = TexurePath,
-            ColorBase = ColorBase,
-            ColorLifetimeMod = ColorLifetimeMod,
+            ColorLifetimeStart = ColorLifetimeStart,
+            ColorLifetimeEnd = ColorLifetimeEnd,
+            ColorLifetimeDeltaLambdaOperations = ColorLifetimeDeltaLambdaOperations
         };
 }
 

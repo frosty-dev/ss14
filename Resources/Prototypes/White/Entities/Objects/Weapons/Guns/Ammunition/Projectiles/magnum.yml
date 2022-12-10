@@ -15,4 +15,3 @@
     randomWalk: 0.03, 0.001
     gravity: 0.001, 0.005
     texturePath: /Textures/White/Effects/Trails/susTrail.png
-    colorLifetimeMod: "#F0F0F000"
