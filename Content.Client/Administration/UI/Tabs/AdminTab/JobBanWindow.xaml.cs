@@ -16,10 +16,43 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
     [UsedImplicitly]
     public sealed partial class JobBanWindow : DefaultWindow
     {
-        private List<CheckBox> _banList = new() { };
+        private HashSet<CheckBox> _jobs = new() { };
         public JobBanWindow()
         {
             RobustXamlLoader.Load(this);
+            _jobs.Add(Captain);
+            _jobs.Add(HeadOfPersonnel);
+            _jobs.Add(HeadOfSecurity);
+            _jobs.Add(ChiefMedicalOfficer);
+            _jobs.Add(ChiefEngineer);
+            _jobs.Add(ResearchDirector);
+            _jobs.Add(Quartermaster);
+            _jobs.Add(Warden);
+            _jobs.Add(SecurityOfficer);
+            _jobs.Add(Detective);
+            _jobs.Add(SecurityCadet);
+            _jobs.Add(Chemist);
+            _jobs.Add(MedicalDoctor);
+            _jobs.Add(Psychologist);
+            _jobs.Add(MedicalIntern);
+            _jobs.Add(AtmosphericTechnician);
+            _jobs.Add(StationEngineer);
+            _jobs.Add(TechnicalAssistant);
+            _jobs.Add(CargoTechnician);
+            _jobs.Add(SalvageSpecialist);
+            _jobs.Add(Scientist);
+            _jobs.Add(Lawyer);
+            _jobs.Add(ServiceWorker);
+            _jobs.Add(Botanist);
+            _jobs.Add(Chef);
+            _jobs.Add(Bartender);
+            _jobs.Add(Janitor);
+            _jobs.Add(Clown);
+            _jobs.Add(Mime);
+            _jobs.Add(Librarian);
+            _jobs.Add(Musician);
+            _jobs.Add(Chaplain);
+            _jobs.Add(Zookeeper);
             PlayerNameLine.OnTextChanged += _ =>
             {
                 OnPlayerNameChanged();
@@ -38,56 +71,8 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             DayButton.OnPressed += _ => AddMinutes(1440);
             WeekButton.OnPressed += _ => AddMinutes(10080);
             MonthButton.OnPressed += _ => AddMinutes(43200);
-            // Command
-            Captain.OnPressed += _ => CheckBoxOnPressed(Captain);
-            HeadOfPersonnel.OnPressed += _ => CheckBoxOnPressed(HeadOfPersonnel);
-            HeadOfSecurity.OnPressed += _ => CheckBoxOnPressed(HeadOfSecurity);
-            ChiefMedicalOfficer.OnPressed += _ => CheckBoxOnPressed(ChiefMedicalOfficer);
-            ChiefEngineer.OnPressed += _ => CheckBoxOnPressed(ChiefEngineer);
-            Quartermaster.OnPressed += _ => CheckBoxOnPressed(Quartermaster);
-            ResearchDirector.OnPressed += _ => CheckBoxOnPressed(ResearchDirector);
-            // Security
-            Warden.OnPressed += _ => CheckBoxOnPressed(Warden);
-            SecurityOfficer.OnPressed += _ => CheckBoxOnPressed(SecurityOfficer);
-            Detective.OnPressed += _ => CheckBoxOnPressed(Detective);
-            SecurityCadet.OnPressed += _ => CheckBoxOnPressed(SecurityCadet);
-            // Medical
-            Chemist.OnPressed += _ => CheckBoxOnPressed(Chemist);
-            MedicalDoctor.OnPressed += _ => CheckBoxOnPressed(MedicalDoctor);
-            Psychologist.OnPressed += _ => CheckBoxOnPressed(Psychologist);
-            MedicalIntern.OnPressed += _ => CheckBoxOnPressed(MedicalIntern);
-            // Engineering
-            AtmosphericTechnician.OnPressed += _ => CheckBoxOnPressed(AtmosphericTechnician);
-            StationEngineer.OnPressed += _ => CheckBoxOnPressed(StationEngineer);
-            TechnicalAssistant.OnPressed += _ => CheckBoxOnPressed(TechnicalAssistant);
-            // Cargo
-            CargoTechnician.OnPressed += _ => CheckBoxOnPressed(CargoTechnician);
-            SalvageSpecialist.OnPressed += _ => CheckBoxOnPressed(SalvageSpecialist);
-            // Scientific
-            Scientist.OnPressed += _ => CheckBoxOnPressed(Scientist);
-            // Juridical
-            Lawyer.OnPressed += _ => CheckBoxOnPressed(Lawyer);
-            // Civilian and Service
-            ServiceWorker.OnPressed += _ => CheckBoxOnPressed(ServiceWorker);
-            Botanist.OnPressed += _ => CheckBoxOnPressed(Botanist);
-            Chef.OnPressed += _ => CheckBoxOnPressed(Chef);
-            Bartender.OnPressed += _ => CheckBoxOnPressed(Bartender);
-            Janitor.OnPressed += _ => CheckBoxOnPressed(Janitor);
-            Clown.OnPressed += _ => CheckBoxOnPressed(Clown);
-            Librarian.OnPressed += _ => CheckBoxOnPressed(Librarian);
-            Musician.OnPressed += _ => CheckBoxOnPressed(Musician);
-            Chaplain.OnPressed += _ => CheckBoxOnPressed(Chaplain);
-            Zookeeper.OnPressed += _ => CheckBoxOnPressed(Zookeeper);
             OnPlayerNameChanged();
             OnJobNameChanged();
-        }
-
-        private void CheckBoxOnPressed(CheckBox checkBox)
-        {
-            if (checkBox.Pressed)
-                _banList.Add(checkBox);
-            else
-                _banList.Remove(checkBox);
         }
         private bool TryGetMinutes(string str, out uint minutes)
         {
@@ -151,12 +136,10 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void SubmitButtonListOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            for (var i= 0; i<_banList.Count; i++)
+            foreach (var job in _jobs.Where(job => job.Pressed))
             {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{_banList[i].Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList[i].Pressed = false;
-                _banList.Remove(_banList[i]);
-                i--;
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{job.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                job.Pressed = false;
             }
         }
     }
