@@ -1,7 +1,7 @@
 - type: gameMap
-  id: Kettle
+  id: WhiteKettle
   mapName: 'Kettle'
-  mapPath: /Maps/kettle.yml
+  mapPath: /Maps/White/Whitekettle.yml
   minPlayers: 35
   stations:
     Kettle:

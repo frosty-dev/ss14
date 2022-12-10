@@ -1,13 +1,13 @@
+using System.Globalization;
 using System.Linq;
-using Content.Server.GameTicking;
+using System.Security.Cryptography;
+using System.Text;
 using Content.Shared.Examine;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.IdentityManagement;
-using Content.Shared.Inventory.Events;
 using Content.Shared.Preferences;
-using Content.Shared.Tag;
 using Content.Shared.Verbs;
 using Robust.Shared.GameObjects.Components.Localization;
 using Robust.Shared.Prototypes;
@@ -116,8 +116,8 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         }
 
         humanoid.Age = profile.Age;
-
         Synchronize(uid);
+        humanoid.HumanoidSpeakColor = GetCharacterHexColor(profile.Name);
     }
 
     // this was done enough times that it only made sense to do it here
@@ -529,5 +529,32 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         }
 
         humanoid.CurrentMarkings.EnsureDefault(humanoid.SkinColor, _markingManager);
+    }
+
+    private string GetCharacterHexColor(string characterName)
+    {
+
+        var hash = characterName.GetHashCode();
+        var guid = GenerateSeededGuid(hash);
+
+        var hexColorValue = guid.ToString().Substring(0, 6);
+        var decimalColorValue = int.Parse(hexColorValue, NumberStyles.HexNumber);
+
+        /* It's making sure the color is not too dark. */
+        if (decimalColorValue < 0x7F7F7F)
+        {
+            decimalColorValue += 0x7F7F7F;
+        }
+
+        return decimalColorValue.ToString("X"); // back to hex
+    }
+
+    private Guid GenerateSeededGuid(int seed)
+    {
+        var random = new Random(seed);
+        var guid = new byte[16];
+        random.NextBytes(guid);
+
+        return new Guid(guid);
     }
 }

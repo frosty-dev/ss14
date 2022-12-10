@@ -113,7 +113,7 @@
         animationTime: 0.9
         denyAnimationTime: 0.4
         animatedPanel: false
-        openUnlitVisible: true
+        openUnlitVisible: false
   - type: WiresVisuals
   - type: Airtight
     fixVacuum: true

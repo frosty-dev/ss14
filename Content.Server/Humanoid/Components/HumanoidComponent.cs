@@ -1,6 +1,5 @@
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
-using Content.Shared.Preferences;
 using Robust.Shared.Enums;
 
 namespace Content.Server.Humanoid;
@@ -35,4 +34,6 @@ public sealed class HumanoidComponent : SharedHumanoidComponent
     // Couldn't these be somewhere else?
     [ViewVariables] public Gender Gender = default!;
     [ViewVariables] public int Age = 18;
+    //White
+    [ViewVariables(VVAccess.ReadWrite)] public string? HumanoidSpeakColor;
 }

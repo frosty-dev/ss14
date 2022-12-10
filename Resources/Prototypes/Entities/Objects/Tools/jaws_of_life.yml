@@ -10,6 +10,19 @@
   - type: Sprite
     sprite: Objects/Tools/jaws_of_life.rsi
     state: jaws_pry
+  - type: MeleeWeapon
+    attackRate: 0.60
+    damage:
+      types:
+        Blunt: 7
+        Slash: 6
+        Structural: 9
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 10
+        Slash: 9
+        Structural: 40
     netsync: false
   - type: Item
     size: 50

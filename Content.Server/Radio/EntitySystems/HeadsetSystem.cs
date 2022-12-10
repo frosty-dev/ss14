@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Text.RegularExpressions;
 using Content.Server.Chat.Systems;
 using Content.Server.Radio.Components;
 using Content.Shared.Examine;
@@ -94,9 +96,10 @@ public sealed class HeadsetSystem : EntitySystem
             if (id == "Common") continue;
 
             var proto = _protoManager.Index<RadioChannelPrototype>(id);
+            var keycodes = string.Join(", :", proto.KeyCodes.ToArray());
             args.PushMarkup(Loc.GetString("examine-headset-channel",
                 ("color", proto.Color),
-                ("key", proto.KeyCode),
+                ("keys", keycodes),
                 ("id", proto.LocalizedName),
                 ("freq", proto.Frequency)));
         }
