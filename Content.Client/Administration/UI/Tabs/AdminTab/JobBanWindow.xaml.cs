@@ -151,12 +151,12 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void SubmitButtonListOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            foreach (var job in _banList)
+            for (var i= 0; i<_banList.Count; i++)
             {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                    $"roleban \"{PlayerNameLine.Text}\" \"{job.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                job.Pressed = false;
-                _banList.Remove(job);
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{_banList[i].Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                _banList[i].Pressed = false;
+                _banList.Remove(_banList[i]);
+                i--;
             }
         }
     }
