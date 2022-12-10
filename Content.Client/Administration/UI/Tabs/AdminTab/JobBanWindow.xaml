@@ -44,32 +44,27 @@
                     <CheckBox Name="ResearchDirector" Text="{Loc Research Director}"/>
 
                     <Label Text="Security" FontColorOverride="DarkRed"/>
-                    <CheckBox Name="HeadOfSecurity2" Text="{Loc Head Of Security}"/>
                     <CheckBox Name="Warden" Text="{Loc Warden}"/>
                     <CheckBox Name="SecurityOfficer" Text="{Loc Officer}"/>
                     <CheckBox Name="Detective" Text="{Loc Detective}"/>
                     <CheckBox Name="SecurityCadet" Text="{Loc Cadet}"/>
 
                     <Label Text="Medical" FontColorOverride="DodgerBlue"/>
-                    <CheckBox Name="ChiefMedicalOfficer2" Text="{Loc Chief Medical Officer}"/>
                     <CheckBox Name="Chemist" Text="{Loc Chemist}"/>
                     <CheckBox Name="MedicalDoctor" Text="{Loc Doctor}"/>
                     <CheckBox Name="MedicalIntern" Text="{Loc Intern}"/>
 
                     <Label Text="Engineering" FontColorOverride="DarkOrange"/>
-                    <CheckBox Name="ChiefEngineer2" Text="{Loc Chief Engineer}"/>
                     <CheckBox Name="AtmosphericTechnician" Text="{Loc Atmospheric Technician}"/>
                     <CheckBox Name="StationEngineer" Text="{Loc Engineer}"/>
                     <CheckBox Name="TechnicalAssistant" Text="{Loc Technical Assistant}"/>
                 </BoxContainer>
                 <BoxContainer Orientation="Vertical">
                     <Label Text="Cargo" FontColorOverride="DarkGoldenrod"/>
-                    <CheckBox Name="Quartermaster2"  Text="{Loc Quartermaster}" />
                     <CheckBox Name="CargoTechnician" Text="{Loc Cargo Technician}"/>
                     <CheckBox Name="SalvageSpecialist" Text="{Loc SalvageSpecialist}"/>
 
                     <Label Text="Scientific" FontColorOverride="MediumOrchid"/>
-                    <CheckBox Name="ResearchDirector2" Text="{Loc Research Director}"/>
                     <CheckBox Name="Scientist" Text="{Loc Scientist}"/>
 
                     <Label Text="Juridical"/>

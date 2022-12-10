@@ -80,13 +80,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                     banList.Remove(ResearchDirector);
             };
             // Security
-            HeadOfSecurity2.OnPressed += _ =>
-            {
-                if (HeadOfSecurity2.Pressed)
-                    banList.Add(HeadOfSecurity);
-                else
-                    banList.Remove(HeadOfSecurity);
-            };
             Warden.OnPressed += _ =>
             {
                 if (Warden.Pressed)
@@ -116,13 +109,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                     banList.Remove(SecurityCadet);
             };
             // Medical
-            ChiefMedicalOfficer2.OnPressed += _ =>
-            {
-                if (ChiefMedicalOfficer2.Pressed)
-                    banList.Add(ChiefMedicalOfficer);
-                else
-                    banList.Remove(ChiefMedicalOfficer);
-            };
             Chemist.OnPressed += _ =>
             {
                 if (Chemist.Pressed)
@@ -145,13 +131,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                     banList.Remove(MedicalIntern);
             };
             // Engineering
-            ChiefEngineer2.OnPressed += _ =>
-            {
-                if (ChiefEngineer2.Pressed)
-                    banList.Add(ChiefEngineer);
-                else
-                    banList.Remove(ChiefEngineer);
-            };
             AtmosphericTechnician.OnPressed += _ =>
             {
                 if (AtmosphericTechnician.Pressed)
@@ -174,13 +153,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                     banList.Remove(TechnicalAssistant);
             };
             // Cargo
-            Quartermaster2.OnPressed += _ =>
-            {
-                if (Quartermaster2.Pressed)
-                    banList.Add(Quartermaster);
-                else
-                    banList.Remove(Quartermaster);
-            };
             CargoTechnician.OnPressed += _ =>
             {
                 if (CargoTechnician.Pressed)
@@ -196,13 +168,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                     banList.Remove(SalvageSpecialist);
             };
             // Scientific
-            ResearchDirector2.OnPressed += _ =>
-            {
-                if (ResearchDirector2.Pressed)
-                    banList.Add(ResearchDirector);
-                else
-                    banList.Remove(ResearchDirector);
-            };
             Scientist.OnPressed += _ =>
             {
                 if (Scientist.Pressed)
