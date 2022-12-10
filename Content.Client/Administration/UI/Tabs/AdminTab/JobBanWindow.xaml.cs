@@ -30,234 +30,58 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             WeekButton.OnPressed += _ => AddMinutes(10080);
             MonthButton.OnPressed += _ => AddMinutes(43200);
             // Command
-            Captain.OnPressed += _ =>
-            {
-                if (Captain.Pressed)
-                    banList.Add(Captain);
-                else
-                    banList.Remove(Captain);
-            };
-            HeadOfPersonnel.OnPressed += _ =>
-            {
-                if (HeadOfPersonnel.Pressed)
-                    banList.Add(HeadOfPersonnel);
-                else
-                    banList.Remove(HeadOfPersonnel);
-            };
-            HeadOfSecurity.OnPressed += _ =>
-            {
-                if (HeadOfSecurity.Pressed)
-                    banList.Add(HeadOfSecurity);
-                else
-                    banList.Remove(HeadOfSecurity);
-            };
-            ChiefMedicalOfficer.OnPressed += _ =>
-            {
-                if (ChiefMedicalOfficer.Pressed)
-                    banList.Add(ChiefMedicalOfficer);
-                else
-                    banList.Remove(ChiefMedicalOfficer);
-            };
-            ChiefEngineer.OnPressed += _ =>
-            {
-                if (ChiefEngineer.Pressed)
-                    banList.Add(ChiefEngineer);
-                else
-                    banList.Remove(ChiefEngineer);
-            };
-            Quartermaster.OnPressed += _ =>
-            {
-                if (Quartermaster.Pressed)
-                    banList.Add(Quartermaster);
-                else
-                    banList.Remove(Quartermaster);
-            };
-            ResearchDirector.OnPressed += _ =>
-            {
-                if (ResearchDirector.Pressed)
-                    banList.Add(ResearchDirector);
-                else
-                    banList.Remove(ResearchDirector);
-            };
+            Captain.OnPressed += _ => CheckBoxOnPressed(Captain);
+            HeadOfPersonnel.OnPressed += _ => CheckBoxOnPressed(HeadOfPersonnel);
+            HeadOfSecurity.OnPressed += _ => CheckBoxOnPressed(HeadOfSecurity);
+            ChiefMedicalOfficer.OnPressed += _ => CheckBoxOnPressed(ChiefMedicalOfficer);
+            ChiefEngineer.OnPressed += _ => CheckBoxOnPressed(ChiefEngineer);
+            Quartermaster.OnPressed += _ => CheckBoxOnPressed(Quartermaster);
+            ResearchDirector.OnPressed += _ => CheckBoxOnPressed(ResearchDirector);
             // Security
-            Warden.OnPressed += _ =>
-            {
-                if (Warden.Pressed)
-                    banList.Add(Warden);
-                else
-                    banList.Remove(Warden);
-            };
-            SecurityOfficer.OnPressed += _ =>
-            {
-                if (SecurityOfficer.Pressed)
-                    banList.Add(SecurityOfficer);
-                else
-                    banList.Remove(SecurityOfficer);
-            };
-            Detective.OnPressed += _ =>
-            {
-                if (Detective.Pressed)
-                    banList.Add(Detective);
-                else
-                    banList.Remove(Detective);
-            };
-            SecurityCadet.OnPressed += _ =>
-            {
-                if (SecurityCadet.Pressed)
-                    banList.Add(SecurityCadet);
-                else
-                    banList.Remove(SecurityCadet);
-            };
+            Warden.OnPressed += _ => CheckBoxOnPressed(Warden);
+            SecurityOfficer.OnPressed += _ => CheckBoxOnPressed(SecurityOfficer);
+            Detective.OnPressed += _ => CheckBoxOnPressed(Detective);
+            SecurityCadet.OnPressed += _ => CheckBoxOnPressed(SecurityCadet);
             // Medical
-            Chemist.OnPressed += _ =>
-            {
-                if (Chemist.Pressed)
-                    banList.Add(Chemist);
-                else
-                    banList.Remove(Chemist);
-            };
-            MedicalDoctor.OnPressed += _ =>
-            {
-                if (MedicalDoctor.Pressed)
-                    banList.Add(MedicalDoctor);
-                else
-                    banList.Remove(MedicalDoctor);
-            };
-            MedicalIntern.OnPressed += _ =>
-            {
-                if (MedicalIntern.Pressed)
-                    banList.Add(MedicalIntern);
-                else
-                    banList.Remove(MedicalIntern);
-            };
+            Chemist.OnPressed += _ => CheckBoxOnPressed(Chemist);
+            MedicalDoctor.OnPressed += _ => CheckBoxOnPressed(MedicalDoctor);
+            Psychologist.OnPressed += _ => CheckBoxOnPressed(Psychologist);
+            MedicalIntern.OnPressed += _ => CheckBoxOnPressed(MedicalIntern);
             // Engineering
-            AtmosphericTechnician.OnPressed += _ =>
-            {
-                if (AtmosphericTechnician.Pressed)
-                    banList.Add(AtmosphericTechnician);
-                else
-                    banList.Remove(AtmosphericTechnician);
-            };
-            StationEngineer.OnPressed += _ =>
-            {
-                if (StationEngineer.Pressed)
-                    banList.Add(StationEngineer);
-                else
-                    banList.Remove(StationEngineer);
-            };
-            TechnicalAssistant.OnPressed += _ =>
-            {
-                if (TechnicalAssistant.Pressed)
-                    banList.Add(TechnicalAssistant);
-                else
-                    banList.Remove(TechnicalAssistant);
-            };
+            AtmosphericTechnician.OnPressed += _ => CheckBoxOnPressed(AtmosphericTechnician);
+            StationEngineer.OnPressed += _ => CheckBoxOnPressed(StationEngineer);
+            TechnicalAssistant.OnPressed += _ => CheckBoxOnPressed(TechnicalAssistant);
             // Cargo
-            CargoTechnician.OnPressed += _ =>
-            {
-                if (CargoTechnician.Pressed)
-                    banList.Add(CargoTechnician);
-                else
-                    banList.Remove(CargoTechnician);
-            };
-            SalvageSpecialist.OnPressed += _ =>
-            {
-                if (SalvageSpecialist.Pressed)
-                    banList.Add(SalvageSpecialist);
-                else
-                    banList.Remove(SalvageSpecialist);
-            };
+            CargoTechnician.OnPressed += _ => CheckBoxOnPressed(CargoTechnician);
+            SalvageSpecialist.OnPressed += _ => CheckBoxOnPressed(SalvageSpecialist);
             // Scientific
-            Scientist.OnPressed += _ =>
-            {
-                if (Scientist.Pressed)
-                    banList.Add(Scientist);
-                else
-                    banList.Remove(Scientist);
-            };
+            Scientist.OnPressed += _ => CheckBoxOnPressed(Scientist);
             // Juridical
-            Lawyer.OnPressed += _ =>
-            {
-                if (Lawyer.Pressed)
-                    banList.Add(Lawyer);
-                else
-                    banList.Remove(Lawyer);
-            };
+            Lawyer.OnPressed += _ => CheckBoxOnPressed(Lawyer);
             // Civilian and Service
-            ServiceWorker.OnPressed += _ =>
-            {
-                if (ServiceWorker.Pressed)
-                    banList.Add(ServiceWorker);
-                else
-                    banList.Remove(ServiceWorker);
-            };
-            Botanist.OnPressed += _ =>
-            {
-                if (Botanist.Pressed)
-                    banList.Add(Botanist);
-                else
-                    banList.Remove(Botanist);
-            };
-            Chef.OnPressed += _ =>
-            {
-                if (Chef.Pressed)
-                    banList.Add(Chef);
-                else
-                    banList.Remove(Chef);
-            };
-            Bartender.OnPressed += _ =>
-            {
-                if (Bartender.Pressed)
-                    banList.Add(Bartender);
-                else
-                    banList.Remove(Bartender);
-            };
-            Janitor.OnPressed += _ =>
-            {
-                if (Janitor.Pressed)
-                    banList.Add(Janitor);
-                else
-                    banList.Remove(Janitor);
-            };
-            Clown.OnPressed += _ =>
-            {
-                if (Clown.Pressed)
-                    banList.Add(Clown);
-                else
-                    banList.Remove(Clown);
-            };
-            Mime.OnPressed += _ =>
-            {
-                if (Mime.Pressed)
-                    banList.Add(Mime);
-                else
-                    banList.Remove(Mime);
-            };
-            Librarian.OnPressed += _ =>
-            {
-                if (Librarian.Pressed)
-                    banList.Add(Librarian);
-                else
-                    banList.Remove(Librarian);
-            };
-            Musician.OnPressed += _ =>
-            {
-                if (Musician.Pressed)
-                    banList.Add(Musician);
-                else
-                    banList.Remove(Musician);
-            };
-            Chaplain.OnPressed += _ =>
-            {
-                if (Chaplain.Pressed)
-                    banList.Add(Chaplain);
-                else
-                    banList.Remove(Chaplain);
-            };
+            ServiceWorker.OnPressed += _ => CheckBoxOnPressed(ServiceWorker);
+            Botanist.OnPressed += _ => CheckBoxOnPressed(Botanist);
+            Chef.OnPressed += _ => CheckBoxOnPressed(Chef);
+            Bartender.OnPressed += _ => CheckBoxOnPressed(Bartender);
+            Janitor.OnPressed += _ => CheckBoxOnPressed(Janitor);
+            Clown.OnPressed += _ => CheckBoxOnPressed(Clown);
+            Librarian.OnPressed += _ => CheckBoxOnPressed(Librarian);
+            Musician.OnPressed += _ => CheckBoxOnPressed(Musician);
+            Chaplain.OnPressed += _ => CheckBoxOnPressed(Chaplain);
+            Zookeeper.OnPressed += _ => CheckBoxOnPressed(Zookeeper);
+            OnPlayerNameChanged();
+            OnJobNameChanged();
         }
 
         private List<CheckBox> banList = new() { };
 
+        private void CheckBoxOnPressed(CheckBox checkBox)
+        {
+            if (checkBox.Pressed)
+                banList.Add(checkBox);
+            else
+                banList.Remove(checkBox);
+        }
         private bool TryGetMinutes(string str, out uint minutes)
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -319,10 +143,101 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void SubmitButtonListOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            for (int i = 0; i < banList.Count; i++)
+            // Command Department Ban
+            if (banList.Contains(Captain) && banList.Contains(HeadOfPersonnel) && banList.Contains(HeadOfSecurity) &&
+                banList.Contains(ChiefMedicalOfficer) && banList.Contains(ChiefEngineer) &&
+                banList.Contains(Quartermaster) && banList.Contains(ResearchDirector))
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Command\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                banList.Remove(Captain);
+                Captain.Pressed = false;
+                banList.Remove(HeadOfPersonnel);
+                HeadOfPersonnel.Pressed = false;
+                banList.Remove(HeadOfSecurity);
+                HeadOfSecurity.Pressed = false;
+                banList.Remove(ChiefMedicalOfficer);
+                ChiefMedicalOfficer.Pressed = false;
+                banList.Remove(ChiefEngineer);
+                ChiefEngineer.Pressed = false;
+                banList.Remove(Quartermaster);
+                Quartermaster.Pressed = false;
+                banList.Remove(ResearchDirector);
+                ResearchDirector.Pressed = false;
+            }
+            // Security Department Ban
+            if (banList.Contains(HeadOfSecurity) && banList.Contains(Warden) && banList.Contains(SecurityOfficer) &&
+                banList.Contains(Detective) && banList.Contains(SecurityCadet))
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Security\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                banList.Remove(HeadOfSecurity);
+                HeadOfSecurity.Pressed = false;
+                banList.Remove(Warden);
+                Warden.Pressed = false;
+                banList.Remove(SecurityOfficer);
+                SecurityOfficer.Pressed = false;
+                banList.Remove(Detective);
+                Detective.Pressed = false;
+                banList.Remove(SecurityCadet);
+                SecurityCadet.Pressed = false;
+            }
+            // Medical Department Ban
+            if (banList.Contains(ChiefMedicalOfficer) && banList.Contains(Chemist) && banList.Contains(MedicalDoctor) &&
+                banList.Contains(MedicalIntern))
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Medical\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                banList.Remove(ChiefMedicalOfficer);
+                ChiefMedicalOfficer.Pressed = false;
+                banList.Remove(Chemist);
+                Chemist.Pressed = false;
+                banList.Remove(MedicalDoctor);
+                MedicalDoctor.Pressed = false;
+                banList.Remove(Psychologist);
+                Psychologist.Pressed = false;
+                banList.Remove(MedicalIntern);
+                MedicalIntern.Pressed = false;
+            }
+            // Engineering Department Ban
+            if (banList.Contains(ChiefEngineer) && banList.Contains(AtmosphericTechnician) &&
+                banList.Contains(StationEngineer) && banList.Contains(TechnicalAssistant))
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Engineering\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                banList.Remove(ChiefEngineer);
+                ChiefEngineer.Pressed = false;
+                banList.Remove(AtmosphericTechnician);
+                AtmosphericTechnician.Pressed = false;
+                banList.Remove(StationEngineer);
+                StationEngineer.Pressed = false;
+                banList.Remove(TechnicalAssistant);
+                TechnicalAssistant.Pressed = false;
+            }
+            // Cargo Department Ban
+            if (banList.Contains(Quartermaster) && banList.Contains(CargoTechnician) &&
+                banList.Contains(SalvageSpecialist))
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Cargo\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                banList.Remove(Quartermaster);
+                Quartermaster.Pressed = false;
+                banList.Remove(CargoTechnician);
+                CargoTechnician.Pressed = false;
+                banList.Remove(SalvageSpecialist);
+                SalvageSpecialist.Pressed = false;
+            }
+            // Scientific Department Ban
+            if (banList.Contains(ResearchDirector) && banList.Contains(Scientist))
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Science\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                banList.Remove(ResearchDirector);
+                ResearchDirector.Pressed = false;
+                banList.Remove(Scientist);
+                Scientist.Pressed = false;
+            }
+
+
+            foreach (var job in banList)
             {
                 IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                    $"roleban \"{PlayerNameLine.Text}\" \"{banList[i].Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                    $"roleban \"{PlayerNameLine.Text}\" \"{job.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                job.Pressed = false;
             }
         }
     }

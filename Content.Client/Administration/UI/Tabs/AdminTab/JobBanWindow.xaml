@@ -52,6 +52,7 @@
                     <Label Text="Medical" FontColorOverride="DodgerBlue"/>
                     <CheckBox Name="Chemist" Text="{Loc Chemist}"/>
                     <CheckBox Name="MedicalDoctor" Text="{Loc Doctor}"/>
+                    <CheckBox Name="Psychologist" Text="{Loc Psychologist}"/>
                     <CheckBox Name="MedicalIntern" Text="{Loc Intern}"/>
 
                     <Label Text="Engineering" FontColorOverride="DarkOrange"/>
@@ -81,6 +82,7 @@
                     <CheckBox Name="Librarian" Text="{Loc Librarian}"/>
                     <CheckBox Name="Musician" Text="{Loc Musician}"/>
                     <CheckBox Name="Chaplain" Text="{Loc Chaplain}"/>
+                    <CheckBox Name="Zookeeper" Text="{Loc Zookeeper}"/>
                 </BoxContainer>
             </BoxContainer>
             <Button Name="SubmitButtonList" Text="{Loc Ban list}" />
