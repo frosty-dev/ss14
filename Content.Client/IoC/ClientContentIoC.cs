@@ -1,4 +1,4 @@
-﻿using Content.Client.Administration.Managers;
+using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Clickable;
@@ -20,8 +20,7 @@ using Content.Shared.Module;
 
 using Content.Client.White.JoinQueue;
 using Content.Client.White.Sponsors;
-
-
+using Content.Client.White.Trail;
 
 namespace Content.Client.IoC
 {
@@ -49,6 +48,8 @@ namespace Content.Client.IoC
             IoCManager.Register<PlayTimeTrackingManager>();
             IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
+
+            IoCManager.Register<ITrailLineManager<ITrailLine>, TrailLineManager<TrailLine>>(); //prikol
         }
     }
 }
