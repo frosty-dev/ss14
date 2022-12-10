@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Content.Shared.White.LambdaParser;
 
 //скриптинг и деревья выражений заборонили, придеца костылять кокэндболлинг..........
@@ -18,12 +12,15 @@ public static class MathsLambdaParser
         foreach (var item in opsStr.Split(';'))
         {
             var op = ParseOp(item);
-            if(op == null)
+            if (op == null)
                 continue;
-            if(res == null)
+            if (res == null)
                 res = (x) => op(x);
             else
-                res = (x) => op(res(x));
+            {
+                var prev = res;
+                res = (x) => op(prev(x));
+            }
         }
         return res;
     }
