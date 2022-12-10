@@ -29,7 +29,7 @@ public static class MathsLambdaParser
     {
         try
         {
-            var args = opStr.Split(' ');
+            var args = opStr.Trim().Split(' ');
             var op = Enum.Parse<ToFloatLambdaOp>(args[0]);
 
             return op switch
