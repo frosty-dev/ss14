@@ -139,6 +139,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
         {
             PlayerNameLine.Text = player?.Username ?? string.Empty;
             OnPlayerNameChanged();
+            OnJobNameChanged();
         }
 
         private void SubmitButtonByNameOnPressed(BaseButton.ButtonEventArgs obj)
@@ -150,96 +151,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void SubmitButtonListOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            // Command Department Ban
-            if (_banList.Contains(Captain) && _banList.Contains(HeadOfPersonnel) && _banList.Contains(HeadOfSecurity) &&
-                _banList.Contains(ChiefMedicalOfficer) && _banList.Contains(ChiefEngineer) &&
-                _banList.Contains(Quartermaster) && _banList.Contains(ResearchDirector))
-            {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Command\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList.Remove(Captain);
-                Captain.Pressed = false;
-                _banList.Remove(HeadOfPersonnel);
-                HeadOfPersonnel.Pressed = false;
-                _banList.Remove(HeadOfSecurity);
-                HeadOfSecurity.Pressed = false;
-                _banList.Remove(ChiefMedicalOfficer);
-                ChiefMedicalOfficer.Pressed = false;
-                _banList.Remove(ChiefEngineer);
-                ChiefEngineer.Pressed = false;
-                _banList.Remove(Quartermaster);
-                Quartermaster.Pressed = false;
-                _banList.Remove(ResearchDirector);
-                ResearchDirector.Pressed = false;
-            }
-            // Security Department Ban
-            if (_banList.Contains(HeadOfSecurity) && _banList.Contains(Warden) && _banList.Contains(SecurityOfficer) &&
-                _banList.Contains(Detective) && _banList.Contains(SecurityCadet))
-            {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Security\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList.Remove(HeadOfSecurity);
-                HeadOfSecurity.Pressed = false;
-                _banList.Remove(Warden);
-                Warden.Pressed = false;
-                _banList.Remove(SecurityOfficer);
-                SecurityOfficer.Pressed = false;
-                _banList.Remove(Detective);
-                Detective.Pressed = false;
-                _banList.Remove(SecurityCadet);
-                SecurityCadet.Pressed = false;
-            }
-            // Medical Department Ban
-            if (_banList.Contains(ChiefMedicalOfficer) && _banList.Contains(Chemist) && _banList.Contains(MedicalDoctor) &&
-                _banList.Contains(MedicalIntern))
-            {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Medical\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList.Remove(ChiefMedicalOfficer);
-                ChiefMedicalOfficer.Pressed = false;
-                _banList.Remove(Chemist);
-                Chemist.Pressed = false;
-                _banList.Remove(MedicalDoctor);
-                MedicalDoctor.Pressed = false;
-                _banList.Remove(Psychologist);
-                Psychologist.Pressed = false;
-                _banList.Remove(MedicalIntern);
-                MedicalIntern.Pressed = false;
-            }
-            // Engineering Department Ban
-            if (_banList.Contains(ChiefEngineer) && _banList.Contains(AtmosphericTechnician) &&
-                _banList.Contains(StationEngineer) && _banList.Contains(TechnicalAssistant))
-            {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Engineering\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList.Remove(ChiefEngineer);
-                ChiefEngineer.Pressed = false;
-                _banList.Remove(AtmosphericTechnician);
-                AtmosphericTechnician.Pressed = false;
-                _banList.Remove(StationEngineer);
-                StationEngineer.Pressed = false;
-                _banList.Remove(TechnicalAssistant);
-                TechnicalAssistant.Pressed = false;
-            }
-            // Cargo Department Ban
-            if (_banList.Contains(Quartermaster) && _banList.Contains(CargoTechnician) &&
-                _banList.Contains(SalvageSpecialist))
-            {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Cargo\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList.Remove(Quartermaster);
-                Quartermaster.Pressed = false;
-                _banList.Remove(CargoTechnician);
-                CargoTechnician.Pressed = false;
-                _banList.Remove(SalvageSpecialist);
-                SalvageSpecialist.Pressed = false;
-            }
-            // Scientific Department Ban
-            if (_banList.Contains(ResearchDirector) && _banList.Contains(Scientist))
-            {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"departmentban \"{PlayerNameLine.Text}\" \"Science\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
-                _banList.Remove(ResearchDirector);
-                ResearchDirector.Pressed = false;
-                _banList.Remove(Scientist);
-                Scientist.Pressed = false;
-            }
-
-
             foreach (var job in _banList)
             {
                 IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
