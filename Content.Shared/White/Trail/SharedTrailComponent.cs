@@ -94,7 +94,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
-    [DataField("texturePath", required: true)]
+    [DataField("texturePath")]
     [ViewVariables(VVAccess.ReadWrite)]
     public string? TexurePath
     {
