@@ -20,8 +20,16 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
         public JobBanWindow()
         {
             RobustXamlLoader.Load(this);
-            PlayerNameLine.OnTextChanged += _ => OnPlayerNameChanged();
-            JobNameLine.OnTextChanged += _ => OnJobNameChanged();
+            PlayerNameLine.OnTextChanged += _ =>
+            {
+                OnPlayerNameChanged();
+                OnJobNameChanged();
+            };
+            JobNameLine.OnTextChanged += _ =>
+            {
+                OnPlayerNameChanged();
+                OnJobNameChanged();
+            };
             PlayerList.OnSelectionChanged += OnPlayerSelectionChanged;
             SubmitButtonByName.OnPressed += SubmitButtonByNameOnPressed;
             SubmitButtonList.OnPressed += SubmitButtonListOnPressed;
@@ -237,6 +245,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                 IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
                     $"roleban \"{PlayerNameLine.Text}\" \"{job.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
                 job.Pressed = false;
+                _banList.Remove(job);
             }
         }
     }

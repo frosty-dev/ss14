@@ -43,7 +43,7 @@
                     <CheckBox Name="Quartermaster" Text="{Loc Quartermaster}"/>
                     <CheckBox Name="ResearchDirector" Text="{Loc Research Director}"/>
 
-                    <Label Text="Security" FontColorOverride="DarkRed"/>
+                    <Label Text="Security" FontColorOverride="Red"/>
                     <CheckBox Name="Warden" Text="{Loc Warden}"/>
                     <CheckBox Name="SecurityOfficer" Text="{Loc Officer}"/>
                     <CheckBox Name="Detective" Text="{Loc Detective}"/>
@@ -71,7 +71,7 @@
                     <Label Text="Juridical"/>
                     <CheckBox Name="Lawyer" Text="{Loc Lawyer}"/>
 
-                    <Label Text="Civilian and Service" FontColorOverride="Green"/>
+                    <Label Text="Civilian and Service" FontColorOverride="LightGreen"/>
                     <CheckBox Name="ServiceWorker" Text="{Loc Service Worker}"/>
                     <CheckBox Name="Botanist" Text="{Loc Botanist}"/>
                     <CheckBox Name="Chef" Text="{Loc Chef}"/>
