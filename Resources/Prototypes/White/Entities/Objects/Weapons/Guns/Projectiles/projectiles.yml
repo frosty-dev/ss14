@@ -50,7 +50,4 @@
     colorLifetimeEnd: "#FF000000"
   - type: Sprite
     sprite: null
-    layers:
-    - state: omnilaser
-      shader: unshaded
 
