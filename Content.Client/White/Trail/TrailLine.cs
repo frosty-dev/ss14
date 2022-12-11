@@ -65,6 +65,8 @@ public sealed class TrailLine : ITrailLine
     private readonly LinkedList<TrailLineSegment> _segments = new();
     [ViewVariables]
     private Vector2 _lastHeadPos;
+    [ViewVariables]
+    private Angle _lastHeadAngle;
 
     [ViewVariables]
     private float _lifetime;
@@ -85,19 +87,20 @@ public sealed class TrailLine : ITrailLine
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void ResetLifetime() => _lifetime = 0f;
 
-    public void TryCreateSegment(MapCoordinates coords)
+    public void TryCreateSegment(TransformComponent xform)
     {
         if (!Attached)
             return;
 
-        if (coords.MapId != MapId)
+        if (xform.MapID != MapId)
             return;
-
-        var pos = coords.Position;
+        var posRot = xform.GetWorldPositionRotation();
+        var pos = posRot.WorldPosition;
         if (pos == Vector2.Zero)
             return;
 
         _lastHeadPos = pos;
+        _lastHeadAngle = posRot.WorldRotation;
 
         if (_virtualSegmentPos.HasValue)
         {

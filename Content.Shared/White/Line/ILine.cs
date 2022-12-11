@@ -18,7 +18,7 @@ public interface IDynamicLine<TSettings> : ILine
 {
     MapId MapId { get; set; }
     TSettings Settings { get; set; }
-    void TryCreateSegment(MapCoordinates coords);
+    void TryCreateSegment(TransformComponent coords);
     void UpdateSegments(float dt);
 }
 
