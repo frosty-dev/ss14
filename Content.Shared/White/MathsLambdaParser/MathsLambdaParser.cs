@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Content.Shared.White.LambdaParser;
 
 //скриптинг и деревья выражений заборонили, придеца костылять кокэндболлинг..........
@@ -30,16 +32,17 @@ public static class MathsLambdaParser
         try
         {
             var args = opStr.Trim().Split(' ');
+            var argsNums = args.Select(x => float.TryParse(x, out var res) ? res : 0f).ToArray();
             var op = Enum.Parse<ToFloatLambdaOp>(args[0]);
 
             return op switch
             {
-                ToFloatLambdaOp.Add => (x) => x + float.Parse(args[1]),
-                ToFloatLambdaOp.Sub => (x) => x - float.Parse(args[1]),
-                ToFloatLambdaOp.Mul => (x) => x * float.Parse(args[1]),
-                ToFloatLambdaOp.Div => (x) => x / float.Parse(args[1]),
-                ToFloatLambdaOp.Mod => (x) => x % float.Parse(args[1]),
-                ToFloatLambdaOp.Clamp => (x) => Math.Clamp(x, float.Parse(args[1]), float.Parse(args[2])),
+                ToFloatLambdaOp.Add => (x) => x + argsNums[1],
+                ToFloatLambdaOp.Sub => (x) => x - argsNums[1],
+                ToFloatLambdaOp.Mul => (x) => x * argsNums[1],
+                ToFloatLambdaOp.Div => (x) => x / argsNums[1],
+                ToFloatLambdaOp.Mod => (x) => x % argsNums[1],
+                ToFloatLambdaOp.Clamp => (x) => Math.Clamp(x, argsNums[1], argsNums[2]),
                 _ => throw new ArgumentException("sussi imposta")
             };
         }
