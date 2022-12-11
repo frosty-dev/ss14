@@ -1,0 +1,34 @@
+- type: entity
+  name: laser
+  parent: BaseWeaponBatterySmall
+  id: WeaponTrailLaser
+  description: A mog.
+  components:
+    - type: Tag
+      tags:
+        - Taser
+    - type: Sprite
+      sprite: Objects/Weapons/Guns/Battery/disabler.rsi
+      layers:
+        - state: base
+          map: ["enum.GunVisualLayers.Base"]
+        - state: mag-unshaded-0
+          map: ["enum.GunVisualLayers.MagUnshaded"]
+          shader: unshaded
+    - type: Clothing
+      sprite: Objects/Weapons/Guns/Battery/disabler.rsi
+      quickEquip: false
+      slots:
+        - Belt
+    - type: Gun
+      fireRate: 2
+      soundGunshot:
+        path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
+    - type: ProjectileBatteryAmmoProvider
+      proto: BulletTrailLaser
+      fireCost: 100
+    - type: MagazineVisuals
+      magState: mag
+      steps: 5
+      zeroVisible: true
+    - type: Appearance

@@ -15,8 +15,9 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     private Vector2 _gravity = new Vector2(0.05f, 0.05f);
     private float _lifetime = 1f;
     private Vector2 _maxRandomWalk = new Vector2(0.005f, 0.005f);
-    private Vector2 _offset = new Vector2(0.5f, 0.0f);
+    private float _width = 0.5f;
     private string? _texurePath;
+    private Vector2 _creationOffset;
     private float _сreationDistanceThresholdSquared = 0.001f;
     private SegmentCreationMethod _сreationMethod = SegmentCreationMethod.OnFrameUpdate;
 
@@ -78,6 +79,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
+
     [DataField("lifetime", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
     public float Lifetime
@@ -91,6 +93,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
+
     [DataField("randomWalk")]
     [ViewVariables(VVAccess.ReadWrite)]
     public Vector2 MaxRandomWalk
@@ -104,19 +107,21 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
-    [DataField("offset", required: true)]
+
+    [DataField("width", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
-    public Vector2 Offset
+    public float Width
     {
-        get => _offset;
+        get => _width;
         set
         {
-            if (_offset == value)
+            if (_width == value)
                 return;
-            _offset = value;
+            _width = value;
             Dirty();
         }
     }
+
     [DataField("texturePath")]
     [ViewVariables(VVAccess.ReadWrite)]
     public string? TexurePath
@@ -130,6 +135,21 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
+
+    [DataField("creationOffset")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public Vector2 CreationOffset
+    {
+        get => _creationOffset;
+        set
+        {
+            if (_creationOffset == value)
+                return;
+            _creationOffset = value;
+            Dirty();
+        }
+    }
+
     [DataField("сreationDistanceThresholdSquared")]
     [ViewVariables(VVAccess.ReadWrite)]
     public float СreationDistanceThresholdSquared
@@ -143,6 +163,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Dirty();
         }
     }
+
     [DataField("сreationMethod")]
     [ViewVariables(VVAccess.ReadWrite)]
     public SegmentCreationMethod СreationMethod
@@ -160,9 +181,10 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     public TrailSettings ToTrailSettings()
         => new()
         {
-            Offset = Offset,
+            Width = Width,
             СreationDistanceThresholdSquared = СreationDistanceThresholdSquared,
             СreationMethod = СreationMethod,
+            CreationOffset = CreationOffset,
             Gravity = Gravity,
             MaxRandomWalk = MaxRandomWalk,
             Lifetime = Lifetime,

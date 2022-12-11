@@ -10,7 +10,7 @@
         Piercing: 44
   - type: Trail
     сreationMethod: OnMove
-    offset: 0.05, 0.0
+    width: 0.05
     lifetime: 0.5
     randomWalk: 0.03, 0.001
     gravity: 0.001, 0.005

@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Content.Shared.White.LambdaParser;
 
 //скриптинг и деревья выражений заборонили, придеца костылять кокэндболлинг..........
@@ -34,12 +36,13 @@ public static class MathsLambdaParser
 
             return op switch
             {
-                ToFloatLambdaOp.Add => (x) => x + float.Parse(args[1]),
-                ToFloatLambdaOp.Sub => (x) => x - float.Parse(args[1]),
-                ToFloatLambdaOp.Mul => (x) => x * float.Parse(args[1]),
-                ToFloatLambdaOp.Div => (x) => x / float.Parse(args[1]),
-                ToFloatLambdaOp.Mod => (x) => x % float.Parse(args[1]),
-                ToFloatLambdaOp.Clamp => (x) => Math.Clamp(x, float.Parse(args[1]), float.Parse(args[2])),
+                ToFloatLambdaOp.Add => float.TryParse(args[1], out var op1) ? (x) => x + op1 : null,
+                ToFloatLambdaOp.Sub => float.TryParse(args[1], out var op1) ? (x) => x - op1 : null,
+                ToFloatLambdaOp.Mul => float.TryParse(args[1], out var op1) ? (x) => x * op1 : null,
+                ToFloatLambdaOp.Div => float.TryParse(args[1], out var op1) ? (x) => x / op1 : null,
+                ToFloatLambdaOp.Mod => float.TryParse(args[1], out var op1) ? (x) => x % op1 : null,
+                ToFloatLambdaOp.Clamp => float.TryParse(args[1], out var op1) && float.TryParse(args[2], out var op2)
+                    ? (x) => Math.Clamp(x, op1, op2) : null,
                 _ => throw new ArgumentException("sussi imposta")
             };
         }
