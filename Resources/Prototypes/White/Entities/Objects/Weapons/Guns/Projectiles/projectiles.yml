@@ -1,0 +1,56 @@
+
+- type: entity
+  name : laser bolt
+  id: BulletTrailLaser
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+    - shape:
+        !type:PhysShapeAabb
+        bounds: "-0.15,-0.3,0.15,0.3"
+      hard: false
+      id: projectile
+      mask:
+      - Impassable
+      - Opaque
+    - &flybyfixture
+      id: fly-by
+      shape: !type:PhysShapeCircle
+        radius: 1.5
+      layer:
+      - Impassable
+      - MidImpassable
+      - HighImpassable
+      - LowImpassable
+      hard: False
+  - type: Ammo
+  - type: Projectile
+    impactEffect: BulletImpactEffect
+    damage:
+      types:
+        Heat: 20
+#    soundHit:
+#      path: "/Audio/Weapons/tap.ogg"
+#    soundForce: true
+  - type: Trail
+    сreationMethod: OnMove
+    width: 0.05
+    lifetime: 0.1
+    randomWalk: 0.001, 0.001
+    gravity: 0, 0
+    colorLifetimeStart: "#FF0000FF"
+    colorLifetimeEnd: "#FF000000"
+  - type: Sprite
+    sprite: null
+    layers:
+    - state: omnilaser
+      shader: unshaded
+
