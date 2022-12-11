@@ -11,9 +11,10 @@ public sealed class TrailSettings : ITrailSettings
     [NonSerialized]
     private readonly Func<float, float>? _colorLifetimeDeltaLambda;
 
-    public Vector2 Offset { get; set; } = new Vector2(0.5f, 0.0f);
+    public float Width { get; set; } = 0.5f;
     public float СreationDistanceThresholdSquared { get; set; } = 0.001f;
     public SegmentCreationMethod СreationMethod { get; set; } = SegmentCreationMethod.OnFrameUpdate;
+    public Vector2 CreationOffset { get; set; } = Vector2.Zero;
     public Vector2 Gravity { get; set; } = new Vector2(0.05f, 0.05f);
     public Vector2 MaxRandomWalk { get; set; } = new Vector2(0.005f, 0.005f);
     public float Lifetime { get; set; } = 1f;
@@ -25,9 +26,10 @@ public sealed class TrailSettings : ITrailSettings
     public TrailSettings ToTrailSettings()
         => new()
         {
-            Offset = Offset,
+            Width = Width,
             СreationDistanceThresholdSquared = СreationDistanceThresholdSquared,
             СreationMethod = СreationMethod,
+            CreationOffset = CreationOffset,
             Gravity = Gravity,
             MaxRandomWalk = MaxRandomWalk,
             Lifetime = Lifetime,
@@ -51,8 +53,9 @@ public interface ITrailSettings
     Vector2 Gravity { get; set; }
     float Lifetime { get; set; }
     Vector2 MaxRandomWalk { get; set; }
-    Vector2 Offset { get; set; }
+    float Width { get; set; }
     string? TexurePath { get; set; }
+    Vector2 CreationOffset { get; set; }
     float СreationDistanceThresholdSquared { get; set; }
     SegmentCreationMethod СreationMethod { get; set; }
     TrailSettings ToTrailSettings();

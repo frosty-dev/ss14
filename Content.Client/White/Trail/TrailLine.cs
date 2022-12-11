@@ -155,7 +155,7 @@ public sealed class TrailLine : ITrailLine
         if (_segments.Last == null)
             return;
 
-        var baseOffset = Settings.Offset;
+        var baseWidth = Settings.Width;
         var segmentLifetime = Settings.Lifetime;
 
         var curNode = _segments.Last;
@@ -166,7 +166,7 @@ public sealed class TrailLine : ITrailLine
             var prevPos = curNode.Next?.Value.Position ?? _lastHeadPos;
             var curPos = curSegment.Position;
             var angle = (curPos - prevPos).ToWorldAngle();
-            var rotatedOffset = angle.RotateVec(baseOffset);
+            var rotatedOffset = angle.ToVec() * baseWidth;
 
             curSegment.DrawData = new(
                 curPos - rotatedOffset,
@@ -189,7 +189,7 @@ public sealed class TrailLine : ITrailLine
         if (lastPos != null)
         {
             var angle = (lastPos.Value - _lastHeadPos).ToWorldAngle();
-            var rotatedOffset = angle.RotateVec(Settings.Offset);
+            var rotatedOffset = angle.ToVec() * Settings.Width;
 
             yield return new(_lastHeadPos - rotatedOffset, _lastHeadPos + rotatedOffset, angle, 1f);
         }

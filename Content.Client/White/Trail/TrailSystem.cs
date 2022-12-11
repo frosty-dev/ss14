@@ -35,7 +35,7 @@ public sealed class TrailSystem : EntitySystem
             return;
         var srvSettings = state.Settings;
 
-        component.Offset = srvSettings.Offset;
+        component.Width = srvSettings.Width;
         component.СreationDistanceThresholdSquared = srvSettings.СreationDistanceThresholdSquared;
         component.СreationMethod = srvSettings.СreationMethod;
         component.Gravity = srvSettings.Gravity;
