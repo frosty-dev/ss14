@@ -32,17 +32,17 @@ public static class MathsLambdaParser
         try
         {
             var args = opStr.Trim().Split(' ');
-            var argsNums = args.Select(x => float.TryParse(x, out var res) ? res : 0f).ToArray();
             var op = Enum.Parse<ToFloatLambdaOp>(args[0]);
 
             return op switch
             {
-                ToFloatLambdaOp.Add => (x) => x + argsNums[1],
-                ToFloatLambdaOp.Sub => (x) => x - argsNums[1],
-                ToFloatLambdaOp.Mul => (x) => x * argsNums[1],
-                ToFloatLambdaOp.Div => (x) => x / argsNums[1],
-                ToFloatLambdaOp.Mod => (x) => x % argsNums[1],
-                ToFloatLambdaOp.Clamp => (x) => Math.Clamp(x, argsNums[1], argsNums[2]),
+                ToFloatLambdaOp.Add => float.TryParse(args[1], out var op1) ? (x) => x + op1 : null,
+                ToFloatLambdaOp.Sub => float.TryParse(args[1], out var op1) ? (x) => x - op1 : null,
+                ToFloatLambdaOp.Mul => float.TryParse(args[1], out var op1) ? (x) => x * op1 : null,
+                ToFloatLambdaOp.Div => float.TryParse(args[1], out var op1) ? (x) => x / op1 : null,
+                ToFloatLambdaOp.Mod => float.TryParse(args[1], out var op1) ? (x) => x % op1 : null,
+                ToFloatLambdaOp.Clamp => float.TryParse(args[1], out var op1) && float.TryParse(args[2], out var op2)
+                    ? (x) => Math.Clamp(x, op1, op2) : null,
                 _ => throw new ArgumentException("sussi imposta")
             };
         }
