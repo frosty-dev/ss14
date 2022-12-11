@@ -1,0 +1,13 @@
+﻿- type: tile
+  id: PlatingMeat
+  name: Живой пол
+  sprite: /Textures/Meat/tilemeat.png
+  baseTurfs:
+  - Lattice
+  isSubfloor: true
+  footstepSounds:
+    collection: FootstepPlating
+  friction: 0.5
+  thermalConductivity: 0.04
+  heatCapacity: 10000
+

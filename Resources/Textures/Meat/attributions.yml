@@ -1,0 +1,8 @@
+# Attempted to keep the files in alphabetical order so its easier to audit.
+# Finding individual authors is an unfeasible task. If you can reference the author please do so.
+
+- files: ["tilemeat.png"]
+  license: "MIT"
+  copyright: "created by 20kdc"
+  source: "https://github.com/ParadiseSS13/Paradise"
+
