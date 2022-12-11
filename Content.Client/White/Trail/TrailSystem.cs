@@ -38,6 +38,7 @@ public sealed class TrailSystem : EntitySystem
         component.Width = srvSettings.Width;
         component.СreationDistanceThresholdSquared = srvSettings.СreationDistanceThresholdSquared;
         component.СreationMethod = srvSettings.СreationMethod;
+        component.CreationOffset = srvSettings.CreationOffset;
         component.Gravity = srvSettings.Gravity;
         component.MaxRandomWalk = srvSettings.MaxRandomWalk;
         component.Lifetime = srvSettings.Lifetime;

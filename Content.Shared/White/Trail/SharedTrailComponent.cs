@@ -184,6 +184,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             Width = Width,
             СreationDistanceThresholdSquared = СreationDistanceThresholdSquared,
             СreationMethod = СreationMethod,
+            CreationOffset = CreationOffset,
             Gravity = Gravity,
             MaxRandomWalk = MaxRandomWalk,
             Lifetime = Lifetime,

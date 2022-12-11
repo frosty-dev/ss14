@@ -64,9 +64,7 @@ public sealed class TrailLine : ITrailLine
     [ViewVariables]
     private readonly LinkedList<TrailLineSegment> _segments = new();
     [ViewVariables]
-    private Vector2 _lastHeadPos;
-    [ViewVariables]
-    private Angle _lastHeadAngle;
+    private Vector2 _lastCreationPos;
 
     [ViewVariables]
     private float _lifetime;
@@ -95,12 +93,11 @@ public sealed class TrailLine : ITrailLine
         if (xform.MapID != MapId)
             return;
         var posRot = xform.GetWorldPositionRotation();
-        var pos = posRot.WorldPosition;
-        if (pos == Vector2.Zero)
+        if (posRot.WorldPosition == Vector2.Zero)
             return;
+        var pos = posRot.WorldPosition + posRot.WorldRotation.RotateVec(Settings.CreationOffset);
 
-        _lastHeadPos = pos;
-        _lastHeadAngle = posRot.WorldRotation;
+        _lastCreationPos = pos;
 
         if (_virtualSegmentPos.HasValue)
         {
@@ -166,7 +163,7 @@ public sealed class TrailLine : ITrailLine
         {
             var curSegment = curNode.Value;
 
-            var prevPos = curNode.Next?.Value.Position ?? _lastHeadPos;
+            var prevPos = curNode.Next?.Value.Position ?? _lastCreationPos;
             var curPos = curSegment.Position;
             var angle = (curPos - prevPos).ToWorldAngle();
             var rotatedOffset = angle.ToVec() * baseWidth;
@@ -191,10 +188,10 @@ public sealed class TrailLine : ITrailLine
         var lastPos = _segments.Last?.Value.Position;
         if (lastPos != null)
         {
-            var angle = (lastPos.Value - _lastHeadPos).ToWorldAngle();
+            var angle = (lastPos.Value - _lastCreationPos).ToWorldAngle();
             var rotatedOffset = angle.ToVec() * Settings.Width;
 
-            yield return new(_lastHeadPos - rotatedOffset, _lastHeadPos + rotatedOffset, angle, 1f);
+            yield return new(_lastCreationPos - rotatedOffset, _lastCreationPos + rotatedOffset, angle, 1f);
         }
     }
 
