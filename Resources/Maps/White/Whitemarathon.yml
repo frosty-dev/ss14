@@ -40177,13 +40177,13 @@ entities:
     parent: 30
     type: Transform
 - uid: 2381
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -44.509163,58.66959
     parent: 30
     type: Transform
 - uid: 2382
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -44.368538,58.54459
     parent: 30

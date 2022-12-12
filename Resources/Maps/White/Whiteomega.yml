@@ -86882,7 +86882,7 @@ entities:
     parent: 0
     type: Transform
 - uid: 10996
-  type: ClothingOuterHardsuitEVAPrisoner
+  type: ClothingOuterHardsuitPrisoner
   components:
   - pos: -25.468088,24.650969
     parent: 0
