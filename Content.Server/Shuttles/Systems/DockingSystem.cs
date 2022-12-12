@@ -71,7 +71,7 @@ namespace Content.Server.Shuttles.Systems
             // Assume the docking port itself (and its body) is valid
 
             if (!_mapManager.TryGetGrid(dockingXform.GridUid, out var grid) ||
-                !HasComp<ShuttleComponent>(grid.GridEntityId)) return null;
+                !HasComp<ShuttleComponent>(grid.Owner)) return null;
 
             var transform = body.GetTransform();
             var dockingFixture = _fixtureSystem.GetFixtureOrNull(body, DockingFixture);
@@ -93,7 +93,7 @@ namespace Content.Server.Shuttles.Systems
             // Get any docking ports in range on other grids.
             foreach (var otherGrid in _mapManager.FindGridsIntersecting(dockingXform.MapID, enlargedAABB))
             {
-                if (otherGrid.GridEntityId == dockingXform.GridUid)
+                if (otherGrid.Owner == dockingXform.GridUid)
                     continue;
 
                 foreach (var ent in otherGrid.GetAnchoredEntities(enlargedAABB))
@@ -354,7 +354,7 @@ namespace Content.Server.Shuttles.Systems
             dockB.DockJointId = joint.ID;
 
             if (TryComp(dockA.Owner, out DoorComponent? doorA))
-            {   
+            {
                 if (_doorSystem.TryOpen(doorA.Owner, doorA))
                 {
                     doorA.ChangeAirtight = false;
