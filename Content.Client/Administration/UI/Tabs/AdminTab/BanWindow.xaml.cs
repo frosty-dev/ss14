@@ -20,7 +20,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             RobustXamlLoader.Load(this);
             PlayerNameLine.OnTextChanged += _ => OnPlayerNameChanged();
             PlayerList.OnSelectionChanged += OnPlayerSelectionChanged;
-            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
+            SubmitButton.OnPressed += SubmitButtonOnPressed;
             MinutesLine.OnTextChanged += UpdateButtonsText;
             HourButton.OnPressed += _ => AddMinutes(60);
             DayButton.OnPressed += _ => AddMinutes(1440);
@@ -74,7 +74,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             OnPlayerNameChanged();
         }
 
-        private void SubmitButtonOnOnPressed(BaseButton.ButtonEventArgs obj)
+        private void SubmitButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
             // Small verification if Player Name exists
             IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
