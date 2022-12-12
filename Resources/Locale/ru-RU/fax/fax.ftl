@@ -17,4 +17,4 @@ fax-machine-ui-paper = Бумага:
 fax-machine-ui-paper-inserted = Бумага в потоке
 fax-machine-ui-paper-not-inserted = Нет бумаги
 
-fax-machine-chat-notify = Получено новое факс сообщение. Имя: "{$fax}"
+fax-machine-chat-notify = Получено новое сообщение. Имя факса: "{$fax}"
