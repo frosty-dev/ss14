@@ -1,7 +1,7 @@
 using Content.Client.Administration.Managers;
+using Content.Client.Audio;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
-using Content.Client.Options;
 using Content.Client.Eui;
 using Content.Client.Flash;
 using Content.Client.GhostKick;
@@ -10,10 +10,12 @@ using Content.Client.Input;
 using Content.Client.IoC;
 using Content.Client.Launcher;
 using Content.Client.MainMenu;
+using Content.Client.Overlays;
 using Content.Client.Parallax.Managers;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Client.Preferences;
 using Content.Client.Radiation.Overlays;
+using Content.Client.Reflection;
 using Content.Client.Screenshot;
 using Content.Client.Singularity;
 using Content.Client.Stylesheets;
@@ -21,8 +23,6 @@ using Content.Client.Viewport;
 using Content.Client.Voting;
 using Content.Shared.Administration;
 using Content.Shared.AME;
-using Content.Shared.Chemistry.Components;
-using Content.Shared.Chemistry.Dispenser;
 using Content.Shared.Gravity;
 using Content.Shared.Lathe;
 using Content.Shared.Localizations;
@@ -33,6 +33,10 @@ using Robust.Client.Input;
 using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Shared.Configuration;
+using Robust.Shared.ContentPack;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Reflection;
 #if FULL_RELEASE
 using Robust.Shared;
 using Robust.Shared.Configuration;
@@ -77,6 +81,8 @@ namespace Content.Client.Entry
         [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
         [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
         [Dependency] private readonly JoinQueueManager _queueManager = default!;
+        [Dependency] private readonly IReflectionManager _refl = default!;
+        [Dependency] private readonly UIAudioManager _uiAudio = default!;
 
         public const int NetBufferSizeOverride = 2;
 
@@ -169,6 +175,7 @@ namespace Content.Client.Entry
             _overlayManager.AddOverlay(new SingularityOverlay());
             _overlayManager.AddOverlay(new FlashOverlay());
             _overlayManager.AddOverlay(new RadiationPulseOverlay());
+            _overlayManager.AddOverlay(new GrainOverlay());
 
             _chatManager.Initialize();
             _clientPreferencesManager.Initialize();
@@ -179,10 +186,11 @@ namespace Content.Client.Entry
             _userInterfaceManager.SetDefaultTheme("SS14DefaultTheme");
             _sponsorsManager.Initialize();
             _queueManager.Initialize();
+            _uiAudio.Initialize();
 
             _baseClient.RunLevelChanged += (_, args) =>
             {
-                if (args.NewLevel == ClientRunLevel.Initialize)
+                if (args.NewLevel == ClientRunLevel.Initialize && args.OldLevel != ClientRunLevel.SinglePlayerGame)
                 {
                     SwitchToDefaultState(args.OldLevel == ClientRunLevel.Connected ||
                                          args.OldLevel == ClientRunLevel.InGame);
@@ -205,12 +213,14 @@ namespace Content.Client.Entry
                 var state = (LauncherConnecting) _stateManager.CurrentState;
 
                 if (disconnected)
-                {
                     state.SetDisconnected();
-                }
             }
             else
             {
+                // Calling this in integration tests causes to fail some of them.
+                if (!_refl.IsInIntegrationTest())
+                    _baseClient.StartSinglePlayer();
+
                 _stateManager.RequestStateChange<MainScreen>();
             }
         }

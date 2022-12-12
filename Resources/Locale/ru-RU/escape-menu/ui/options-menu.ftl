@@ -24,6 +24,7 @@ ui-options-station-ambience = Эмбиент станции
 ui-options-space-ambience = Эмбиент космоса
 ui-options-volume-label = Громкость
 ui-options-volume-percent = { TOSTRING($volume, "P0") }
+ui-options-volume-ui = UI Volume:
 
 ## Graphics menu
 
