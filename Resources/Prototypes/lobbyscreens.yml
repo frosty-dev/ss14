@@ -1,12 +1,4 @@
 ﻿- type: lobbyBackground
-  id: Robotics
-  background: /Textures/LobbyScreens/robotics.png
-
-- type: lobbyBackground
-  id: Supermatter
-  background: /Textures/LobbyScreens/supermatter.png
-
-- type: lobbyBackground
   id: Warden
   background: /Textures/LobbyScreens/warden.png
 
@@ -29,7 +21,3 @@
 - type: lobbyBackground
   id: White
   background: /Textures/LobbyScreens/white.png
-
-- type: lobbyBackground
-  id: SSXIV
-  background: /Textures/LobbyScreens/ssxiv.png
