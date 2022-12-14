@@ -22,6 +22,8 @@ using Content.Client.White.JoinQueue;
 using Content.Client.White.Sponsors;
 using Content.Client.White.Trail.Line;
 using Content.Shared.White.Line;
+using Content.Client.White.Line.Manager;
+using Content.Client.White.Trail.Line.Manager;
 
 namespace Content.Client.IoC
 {

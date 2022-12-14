@@ -9,5 +9,3 @@ public interface IRenderableLine : ILine
 }
 
 public interface ITrailLine : ITimedLine, IAttachedLine, IDynamicLine<ITrailSettings>, IRenderableLine { }
-
-public interface ITrailLineManager<out TTrailLine> : IDynamicLineManager<TTrailLine, ITrailSettings> where TTrailLine : ITrailLine { }

@@ -1,10 +1,11 @@
+using Content.Client.White.Line.Manager;
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
 using Robust.Shared.Map;
 using Robust.Shared.Sandboxing;
 using System.Runtime.CompilerServices;
 
-namespace Content.Client.White.Trail.Line;
+namespace Content.Client.White.Trail.Line.Manager;
 
 public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
     where TTrailLine : class, ITrailLine, new()
