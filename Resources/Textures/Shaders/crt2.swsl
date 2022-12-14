@@ -65,7 +65,7 @@ uniform highp float bloomAmount;
 // Display warp.
 // 0.0 = none
 // 1.0/8.0 = extreme
-uniform highp vec2 warp = vec2(64.0, 24.0);
+uniform highp vec2 warp;
 
 // Amount of shadow mask.
 uniform highp float maskDark;

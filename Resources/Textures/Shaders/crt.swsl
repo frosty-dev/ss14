@@ -23,7 +23,7 @@ uniform highp float scanlines_width;
 uniform highp float grille_opacity;
 uniform highp vec2 resolution; // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
 
-uniform bool pixelate = true; // Fill each square ("pixel") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
+uniform bool pixelate; // Fill each square ("pixel") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
 
 uniform bool roll;
 uniform highp float roll_speed; // Positive values are down, negative are up
@@ -37,7 +37,7 @@ uniform highp float noise_speed; // There is a movement in the noise pattern tha
 uniform highp float static_noise_intensity;
 
 uniform highp float aberration; // Chromatic aberration, a distortion on each color channel.
-uniform highp float brightness = 1.4; // When adding scanline gaps and grille the image can get very dark. Brightness tries to compensate for that.
+uniform highp float brightness; // When adding scanline gaps and grille the image can get very dark. Brightness tries to compensate for that.
 uniform bool discolor; // Add a discolor effect simulating a VHS
 
 uniform highp float warp_amount; // Warp the texture edges simulating the curved glass of a CRT monitor or old TV.

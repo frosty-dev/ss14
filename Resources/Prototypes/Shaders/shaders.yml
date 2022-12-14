@@ -101,6 +101,7 @@
     clip_warp: false
     vignette_intensity: 0.4
     vignette_opacity: 0.5
+    pixelate: true
 
 - type: shader
   id: Grain
@@ -124,3 +125,4 @@
     bloomAmount: 16.0
     maskDark: 0.5
     maskLight: 1.5
+    warp: 64.0, 24.0
