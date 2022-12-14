@@ -1,20 +1,17 @@
-﻿using Robust.Client.Graphics;
+﻿using Content.Shared.CCVar;
+using Robust.Client.Graphics;
+using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using Robust.Client.UserInterface;
-
 
 namespace Content.Client.Overlays;
 
 public sealed class GrainOverlay : Overlay
 {
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IUserInterfaceManager _interface = default!;
 
-    public override OverlaySpace Space => OverlaySpace.WorldSpace;
-    public override bool RequestScreenTexture => true;
-
-    private ShaderInstance _shader;
+    private readonly ShaderInstance _shader;
 
     public GrainOverlay()
     {
@@ -22,18 +19,26 @@ public sealed class GrainOverlay : Overlay
         _shader = _prototype.Index<ShaderPrototype>("Grain").Instance().Duplicate();
     }
 
+    public override OverlaySpace Space => OverlaySpace.WorldSpace;
+    public override bool RequestScreenTexture => true;
+
+    protected override bool BeforeDraw(in OverlayDrawArgs args)
+    {
+        return base.BeforeDraw(in args) && _cfg.GetCVar(CCVars.FilmGrain);
+    }
+
     protected override void Draw(in OverlayDrawArgs args)
     {
         if (ScreenTexture is null)
             return;
 
-        var screenHandle = args.WorldHandle;
+        var worldHandle = args.WorldHandle;
 
         _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
-        _shader.SetParameter("strength", _interface.RootControl.UIScale * 15.0f);
+        _shader.SetParameter("strength", 50.0f);
 
-        screenHandle.UseShader(_shader);
-        screenHandle.DrawRect(args.WorldBounds, Color.White);
-        screenHandle.UseShader(null);
+        worldHandle.UseShader(_shader);
+        worldHandle.DrawRect(args.WorldBounds, Color.White);
+        worldHandle.UseShader(null);
     }
 }

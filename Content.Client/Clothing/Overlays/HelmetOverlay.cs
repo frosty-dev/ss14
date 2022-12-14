@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using Content.Client.Resources;
 using Content.Client.Stylesheets;
+using Content.Shared.CCVar;
 using Content.Shared.Clothing.Components;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
+using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -15,9 +17,10 @@ public sealed class HelmetOverlay : Overlay
     [Dependency] private readonly IResourceCache _cache = default!;
     [Dependency] private readonly IClyde _clyde = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
-    private readonly ShaderInstance _shader;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
 
+    private readonly ShaderInstance _shader;
     private IRenderTexture? _buffer;
     private TimeSpan _lastDraw = TimeSpan.Zero;
 
@@ -73,7 +76,7 @@ public sealed class HelmetOverlay : Overlay
                 handle.DrawTextureRect(_cache.GetTexture(texture), bounds);
 
             if (!_state.HasHud)
-                goto skipShader;
+                goto skipHud;
 
             var topLeft = new Vector2(bounds.TopLeft.X + 50, bounds.TopLeft.Y + 100);
 
@@ -144,14 +147,18 @@ public sealed class HelmetOverlay : Overlay
                     Loc.GetString("helmet-overlay-radiation", ("radiation", _state.Radiation!.Value)), Color.White);
             }
 
-            _shader.SetParameter("SCREEN_TEXTURE", _buffer.Texture);
-            _shader.SetParameter("bloom_type", 1);
-            _shader.SetParameter("mask_type", 1);
-            _shader.SetParameter("res", new Vector2(ScreenTexture.Width, ScreenTexture.Height));
-            handle.UseShader(_shader);
-            handle.DrawRect(bounds, Color.White);
+            if (_cfg.GetCVar(CCVars.Shaders))
+            {
+                _shader.SetParameter("SCREEN_TEXTURE", _buffer.Texture);
+                _shader.SetParameter("bloom_type", 1);
+                _shader.SetParameter("mask_type", 1);
+                _shader.SetParameter("res", new Vector2(ScreenTexture.Width, ScreenTexture.Height));
+                handle.UseShader(_shader);
+            }
 
-            skipShader:
+            handle.DrawTextureRect(_buffer.Texture, bounds);
+
+            skipHud:
             handle.UseShader(null);
         }, Color.Transparent);
 

@@ -64,6 +64,8 @@ ui-options-parallax-low-quality = Низкокачественный парал�
 ui-options-fps-counter = Показать счетчик FPS
 ui-options-vp-width = Ширина окна игры: { $width }
 ui-options-hud-layout = Тип HUD:
+ui-options-film-grain = Film grain
+ui-options-shaders = Shaders
 
 ## Controls menu
 

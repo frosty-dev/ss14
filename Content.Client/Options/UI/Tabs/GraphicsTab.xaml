@@ -38,6 +38,8 @@
                 <Slider Name="ViewportWidthSlider"
                         Rounded="True"
                         MinWidth="200" />
+                <CheckBox Name="FilmGrainCheckBox" Text="{Loc 'ui-options-film-grain'}"/>
+                <CheckBox Name="ShadersCheckBox" Text="{Loc 'ui-options-shaders'}" />
             </BoxContainer>
             <BoxContainer Orientation="Horizontal">
                 <Label Text="{Loc 'ui-options-hud-layout'}" />
