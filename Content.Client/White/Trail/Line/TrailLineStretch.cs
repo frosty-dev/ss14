@@ -36,17 +36,17 @@ public sealed class TrailLineStretch : ITrailLine
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void ResetLifetime() => _lifetime = 0f;
 
-    public void TryCreateSegment(TransformComponent xform)
+    public void TryCreateSegment((Vector2 WorldPosition, Angle WorldRotation) worldPosRot, MapId mapId)
     {
         if (!Attached)
             return;
 
-        if (xform.MapID != MapId)
+        if (mapId != MapId)
             return;
-        var posRot = xform.GetWorldPositionRotation();
-        if (posRot.WorldPosition == Vector2.Zero)
+
+        if (worldPosRot.WorldPosition == Vector2.Zero)
             return;
-        var pos = posRot.WorldPosition + posRot.WorldRotation.RotateVec(Settings.CreationOffset);
+        var pos = worldPosRot.WorldPosition + worldPosRot.WorldRotation.RotateVec(Settings.CreationOffset);
 
         _lastCreationPos = pos;
 

@@ -73,7 +73,7 @@ public sealed class TrailSystem : EntitySystem
             return;
 
         comp.Line ??= _lineManager.Create(comp, xform.MapID);
-        comp.Line.TryCreateSegment(xform);
+        comp.Line.TryCreateSegment(xform.GetWorldPositionRotation(), xform.MapID);
     }
 
     public override void FrameUpdate(float frameTime)
