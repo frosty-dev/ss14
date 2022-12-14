@@ -97,7 +97,7 @@ entities:
 - uid: 0
   components:
   - type: MetaData
-  - parent: invalid
+  - parent: null
     type: Transform
   - chunks:
       -1,-1:
