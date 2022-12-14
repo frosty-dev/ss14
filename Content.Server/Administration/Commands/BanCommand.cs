@@ -2,10 +2,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Content.Server.Chat.Managers;
 using Content.Server.Database;
+using Content.Server.Popups;
 using Content.Shared.Administration;
+using Content.Shared.Chat;
+using Content.Shared.Popups;
 using Robust.Server.Player;
 using Robust.Shared.Console;
+using Robust.Shared.Network;
+using Robust.Shared.Player;
+using Robust.Shared.Utility;
 
 
 namespace Content.Server.Administration.Commands
@@ -23,6 +30,8 @@ namespace Content.Server.Administration.Commands
             var plyMgr = IoCManager.Resolve<IPlayerManager>();
             var locator = IoCManager.Resolve<IPlayerLocator>();
             var dbMan = IoCManager.Resolve<IServerDbManager>();
+            var chatMan = IoCManager.Resolve<IChatManager>();
+            var entity = IoCManager.Resolve<IEntityManager>();
 
             string target;
             string reason;
@@ -98,17 +107,24 @@ namespace Content.Server.Administration.Commands
 
             await dbMan.AddServerBanAsync(banDef);
 
-            var response = new StringBuilder($"Banned {target} with reason \"{reason}\"");
+            var until = expires == null
+                ? " навсегда."
+                : $" до {expires}";
 
-            response.Append(expires == null ?
-                " permanently."
-                : $" until {expires}");
+            var response = new StringBuilder($"Забанен {target} по причине \"{reason}\" {until}");
 
             shell.WriteLine(response.ToString());
 
-            if (plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
+            if (!plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
+                return;
+
+            var message = $"Вы были забанены по причине \"{reason}\" {until}";
+            chatMan.DispatchServerMessage(targetPlayer, message);
+
+            if (targetPlayer.AttachedEntity is not null)
             {
-                targetPlayer.ConnectedClient.Disconnect(banDef.DisconnectMessage);
+                entity.SystemOrNull<PopupSystem>()
+                    ?.PopupEntity(message, targetPlayer.AttachedEntity.Value, Filter.SinglePlayer(targetPlayer), PopupType.LargeCaution);
             }
         }
 

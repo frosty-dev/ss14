@@ -61,6 +61,8 @@
   - type: Clothing
     sprite: Clothing/Head/Helmets/eva.rsi
   - type: IngestionBlocker
+  - type: HelmetOverlay
+    texture: "/Textures/Interface/Overlays/helmet_overlay.png"
 
 - type: entity
   parent: ClothingHeadBase

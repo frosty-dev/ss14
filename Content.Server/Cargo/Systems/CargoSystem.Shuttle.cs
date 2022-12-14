@@ -18,6 +18,7 @@ using Content.Shared.Dataset;
 using Content.Shared.GameTicking;
 using Content.Shared.MobState.Components;
 using Robust.Server.GameObjects;
+using Content.Shared.Shuttles.Components;
 using Robust.Server.Maps;
 using Robust.Shared.Audio;
 using Robust.Shared.Configuration;
