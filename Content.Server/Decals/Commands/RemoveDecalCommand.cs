@@ -1,4 +1,3 @@
-using System.Globalization;
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
@@ -20,7 +19,7 @@ namespace Content.Server.Decals.Commands
                 return;
             }
 
-            if (!uint.TryParse(args[0], NumberStyles.Any, CultureInfo.InvariantCulture, out var uid))
+            if (!uint.TryParse(args[0], out var uid))
             {
                 shell.WriteError($"Failed parsing uid.");
                 return;

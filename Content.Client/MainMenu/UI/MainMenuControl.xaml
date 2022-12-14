@@ -1,21 +1,16 @@
 ﻿<Control xmlns="https://spacestation14.io"
-         xmlns:clog="clr-namespace:Content.Client.Changelog"
-         xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-         xmlns:mainMenu="clr-namespace:Content.Client.MainMenu">
-    <mainMenu:BackgroundControl
-        TexturePath="/Textures/main_menu_background.png"
-        Stretch="KeepAspectCovered" />
+         xmlns:pllax="clr-namespace:Content.Client.Parallax"
+         xmlns:clog="clr-namespace:Content.Client.Changelog">
+    <pllax:ParallaxControl />
     <LayoutContainer>
         <BoxContainer Name="VBox"
                       Orientation="Vertical"
-                      StyleIdentifier="MainMenuBox"
-                      MinWidth="300" >
-            <Label Name="Title"
-                   Text="WHITE DREAM"
-                   StyleIdentifier="MainMenuTitle"
-                   Align="Center" />
+                      StyleIdentifier="mainMenuVBox">
+            <TextureRect Name="Logo"
+                         Stretch="KeepCentered" />
             <BoxContainer Orientation="Horizontal"
                           SeparationOverride="4">
+                <Label Text="{Loc 'main-menu-username-label'}" />
                 <LineEdit Name="UsernameBox"
                           Access="Public"
                           PlaceHolder="{Loc 'main-menu-username-text'}"
@@ -26,26 +21,26 @@
                       Text="localhost"
                       PlaceHolder="server address:port"
                       HorizontalExpand="True" />
-            <controls:CommonButton Name="DirectConnectButton"
-                               Access="Public"
-                               Text="{Loc 'main-menu-direct-connect-button'}"
-                               TextAlign="Center"
-                               StyleClasses="MainMenu" />
+            <Button Name="DirectConnectButton"
+                    Access="Public"
+                    Text="{Loc 'main-menu-direct-connect-button'}"
+                    TextAlign="Center"
+                    StyleIdentifier="mainMenu" />
             <Control MinSize="0 2" />
-            <controls:CommonButton Name="OptionsButton"
-                            Access="Public"
-                            Text="{Loc 'main-menu-options-button'}"
-                            TextAlign="Center"
-                            StyleClasses="MainMenu" />
+            <Button Name="OptionsButton"
+                    Access="Public"
+                    Text="{Loc 'main-menu-options-button'}"
+                    TextAlign="Center"
+                    StyleIdentifier="mainMenu" />
+            <Button Name="QuitButton"
+                    Access="Public"
+                    Text="{Loc 'main-menu-quit-button'}"
+                    TextAlign="Center"
+                    StyleIdentifier="mainMenu" />
             <clog:ChangelogButton
                 Name="ChangelogButton"
-                Access="Public"
-                StyleClasses="MainMenu" />
-            <controls:CommonButton Name="QuitButton"
-                               Access="Public"
-                               Text="{Loc 'main-menu-quit-button'}"
-                               TextAlign="Center"
-                               StyleClasses="MainMenu" />
+                Access="Public"/>
         </BoxContainer>
+        <Label Name="VersionLabel" Text="v0.1" />
     </LayoutContainer>
 </Control>

@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using Content.Client.Gameplay;
 using Content.Client.GameTicking.Managers;
 using Content.Client.Lobby;
@@ -20,40 +20,37 @@ using Timer = Robust.Shared.Timing.Timer;
 namespace Content.Client.Audio;
 
 [UsedImplicitly]
-public sealed class MusicAudioSystem : EntitySystem
+public sealed class BackgroundAudioSystem : EntitySystem
 {
-    private readonly AudioParams _ambientParams = new(-10f, 1, "Master", 0, 0, 0, false, 0f);
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly IBaseClient _client = default!;
     [Dependency] private readonly IConfigurationManager _configManager = default!;
     [Dependency] private readonly ClientGameTicker _gameTicker = default!;
-    private readonly AudioParams _lobbyParams = new(-5f, 1, "Master", 0, 0, 0, false, 0f);
     [Dependency] private readonly IPlayerManager _playMan = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IRobustRandom _robustRandom = default!;
     [Dependency] private readonly IStateManager _stateManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
-    private AudioSystem.PlayingStream? _ambientStream;
-    private AudioSystem.PlayingStream? _lobbyStream;
+    private readonly AudioParams _ambientParams = new(-10f, 1, "Master", 0, 0, 0, true, 0f);
+    private readonly AudioParams _lobbyParams = new(-5f, 1, "Master", 0, 0, 0, true, 0f);
 
-    /// <summary>
-    ///     What the ambience has been set to.
-    /// </summary>
-    private SoundCollectionPrototype? _currentCollection;
-
+    private IPlayingAudioStream? _ambientStream;
+    private IPlayingAudioStream? _lobbyStream;
 
     /// <summary>
     ///     What is currently playing.
     /// </summary>
     private SoundCollectionPrototype? _playingCollection;
 
+    /// <summary>
+    ///     What the ambience has been set to.
+    /// </summary>
+    private SoundCollectionPrototype? _currentCollection;
+    private CancellationTokenSource _timerCancelTokenSource = new();
+
     private SoundCollectionPrototype _spaceAmbience = default!;
     private SoundCollectionPrototype _stationAmbience = default!;
-    private CancellationTokenSource _timerCancelTokenSource = new();
-    private float _ambienceMusicVolume;
-    private bool _ambienceMusicEnabled;
-    private bool _lobbyMusicEnabled;
 
     public override void Initialize()
     {
@@ -63,11 +60,7 @@ public sealed class MusicAudioSystem : EntitySystem
         _spaceAmbience = _prototypeManager.Index<SoundCollectionPrototype>("SpaceAmbienceBase");
         _currentCollection = _stationAmbience;
 
-        _ambienceMusicEnabled = _configManager.GetCVar(CCVars.AmbienceMusicEnabled);
-        _ambienceMusicVolume = _configManager.GetCVar(CCVars.AmbienceMusicVolume);
-        _lobbyMusicEnabled = _configManager.GetCVar(CCVars.LobbyMusicEnabled);
-
-        // TOOD: Ideally audio loading streamed better / we have more robust audio but this is quite annoying
+        // TODO: Ideally audio loading streamed better / we have more robust audio but this is quite annoying
         var cache = IoCManager.Resolve<IResourceCache>();
 
         foreach (var audio in _spaceAmbience.PickFiles)
@@ -75,14 +68,11 @@ public sealed class MusicAudioSystem : EntitySystem
             cache.GetResource<AudioResource>(audio.ToString());
         }
 
-        foreach (var audio in _stationAmbience.PickFiles)
-        {
-            cache.GetResource<AudioResource>(audio.ToString());
-        }
-
-        _configManager.OnValueChanged(CCVars.AmbienceMusicVolume, AmbienceMusicVolumeCVarChanged);
+        _configManager.OnValueChanged(CCVars.AmbienceVolume, AmbienceCVarChanged);
         _configManager.OnValueChanged(CCVars.LobbyMusicEnabled, LobbyMusicCVarChanged);
-        _configManager.OnValueChanged(CCVars.AmbienceMusicEnabled, AmbienceMusicCVarChanged);
+        _configManager.OnValueChanged(CCVars.LobbyMusicVolume, LobbyMusicVolumeCVarChanged);
+        _configManager.OnValueChanged(CCVars.StationAmbienceEnabled, StationAmbienceCVarChanged);
+        _configManager.OnValueChanged(CCVars.SpaceAmbienceEnabled, SpaceAmbienceCVarChanged);
 
         SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<EntParentChangedMessage>(EntParentChanged);
@@ -90,28 +80,9 @@ public sealed class MusicAudioSystem : EntitySystem
 
         _stateManager.OnStateChanged += StateManagerOnStateChanged;
 
-        _client.PlayerJoinedServer += OnJoin;
         _client.PlayerLeaveServer += OnLeave;
 
         _gameTicker.LobbyStatusUpdated += LobbySongReceived;
-    }
-
-    // I wish an audio stream had OnDone event.
-    public override void Update(float frameTime)
-    {
-        switch (_stateManager.CurrentState)
-        {
-            case GameplayState:
-                if (_ambientStream is null || _ambientStream.Done)
-                    StartAmbience();
-                break;
-            case LobbyState:
-                if (_lobbyStream is null || _lobbyStream.Done)
-                    StartLobbyMusic();
-                break;
-            default:
-                return;
-        }
     }
 
     private void OnPlayerAttached(PlayerAttachedEvent ev)
@@ -131,13 +102,14 @@ public sealed class MusicAudioSystem : EntitySystem
     {
         base.Shutdown();
 
-        _configManager.UnsubValueChanged(CCVars.AmbienceVolume, AmbienceMusicVolumeCVarChanged);
+        _configManager.UnsubValueChanged(CCVars.AmbienceVolume, AmbienceCVarChanged);
         _configManager.UnsubValueChanged(CCVars.LobbyMusicEnabled, LobbyMusicCVarChanged);
-        _configManager.UnsubValueChanged(CCVars.AmbienceMusicEnabled, AmbienceMusicCVarChanged);
+        _configManager.UnsubValueChanged(CCVars.LobbyMusicVolume, LobbyMusicVolumeCVarChanged);
+        _configManager.UnsubValueChanged(CCVars.StationAmbienceEnabled, StationAmbienceCVarChanged);
+        _configManager.UnsubValueChanged(CCVars.SpaceAmbienceEnabled, SpaceAmbienceCVarChanged);
 
         _stateManager.OnStateChanged -= StateManagerOnStateChanged;
 
-        _client.PlayerJoinedServer -= OnJoin;
         _client.PlayerLeaveServer -= OnLeave;
 
         _gameTicker.LobbyStatusUpdated -= LobbySongReceived;
@@ -149,19 +121,16 @@ public sealed class MusicAudioSystem : EntitySystem
     private void CheckAmbience(TransformComponent xform)
     {
         if (xform.GridUid != null)
-        {
-            if (_currentCollection == _stationAmbience)
-                return;
             ChangeAmbience(_stationAmbience);
-        }
         else
             ChangeAmbience(_spaceAmbience);
     }
 
     private void EntParentChanged(ref EntParentChangedMessage message)
     {
-        if (_playMan.LocalPlayer is null || _playMan.LocalPlayer.ControlledEntity != message.Entity ||
-            !_timing.IsFirstTimePredicted)
+        if (_playMan.LocalPlayer is null
+            || _playMan.LocalPlayer.ControlledEntity != message.Entity
+            || !_timing.IsFirstTimePredicted)
             return;
 
         // Check if we traversed to grid.
@@ -172,47 +141,36 @@ public sealed class MusicAudioSystem : EntitySystem
     {
         if (_currentCollection == newAmbience)
             return;
+
         _timerCancelTokenSource.Cancel();
         _currentCollection = newAmbience;
         _timerCancelTokenSource = new CancellationTokenSource();
         Timer.Spawn(1500, () =>
         {
+            // If we traverse a few times then don't interrupt an existing song.
             // If we are not in gameplay, don't call StartAmbience because of player movement
             if (_playingCollection == _currentCollection || _stateManager.CurrentState is not GameplayState)
                 return;
-            EndAmbience();
             StartAmbience();
         }, _timerCancelTokenSource.Token);
     }
 
     private void StateManagerOnStateChanged(StateChangedEventArgs args)
     {
-        EndAmbience();
-
         switch (args.NewState)
         {
             case LobbyState:
+                EndAmbience();
                 StartLobbyMusic();
-                return;
+                break;
             case GameplayState:
+                EndLobbyMusic();
                 StartAmbience();
                 break;
-        }
-
-        EndLobbyMusic();
-    }
-
-    private void OnJoin(object? sender, PlayerEventArgs args)
-    {
-        if (_stateManager.CurrentState is LobbyState)
-        {
-            EndAmbience();
-            StartLobbyMusic();
-        }
-        else
-        {
-            EndLobbyMusic();
-            StartAmbience();
+            default:
+                EndAmbience();
+                EndLobbyMusic();
+                break;
         }
     }
 
@@ -222,27 +180,27 @@ public sealed class MusicAudioSystem : EntitySystem
         EndLobbyMusic();
     }
 
-    private void AmbienceMusicVolumeCVarChanged(float volume)
+    private void AmbienceCVarChanged(float volume)
     {
-        _ambienceMusicVolume = volume;
-
         if (_stateManager.CurrentState is GameplayState)
+        {
             StartAmbience();
+        }
         else
+        {
             EndAmbience();
+        }
     }
 
     private void StartAmbience()
     {
         EndAmbience();
-
-        if (_currentCollection == null || !_ambienceMusicEnabled)
+        if (_currentCollection == null || !CanPlayCollection(_currentCollection))
             return;
-
         _playingCollection = _currentCollection;
-
         var file = _robustRandom.Pick(_currentCollection.PickFiles).ToString();
-        _ambientStream = _audio.PlayGlobal(file, Filter.Local(), false, _ambientParams.WithVolume(_ambientParams.Volume + _ambienceMusicVolume)) as AudioSystem.PlayingStream;
+        _ambientStream = _audio.PlayGlobal(file, Filter.Local(), false,
+            _ambientParams.WithVolume(_ambientParams.Volume + _configManager.GetCVar(CCVars.AmbienceVolume)));
     }
 
     private void EndAmbience()
@@ -252,50 +210,102 @@ public sealed class MusicAudioSystem : EntitySystem
         _ambientStream = null;
     }
 
-    private void AmbienceMusicCVarChanged(bool enabled)
+    private bool CanPlayCollection(SoundCollectionPrototype collection)
     {
-        _ambienceMusicEnabled = enabled;
+        if (collection.ID == _spaceAmbience.ID)
+            return _configManager.GetCVar(CCVars.SpaceAmbienceEnabled);
+        if (collection.ID == _stationAmbience.ID)
+            return _configManager.GetCVar(CCVars.StationAmbienceEnabled);
 
+        return true;
+    }
+
+    private void StationAmbienceCVarChanged(bool enabled)
+    {
         if (_currentCollection == null)
             return;
 
-        if (enabled && _stateManager.CurrentState is GameplayState)
+        if (enabled && _stateManager.CurrentState is GameplayState && _currentCollection.ID == _stationAmbience.ID)
+        {
             StartAmbience();
-        else
+        }
+        else if (_currentCollection.ID == _stationAmbience.ID)
+        {
             EndAmbience();
+        }
+    }
+
+    private void SpaceAmbienceCVarChanged(bool enabled)
+    {
+        if (_currentCollection == null)
+            return;
+
+        if (enabled && _stateManager.CurrentState is GameplayState && _currentCollection.ID == _spaceAmbience.ID)
+        {
+            StartAmbience();
+        }
+        else if (_currentCollection.ID == _spaceAmbience.ID)
+        {
+            EndAmbience();
+        }
+    }
+
+    private void LobbyMusicVolumeCVarChanged(float volume)
+    {
+        if (_stateManager.CurrentState is LobbyState)
+        {
+            RestartLobbyMusic();
+        }
     }
 
     private void LobbyMusicCVarChanged(bool musicEnabled)
     {
-        _lobbyMusicEnabled = musicEnabled;
-
         if (!musicEnabled)
+        {
             EndLobbyMusic();
+        }
         else if (_stateManager.CurrentState is LobbyState)
+        {
             StartLobbyMusic();
+        }
         else
+        {
             EndLobbyMusic();
+        }
     }
 
     private void LobbySongReceived()
     {
-        if (_lobbyStream !=
-            null) //Toggling Ready status fires this method. This check ensures we only start the lobby music if it's not playing.
+        if (_lobbyStream != null) //Toggling Ready status fires this method. This check ensures we only start the lobby music if it's not playing.
+        {
             return;
+        }
+
         if (_stateManager.CurrentState is LobbyState)
+        {
             StartLobbyMusic();
+        }
+    }
+
+    public void RestartLobbyMusic()
+    {
+        EndLobbyMusic();
+        StartLobbyMusic();
     }
 
     public void StartLobbyMusic()
     {
-        if (_lobbyStream != null || !_lobbyMusicEnabled)
+        if (_lobbyStream != null || !_configManager.GetCVar(CCVars.LobbyMusicEnabled))
             return;
 
         var file = _gameTicker.LobbySong;
         if (file == null) // We have not received the lobby song yet.
+        {
             return;
+        }
 
-        _lobbyStream = _audio.PlayGlobal(file, Filter.Local(), false, _lobbyParams) as AudioSystem.PlayingStream;
+        _lobbyStream = _audio.PlayGlobal(file, Filter.Local(), false,
+            _lobbyParams.WithVolume(_lobbyParams.Volume + _configManager.GetCVar(CCVars.LobbyMusicVolume)));
     }
 
     private void EndLobbyMusic()

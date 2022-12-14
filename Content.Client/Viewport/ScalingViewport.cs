@@ -17,8 +17,7 @@ namespace Content.Client.Viewport
     /// <summary>
     ///     Viewport control that has a fixed viewport size and scales it appropriately.
     /// </summary>
-    [Virtual]
-    public class ScalingViewport : Control, IViewportControl
+    public sealed class ScalingViewport : Control, IViewportControl
     {
         [Dependency] private readonly IClyde _clyde = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;

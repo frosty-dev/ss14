@@ -47,18 +47,6 @@
                     <Control MinSize="8 0" />
                     <Label Name="AmbienceVolumeLabel" MinSize="48 0" Align="Right" />
                     <Control MinSize="4 0"/>
-                </BoxContainer>                <BoxContainer Orientation="Horizontal" Margin="5 0 0 0">
-                    <Label Text="{Loc 'ui-options-ambience-music-volume'}" />
-                    <Control MinSize="8 0" />
-                    <Slider Name="AmbienceMusicVolumeSlider"
-                            MinValue="0"
-                            MaxValue="300"
-                            HorizontalExpand="True"
-                            MinSize="80 0"
-                            Rounded="True" />
-                    <Control MinSize="8 0" />
-                    <Label Name="AmbienceMusicVolumeLabel" MinSize="48 0" Align="Right" />
-                    <Control MinSize="4 0"/>
                 </BoxContainer>
                 <BoxContainer Orientation="Horizontal" Margin="5 0 0 0">
                     <Label Text="{Loc 'ui-options-lobby-volume'}" HorizontalExpand="True" />
@@ -86,25 +74,13 @@
                     <Label Name="AmbienceSoundsLabel" MinSize="48 0" Align="Right" />
                     <Control MinSize="4 0"/>
                 </BoxContainer>
-                <BoxContainer Orientation="Horizontal" Margin="5 0 0 0">
-                    <Label Text="{Loc 'ui-options-volume-ui'}" />
-                    <Control MinSize="8 0" />
-                    <Slider Name="UIVolumeSlider"
-                            MinValue="0"
-                            MaxValue="300"
-                            HorizontalExpand="True"
-                            MinSize="80 0"
-                            Rounded="True" />
-                    <Control MinSize="8 0" />
-                    <Label Name="UIVolumeLabel" MinSize="48 0" Align="Right" />
-                    <Control MinSize="4 0"/>
-                </BoxContainer>
                 <Control MinSize="0 8" />
                 <CheckBox Name="LobbyMusicCheckBox" Text="{Loc 'ui-options-lobby-music'}" />
                 <CheckBox Name="RestartSoundsCheckBox" Text="{Loc 'ui-options-restart-sounds'}" />
                 <CheckBox Name="EventMusicCheckBox" Text="{Loc 'ui-options-event-music'}" />
                 <CheckBox Name="AdminSoundsCheckBox" Text="{Loc 'ui-options-admin-sounds'}" />
-                <CheckBox Name="AmbienceMusicCheckBox" Text="{Loc 'ui-options-ambience-music'}" />
+                <CheckBox Name="StationAmbienceCheckBox" Text="{Loc 'ui-options-station-ambience'}" />
+                <CheckBox Name="SpaceAmbienceCheckBox" Text="{Loc 'ui-options-space-ambience'}" />
             </BoxContainer>
         </BoxContainer>
         <controls:StripeBack HasBottomEdge="False" HasMargins="False">

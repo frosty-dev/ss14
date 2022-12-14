@@ -178,7 +178,6 @@
   - type: Appearance
   - type: HandheldLight
     addPrefix: true
-    wattage: 3
     blinkingBehaviourId: blinking
     radiatingBehaviourId: radiating
   - type: LightBehaviour
@@ -208,10 +207,3 @@
   - type: BatterySelfRecharger
     autoRecharge: true
     autoRechargeRate: 2 #recharge of 2 makes total drain 1w / s so max charge is 1:1 with time. Time to fully charge should be 5 minutes. Having recharge gives light an extended flicker period which gives you some warning to return to light area.
-  - type: HelmetOverlay
-    texture: "/Textures/Interface/Overlays/helmet_overlay.png"
-    hasHud: true
-    pressureSensor: true
-    internalsSensor: true
-    batterySensor: true
-    gravitySensor: true

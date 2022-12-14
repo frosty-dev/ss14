@@ -15,7 +15,7 @@ namespace Content.Client.Shuttles.Systems
         public override void Initialize()
         {
             base.Initialize();
-            SubscribeLocalEvent<PilotComponent, ComponentHandleState>(OnPilotComponentHandleState);
+            SubscribeLocalEvent<PilotComponent, ComponentHandleState>(OnHandleState);
             var shuttle = _input.Contexts.New("shuttle", "common");
             shuttle.AddFunction(ContentKeyFunctions.ShuttleStrafeUp);
             shuttle.AddFunction(ContentKeyFunctions.ShuttleStrafeDown);
@@ -40,7 +40,7 @@ namespace Content.Client.Shuttles.Systems
             _input.Contexts.SetActiveContext("human");
         }
 
-        private void OnPilotComponentHandleState(EntityUid uid, PilotComponent component, ref ComponentHandleState args)
+        private void OnHandleState(EntityUid uid, PilotComponent component, ref ComponentHandleState args)
         {
             if (args.Current is not PilotComponentState state) return;
 

@@ -12,7 +12,7 @@ namespace Content.Shared.Shuttles.Components
     [NetworkedComponent]
     public sealed class PilotComponent : Component
     {
-        [ViewVariables] public ShuttleConsoleComponent? Console { get; set; }
+        [ViewVariables] public SharedShuttleConsoleComponent? Console { get; set; }
 
         /// <summary>
         /// Where we started piloting from to check if we should break from moving too far.

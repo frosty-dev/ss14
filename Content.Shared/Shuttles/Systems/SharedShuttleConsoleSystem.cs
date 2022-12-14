@@ -1,82 +1,51 @@
 using Content.Shared.ActionBlocker;
+using Content.Shared.Movement;
 using Content.Shared.Movement.Events;
 using Content.Shared.Shuttles.Components;
-using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Shuttles.Systems;
-
-public abstract class SharedShuttleConsoleSystem : EntitySystem
+namespace Content.Shared.Shuttles.Systems
 {
-    [Dependency] protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
-
-    public override void Initialize()
+    public abstract class SharedShuttleConsoleSystem : EntitySystem
     {
-        base.Initialize();
-        SubscribeLocalEvent<PilotComponent, UpdateCanMoveEvent>(HandleMovementBlock);
-        SubscribeLocalEvent<PilotComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<PilotComponent, ComponentShutdown>(HandlePilotShutdown);
-        SubscribeLocalEvent<ShuttleConsoleComponent, ComponentGetState>(OnGetState);
-        SubscribeLocalEvent<ShuttleConsoleComponent, ComponentHandleState>(OnHandleState);
-    }
+        [Dependency] protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
 
-    private void OnHandleState(EntityUid uid, ShuttleConsoleComponent component, ref ComponentHandleState args)
-    {
-        if (args.Current is not ShuttleConsoleComponentState state)
-            return;
-
-        component.Zoom = state.Zoom;
-        OnStateUpdate(uid, component);
-    }
-
-    private void OnGetState(EntityUid uid, ShuttleConsoleComponent component, ref ComponentGetState args)
-    {
-        args.State = new ShuttleConsoleComponentState
+        public override void Initialize()
         {
-            Zoom = component.Zoom,
-        };
-
-        OnStateUpdate(uid, component);
-    }
-
-    protected virtual void OnStateUpdate(EntityUid uid, ShuttleConsoleComponent component) { }
-
-    protected virtual void HandlePilotShutdown(EntityUid uid, PilotComponent component, ComponentShutdown args)
-    {
-        ActionBlockerSystem.UpdateCanMove(uid);
-    }
-
-    private void OnStartup(EntityUid uid, PilotComponent component, ComponentStartup args)
-    {
-        ActionBlockerSystem.UpdateCanMove(uid);
-    }
-
-    private void HandleMovementBlock(EntityUid uid, PilotComponent component, UpdateCanMoveEvent args)
-    {
-        if (component.LifeStage > ComponentLifeStage.Running)
-            return;
-
-        if (component.Console == null)
-            return;
-        args.Cancel();
-    }
-
-    [Serializable]
-    [NetSerializable]
-    protected sealed class ShuttleConsoleComponentState : ComponentState
-    {
-        public Vector2 Zoom;
-    }
-
-    [Serializable]
-    [NetSerializable]
-    protected sealed class PilotComponentState : ComponentState
-    {
-        public PilotComponentState(EntityUid? uid)
-        {
-            Console = uid;
+            base.Initialize();
+            SubscribeLocalEvent<PilotComponent, UpdateCanMoveEvent>(HandleMovementBlock);
+            SubscribeLocalEvent<PilotComponent, ComponentStartup>(OnStartup);
+            SubscribeLocalEvent<PilotComponent, ComponentShutdown>(HandlePilotShutdown);
         }
 
-        public EntityUid? Console { get; }
+        [Serializable, NetSerializable]
+        protected sealed class PilotComponentState : ComponentState
+        {
+            public EntityUid? Console { get; }
+
+            public PilotComponentState(EntityUid? uid)
+            {
+                Console = uid;
+            }
+        }
+
+        protected virtual void HandlePilotShutdown(EntityUid uid, PilotComponent component, ComponentShutdown args)
+        {
+            ActionBlockerSystem.UpdateCanMove(uid);
+        }
+
+        private void OnStartup(EntityUid uid, PilotComponent component, ComponentStartup args)
+        {
+            ActionBlockerSystem.UpdateCanMove(uid);
+        }
+
+        private void HandleMovementBlock(EntityUid uid, PilotComponent component, UpdateCanMoveEvent args)
+        {
+            if (component.LifeStage > ComponentLifeStage.Running)
+                return;
+
+            if (component.Console == null) return;
+            args.Cancel();
+        }
     }
 }

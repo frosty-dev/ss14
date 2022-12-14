@@ -1,49 +1,11 @@
 - type: soundCollection
   id: StationAmbienceBase
   files:
-    - /Audio/Ambience/station/station_1.ogg
-    - /Audio/Ambience/station/station_2.ogg
-    - /Audio/Ambience/station/station_3.ogg
-    - /Audio/Ambience/station/station_4.ogg
-    - /Audio/Ambience/station/station_5.ogg
-    - /Audio/Ambience/station/station_6.ogg
-    - /Audio/Ambience/station/station_7.ogg
-    - /Audio/Ambience/station/station_8.ogg
-    - /Audio/Ambience/station/station_9.ogg
-    - /Audio/Ambience/station/station_10.ogg
-    - /Audio/Ambience/station/station_11.ogg
-    - /Audio/Ambience/station/station_12.ogg
-    - /Audio/Ambience/station/station_13.ogg
-    - /Audio/Ambience/station/station_14.ogg
-    - /Audio/Ambience/station/station_15.ogg
-    - /Audio/Ambience/station/station_16.ogg
-    - /Audio/Ambience/station/station_17.ogg
-    - /Audio/Ambience/station/station_18.ogg
-    - /Audio/Ambience/station/station_19.ogg
-    - /Audio/Ambience/station/station_20.ogg
-    - /Audio/Ambience/station/station_21.ogg
-    - /Audio/Ambience/station/station_22.ogg
-    - /Audio/Ambience/station/station_23.ogg
-    - /Audio/Ambience/station/station_24.ogg
-    - /Audio/Ambience/station/station_25.ogg
-    - /Audio/Ambience/station/station_26.ogg
-    - /Audio/Ambience/station/station_27.ogg
+    - /Audio/Ambience/shipambience.ogg
 
 - type: soundCollection
   id: SpaceAmbienceBase
   files:
-    - /Audio/Ambience/space/space_1.ogg
-    - /Audio/Ambience/space/space_2.ogg
-    - /Audio/Ambience/space/space_3.ogg
-    - /Audio/Ambience/space/space_4.ogg
-    - /Audio/Ambience/space/space_5.ogg
-    - /Audio/Ambience/space/space_6.ogg
-    - /Audio/Ambience/space/space_7.ogg
-    - /Audio/Ambience/space/space_8.ogg
-    - /Audio/Ambience/space/space_9.ogg
-    - /Audio/Ambience/space/space_10.ogg
-    - /Audio/Ambience/space/space_11.ogg
-    - /Audio/Ambience/space/space_12.ogg
-    - /Audio/Ambience/space/space_13.ogg
-    - /Audio/Ambience/space/space_14.ogg
-    - /Audio/Ambience/space/space_15.ogg
+    - /Audio/Ambience/starlight.ogg
+    - /Audio/Ambience/constellations.ogg
+    - /Audio/Ambience/drifting.ogg

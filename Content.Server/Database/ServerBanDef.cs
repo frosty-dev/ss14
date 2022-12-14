@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.Net;
-using Content.Shared.CCVar;
 using Robust.Shared.Network;
 
 
@@ -55,10 +54,9 @@ namespace Content.Server.Database
 
         public string DisconnectMessage
         {
-            get
-            {
-                var expires = Loc.GetString("ban-banned-permanent", ("discord", CCVars.InfoLinksDiscord));
-                if (ExpirationTime is { } expireTime)
+            get {
+                var expires = Loc.GetString("ban-banned-permanent");
+                if (this.ExpirationTime is { } expireTime)
                 {
                     var duration = expireTime - this.BanTime;
                     var utc = expireTime.ToUniversalTime();

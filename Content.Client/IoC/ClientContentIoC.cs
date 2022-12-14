@@ -1,5 +1,4 @@
 ﻿using Content.Client.Administration.Managers;
-using Content.Client.Audio;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Clickable;
@@ -50,7 +49,6 @@ namespace Content.Client.IoC
             IoCManager.Register<PlayTimeTrackingManager>();
             IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
-            IoCManager.Register<UIAudioManager>();
         }
     }
 }

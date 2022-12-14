@@ -74,9 +74,6 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<float> AmbienceVolume =
             CVarDef.Create("ambience.volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
-        public static readonly CVarDef<float> UIVolume =
-            CVarDef.Create("ui.volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
-
         /// <summary>
         /// Lobby / round end music volume.
         /// </summary>
@@ -84,16 +81,16 @@ namespace Content.Shared.CCVar
             CVarDef.Create("ambience.lobby_music_volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /// <summary>
-        /// Whether to play the station ambience music.
+        /// Whether to play the station ambience (humming) sound
         /// </summary>
-        public static readonly CVarDef<bool> AmbienceMusicEnabled =
-            CVarDef.Create("ambience.music", true, CVar.ARCHIVE | CVar.CLIENTONLY);
+        public static readonly CVarDef<bool> StationAmbienceEnabled =
+            CVarDef.Create("ambience.station_ambience", true, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /// <summary>
-        /// Ambience music volume.
+        /// Whether to play the space ambience
         /// </summary>
-        public static readonly CVarDef<float> AmbienceMusicVolume =
-            CVarDef.Create("ambience.music_volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
+        public static readonly CVarDef<bool> SpaceAmbienceEnabled =
+            CVarDef.Create("ambience.space_ambience", true, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /*
          * Status
@@ -1363,7 +1360,7 @@ namespace Content.Shared.CCVar
         /// Link to Discord server to show in the launcher.
         /// </summary>
         public static readonly CVarDef<string> InfoLinksDiscord =
-            CVarDef.Create("infolinks.discord", "https://discord.gg/2WAsvv5B5v", CVar.SERVER | CVar.REPLICATED);
+            CVarDef.Create("infolinks.discord", "", CVar.SERVER | CVar.REPLICATED);
 
         /// <summary>
         /// Link to website to show in the launcher.
@@ -1375,25 +1372,25 @@ namespace Content.Shared.CCVar
         /// Link to GitHub page to show in the launcher.
         /// </summary>
         public static readonly CVarDef<string> InfoLinksGithub =
-            CVarDef.Create("infolinks.github", "https://github.com/frosty-dev/ss14", CVar.SERVER | CVar.REPLICATED);
+            CVarDef.Create("infolinks.github", "", CVar.SERVER | CVar.REPLICATED);
 
         /// <summary>
         /// Link to website to show in the launcher.
         /// </summary>
         public static readonly CVarDef<string> InfoLinksWebsite =
-            CVarDef.Create("infolinks.website", "https://ss14.station13.ru/", CVar.SERVER | CVar.REPLICATED);
+            CVarDef.Create("infolinks.website", "", CVar.SERVER | CVar.REPLICATED);
 
         /// <summary>
         /// Link to wiki to show in the launcher.
         /// </summary>
         public static readonly CVarDef<string> InfoLinksWiki =
-            CVarDef.Create("infolinks.wiki", "https://wiki.ss14.station13.ru/", CVar.SERVER | CVar.REPLICATED);
+            CVarDef.Create("infolinks.wiki", "", CVar.SERVER | CVar.REPLICATED);
 
         /// <summary>
         /// Link to Patreon. Not shown in the launcher currently.
         /// </summary>
         public static readonly CVarDef<string> InfoLinksPatreon =
-            CVarDef.Create("infolinks.patreon", "https://boosty.to/whitedream", CVar.SERVER | CVar.REPLICATED);
+            CVarDef.Create("infolinks.patreon", "", CVar.SERVER | CVar.REPLICATED);
 
         /// <summary>
         /// Link to the bug report form.
@@ -1432,16 +1429,6 @@ namespace Content.Shared.CCVar
 
         public static readonly CVarDef<string> DiscordRoundRoleId =
             CVarDef.Create("discord.round_roleid", string.Empty, CVar.SERVERONLY);
-
-        /*
-        * GRAPHICS
-        */
-
-        public static readonly CVarDef<bool> Shaders =
-            CVarDef.Create("graphics.shaders", true, CVar.CLIENTONLY | CVar.ARCHIVE);
-
-        public static readonly CVarDef<bool> FilmGrain =
-            CVarDef.Create("graphics.film_grain", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
 
     }

@@ -24,9 +24,6 @@ ui-options-station-ambience = Эмбиент станции
 ui-options-space-ambience = Эмбиент космоса
 ui-options-volume-label = Громкость
 ui-options-volume-percent = { TOSTRING($volume, "P0") }
-ui-options-volume-ui = UI Volume:
-ui-options-ambience-music = Ambience Music
-ui-options-ambience-music-volume = Ambience music volume:
 
 ## Graphics menu
 
@@ -64,8 +61,6 @@ ui-options-parallax-low-quality = Низкокачественный парал�
 ui-options-fps-counter = Показать счетчик FPS
 ui-options-vp-width = Ширина окна игры: { $width }
 ui-options-hud-layout = Тип HUD:
-ui-options-film-grain = Film grain
-ui-options-shaders = Shaders
 
 ## Controls menu
 

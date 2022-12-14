@@ -1,4 +1,3 @@
-using System.Globalization;
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared.Decals;
@@ -28,13 +27,13 @@ namespace Content.Server.Decals.Commands
                 shell.WriteError($"Cannot find decalprototype '{args[0]}'.");
             }
 
-            if (!float.TryParse(args[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var x))
+            if (!float.TryParse(args[1], out var x))
             {
                 shell.WriteError($"Failed parsing x-coordinate '{args[1]}'.");
                 return;
             }
 
-            if (!float.TryParse(args[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var y))
+            if (!float.TryParse(args[2], out var y))
             {
                 shell.WriteError($"Failed parsing y-coordinate'{args[2]}'.");
                 return;
@@ -71,7 +70,7 @@ namespace Content.Server.Decals.Commands
                     switch (rawValue[0])
                     {
                         case "angle":
-                            if (!double.TryParse(rawValue[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var degrees))
+                            if (!double.TryParse(rawValue[1], out var degrees))
                             {
                                 shell.WriteError($"Failed parsing angle '{rawValue[1]}'.");
                                 return;
@@ -79,7 +78,7 @@ namespace Content.Server.Decals.Commands
                             rotation = Angle.FromDegrees(degrees);
                             break;
                         case "zIndex":
-                            if (!int.TryParse(rawValue[1], NumberStyles.Any, CultureInfo.InvariantCulture, out zIndex))
+                            if (!int.TryParse(rawValue[1], out zIndex))
                             {
                                 shell.WriteError($"Failed parsing zIndex '{rawValue[1]}'.");
                                 return;

@@ -272,7 +272,7 @@ namespace Content.Server.Nutrition.EntitySystems
 
             var flavors = _flavorProfileSystem.GetLocalizedFlavorsMessage(user, drinkSolution);
 
-            _doAfterSystem.DoAfter(new DoAfterEventArgs(user, forceDrink ? drink.ForceFeedDelay : 0, drink.CancelToken.Token, target, drink.Owner)
+            _doAfterSystem.DoAfter(new DoAfterEventArgs(user, forceDrink ? drink.ForceFeedDelay : drink.Delay, drink.CancelToken.Token, target, drink.Owner)
             {
                 BreakOnUserMove = moveBreak,
                 BreakOnDamage = true,
