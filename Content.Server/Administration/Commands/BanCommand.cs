@@ -2,10 +2,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Content.Server.Chat.Managers;
 using Content.Server.Database;
 using Content.Shared.Administration;
+using Content.Shared.Chat;
 using Robust.Server.Player;
 using Robust.Shared.Console;
+using Robust.Shared.Network;
+using Robust.Shared.Utility;
 
 
 namespace Content.Server.Administration.Commands
@@ -23,6 +27,7 @@ namespace Content.Server.Administration.Commands
             var plyMgr = IoCManager.Resolve<IPlayerManager>();
             var locator = IoCManager.Resolve<IPlayerLocator>();
             var dbMan = IoCManager.Resolve<IServerDbManager>();
+            var chatMan = IoCManager.Resolve<IChatManager>();
 
             string target;
             string reason;
@@ -98,18 +103,21 @@ namespace Content.Server.Administration.Commands
 
             await dbMan.AddServerBanAsync(banDef);
 
-            var response = new StringBuilder($"Banned {target} with reason \"{reason}\"");
+            var until = expires == null
+                ? " навсегда."
+                : $" до {expires}";
 
-            response.Append(expires == null ?
-                " permanently."
-                : $" until {expires}");
+            var response = new StringBuilder($"Забанен {target} по причине \"{reason}\" {until}");
 
             shell.WriteLine(response.ToString());
 
-            if (plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
-            {
-                targetPlayer.ConnectedClient.Disconnect(banDef.DisconnectMessage);
-            }
+            if (!plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
+                return;
+
+            var message = $"Вы были забанены по причине \"{reason}\" {until}";
+            var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", FormattedMessage.EscapeText(message)));
+
+            chatMan.ChatMessageToOne(ChatChannel.Server, message, wrappedMessage, default, false, targetPlayer.ConnectedClient);
         }
 
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
