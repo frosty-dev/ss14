@@ -4,11 +4,14 @@ using System.Net.Sockets;
 using System.Text;
 using Content.Server.Chat.Managers;
 using Content.Server.Database;
+using Content.Server.Popups;
 using Content.Shared.Administration;
 using Content.Shared.Chat;
+using Content.Shared.Popups;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Network;
+using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
 
@@ -28,6 +31,7 @@ namespace Content.Server.Administration.Commands
             var locator = IoCManager.Resolve<IPlayerLocator>();
             var dbMan = IoCManager.Resolve<IServerDbManager>();
             var chatMan = IoCManager.Resolve<IChatManager>();
+            var entity = IoCManager.Resolve<IEntityManager>();
 
             string target;
             string reason;
@@ -115,9 +119,13 @@ namespace Content.Server.Administration.Commands
                 return;
 
             var message = $"Вы были забанены по причине \"{reason}\" {until}";
-            var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", FormattedMessage.EscapeText(message)));
+            chatMan.DispatchServerMessage(targetPlayer, message);
 
-            chatMan.ChatMessageToOne(ChatChannel.Server, message, wrappedMessage, default, false, targetPlayer.ConnectedClient);
+            if (targetPlayer.AttachedEntity is not null)
+            {
+                entity.SystemOrNull<PopupSystem>()
+                    ?.PopupEntity(message, targetPlayer.AttachedEntity.Value, Filter.SinglePlayer(targetPlayer), PopupType.LargeCaution);
+            }
         }
 
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
