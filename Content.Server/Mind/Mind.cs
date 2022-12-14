@@ -309,12 +309,15 @@ namespace Content.Server.Mind
                 mindSystem.TransferMindProperties(OwnedComponent, component);
 
             if(OwnedComponent != null)
+            { 
+                mindSystem.LetsALogMindChange(OwnedComponent.Owner); //Write some Admin Logs when user eject mind
                 mindSystem.InternalEjectMind(OwnedComponent.Owner, OwnedComponent);
-
+            }
             OwnedComponent = component;
             if(OwnedComponent != null)
+            {
                 mindSystem.InternalAssignMind(OwnedComponent.Owner, this, OwnedComponent);
-
+            }
             // Don't do the full deletion cleanup if we're transferring to our visitingentity
             if (alreadyAttached)
             {
@@ -330,13 +333,14 @@ namespace Content.Server.Mind
             {
                 RemoveVisitingEntity();
             }
-
+           
             // Player is CURRENTLY connected.
             if (Session != null && !alreadyAttached && VisitingEntity == null)
             {
                 Session.AttachToEntity(entity);
                 Logger.Info($"Session {Session.Name} transferred to entity {entity}.");
             }
+            
         }
 
         public void ChangeOwningPlayer(NetUserId? newOwner)

@@ -5,6 +5,8 @@ using Content.Server.Ghost.Components;
 using Content.Server.Mind.Components;
 using Content.Shared.Examine;
 using Content.Shared.MobState.Components;
+using Content.Shared.Administration.Logs;
+using Content.Shared.Database;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
@@ -15,6 +17,7 @@ public sealed class MindSystem : EntitySystem
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
     [Dependency] private readonly GhostSystem _ghostSystem = default!;
+    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -30,6 +33,12 @@ public sealed class MindSystem : EntitySystem
             return;
 
         mind.GhostOnShutdown = value;
+    }
+
+    public void LetsALogMindChange( EntityUid target) // for code structure supporting
+    {
+        _adminLogger.Add(LogType.GhostRoleTaken, LogImpact.Low, $"{ToPrettyString(target):'target'} transfer mind out");
+
     }
 
     /// <summary>
@@ -58,7 +67,6 @@ public sealed class MindSystem : EntitySystem
 
         if (!Deleted(uid))
             RaiseLocalEvent(uid, new MindRemovedMessage(), true);
-
         mind.Mind = null;
     }
 
