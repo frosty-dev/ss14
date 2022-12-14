@@ -25,6 +25,8 @@ ui-options-space-ambience = Эмбиент космоса
 ui-options-volume-label = Громкость
 ui-options-volume-percent = { TOSTRING($volume, "P0") }
 ui-options-volume-ui = UI Volume:
+ui-options-ambience-music = Ambience Music
+ui-options-ambience-music-volume = Ambience music volume:
 
 ## Graphics menu
 

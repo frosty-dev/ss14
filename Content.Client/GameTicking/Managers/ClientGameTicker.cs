@@ -127,7 +127,7 @@ namespace Content.Client.GameTicking.Managers
             if (message.LobbySong != null)
             {
                 LobbySong = message.LobbySong;
-                Get<BackgroundAudioSystem>().StartLobbyMusic();
+                Get<MusicAudioSystem>().StartLobbyMusic();
             }
 
             RestartSound = message.RestartSound;

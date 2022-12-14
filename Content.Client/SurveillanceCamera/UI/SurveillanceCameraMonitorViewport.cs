@@ -46,6 +46,8 @@ public sealed class SurveillanceCameraMonitorViewport : ScalingViewport
 
         _grainShader.SetParameter("SCREEN_TEXTURE", _buffer.Texture);
         _grainShader.SetParameter("noise_opacity", 0.1f);
+        _grainShader.SetParameter("roll", false);
+        _grainShader.SetParameter("roll_size", 0.0f);
         handle.UseShader(_grainShader);
         handle.DrawTextureRect(_buffer.Texture, PixelSizeBox);
         handle.UseShader(null);
