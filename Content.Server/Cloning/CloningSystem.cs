@@ -31,6 +31,8 @@ using Robust.Shared.Random;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
+using Content.Shared.Database;
+using Content.Shared.Administration.Logs;
 
 namespace Content.Server.Cloning
 {
@@ -55,6 +57,7 @@ namespace Content.Server.Cloning
         [Dependency] private readonly ChatSystem _chatSystem = default!;
         [Dependency] private readonly IConfigurationManager _configManager = default!;
         [Dependency] private readonly MaterialStorageSystem _material = default!;
+        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
 
         public readonly Dictionary<Mind.Mind, EntityUid> ClonesWaitingForMind = new();
         public const float EasyModeCloningCost = 0.7f;
@@ -110,6 +113,7 @@ namespace Content.Server.Cloning
 
             mind.TransferTo(entity, ghostCheckOverride: true);
             mind.UnVisit();
+            adminLogger.Add(LogType.GhostRoleTaken, LogImpact.High, $"{ToPrettyString(entity):entity} has been cloned!");
             ClonesWaitingForMind.Remove(mind);
         }
 
