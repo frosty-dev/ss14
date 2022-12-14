@@ -1,3 +1,4 @@
+using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
 
 namespace Content.Client.White.Trail;

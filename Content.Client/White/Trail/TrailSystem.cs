@@ -1,3 +1,5 @@
+using Content.Client.White.Trail.Line;
+using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;

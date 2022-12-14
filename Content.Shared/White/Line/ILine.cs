@@ -22,12 +22,6 @@ public interface IDynamicLine<TSettings> : ILine
     void UpdateSegments(float dt);
 }
 
-public interface IDrawableLine<TDrawData> : ILine
-{
-    void RecalculateDrawData();
-    IEnumerable<TDrawData> GetDrawData();
-}
-
 public interface IAttachedLine : ILine
 {
     bool Attached { get; set; }
