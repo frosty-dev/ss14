@@ -21,3 +21,7 @@
 - type: lobbyBackground
   id: White
   background: /Textures/LobbyScreens/white.png
+
+- type: lobbyBackground
+  id: AnimeStation
+  background: /Textures/LobbyScreens/animestation.png
