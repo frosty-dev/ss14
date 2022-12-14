@@ -113,7 +113,7 @@ namespace Content.Server.Cloning
 
             mind.TransferTo(entity, ghostCheckOverride: true);
             mind.UnVisit();
-            adminLogger.Add(LogType.GhostRoleTaken, LogImpact.High, $"{ToPrettyString(entity):entity} has been cloned!");
+            _adminLogger.Add(LogType.GhostRoleTaken, LogImpact.High, $"{ToPrettyString(entity):entity} has been cloned!");
             ClonesWaitingForMind.Remove(mind);
         }
 
