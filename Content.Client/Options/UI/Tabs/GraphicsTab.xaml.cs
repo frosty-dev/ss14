@@ -245,7 +245,7 @@ namespace Content.Client.Options.UI.Tabs
                                    isShowHeldItemSame &&
                                    isFpsCounterVisibleSame &&
                                    isWidthSame &&
-                                   isLayoutSame&&
+                                   isLayoutSame &&
                                    isFilmGrainSame &&
                                    isShaderSame;
         }
