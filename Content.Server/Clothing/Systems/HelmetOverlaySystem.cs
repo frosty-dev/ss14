@@ -144,7 +144,7 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
 
     private void OnGotEquippedEvent(GotEquippedEvent ev)
     {
-        if (!HasOverlayComponent(ev.Equipment, out var component))
+        if (!TryGetOverlayComponent(ev.Equipment, out var component))
             return;
 
         if (!_overlayComponents.Contains(component))
@@ -161,7 +161,7 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
 
     private void OnGotUnequippedEvent(GotUnequippedEvent ev)
     {
-        if (!HasOverlayComponent(ev.Equipment, out var component))
+        if (!TryGetOverlayComponent(ev.Equipment, out var component))
             return;
 
         _overlayComponents.Remove(component);

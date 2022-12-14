@@ -1,9 +1,12 @@
 ﻿using Content.Client.Clothing.Overlays;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
+using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
+using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
+using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 
@@ -13,6 +16,8 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
 {
     [Dependency] private readonly IOverlayManager _overlayManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly InventorySystem _inventory = default!;
+
     private HelmetOverlayComponent? _component;
 
     private HelmetOverlay? _overlay;
@@ -23,6 +28,57 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
 
         SubscribeLocalEvent<GotEquippedEvent>(OnGotEquippedEvent);
         SubscribeLocalEvent<GotUnequippedEvent>(OnGotUnequippedEvent);
+        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
+        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
+    }
+
+    private void OnPlayerDetached(PlayerDetachedEvent args)
+    {
+        if (_overlay is null)
+            return;
+
+        _overlayManager.RemoveOverlay(_overlay);
+    }
+
+    private void OnPlayerAttached(PlayerAttachedEvent args)
+    {
+        if (_overlay is null)
+        {
+            return;
+        }
+
+        if (_component is null)
+        {
+            DisposeOverlay();
+            return;
+        }
+
+        if (!TryComp(args.Entity, out InventoryComponent? inventory))
+        {
+            _overlayManager.RemoveOverlay(_overlay);
+            return;
+        }
+
+        if (!_inventory.TryGetSlots(args.Entity, out var slots, inventory))
+        {
+            DisposeOverlay();
+            return;
+        }
+
+        foreach (var slot in slots)
+        {
+            if (!_inventory.TryGetSlotContainer(args.Entity, slot.Name, out var containerSlot, out _,
+                    inventory))
+                continue;
+
+            if (!containerSlot.Contains(_component.Owner))
+                continue;
+
+            _overlayManager.AddOverlay(_overlay);
+            return;
+        }
+
+        DisposeOverlay();
     }
 
     public override void Shutdown()
@@ -68,14 +124,14 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
 
     private void OnGotEquippedEvent(GotEquippedEvent ev)
     {
-        if (!IsPlayerControlledEntity(ev.Equipee) || !HasOverlayComponent(ev.Equipment, out var component))
+        if (!IsPlayerControlledEntity(ev.Equipee) || !TryGetOverlayComponent(ev.Equipment, out var component))
             return;
 
         // Check if we trying to wear multiple overlays.
         DebugTools.Assert(_component is null || _component is not null && _component.Owner == component.Owner);
 
         _component = component;
-        EnsureHasOverlay(_component);
+        EnsureHasOverlay();
     }
 
     private void OnGotUnequippedEvent(GotUnequippedEvent ev)
@@ -86,8 +142,11 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
         if (_component is not null && _component.Owner != ev.Equipment)
             return;
 
-        _component = null;
+        DisposeOverlay();
+    }
 
+    private void DisposeOverlay()
+    {
         if (_overlay is null)
             return;
 
@@ -104,7 +163,7 @@ public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
         return uid == player.ControlledEntity;
     }
 
-    private void EnsureHasOverlay(HelmetOverlayComponent component)
+    private void EnsureHasOverlay()
     {
         _overlay ??= new HelmetOverlay();
 

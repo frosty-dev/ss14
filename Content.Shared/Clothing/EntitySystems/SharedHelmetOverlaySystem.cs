@@ -6,7 +6,7 @@ namespace Content.Shared.Clothing.EntitySystems;
 
 public abstract class SharedHelmetOverlaySystem : EntitySystem
 {
-    protected bool HasOverlayComponent(EntityUid equipment, [NotNullWhen(true)] out HelmetOverlayComponent? component)
+    protected bool TryGetOverlayComponent(EntityUid equipment, [NotNullWhen(true)] out HelmetOverlayComponent? component)
     {
         component = CompOrNull<HelmetOverlayComponent>(equipment);
 
