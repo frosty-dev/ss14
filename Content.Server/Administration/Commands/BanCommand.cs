@@ -64,7 +64,7 @@ namespace Content.Server.Administration.Commands
                         return;
                     }
 
-                    if(!bool.TryParse(args[3], out kick))
+                    if(!bool.TryParse(args[3].ToLower(), out kick))
                     {
                         shell.WriteLine($"{args[3]} is not a valid boolean.\n{Help}");
                         return;
