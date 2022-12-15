@@ -78,7 +78,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
         {
             // Small verification if Player Name exists
             IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"ban \"{PlayerNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" {MinutesLine.Text}");
+                $"ban \"{PlayerNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\" {KickCheckBox.Pressed}");
         }
     }
 }
