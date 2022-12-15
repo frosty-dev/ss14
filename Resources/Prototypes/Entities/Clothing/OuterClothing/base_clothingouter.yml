@@ -15,7 +15,7 @@
   id: ClothingOuterBaseLarge
   components:
   - type: Item
-    size: 80
+    size: 35
   - type: Clothing
     slots:
     - outerClothing
@@ -58,7 +58,7 @@
     walkModifier: 0.4
     sprintModifier: 0.6
   - type: Item
-    size: 121
+    size: 45
   - type: Armor
     modifiers:
       coefficients:
@@ -89,6 +89,6 @@
     walkModifier: 0.8
     sprintModifier: 0.8
   - type: Item
-    size: 80
+    size: 40
   - type: DiseaseProtection
     protection: 0.05
