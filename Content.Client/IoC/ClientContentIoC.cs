@@ -52,7 +52,7 @@ namespace Content.Client.IoC
             IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
 
-            IoCManager.Register<ITrailLineManager<ITrailLine>, TrailLineManager<TrailLineStretch>>(); //prikol
+            IoCManager.Register<ITrailLineManager<ITrailLine>, TrailLineManager<TrailLineCatmullRom>>(); //prikol
         }
     }
 }
