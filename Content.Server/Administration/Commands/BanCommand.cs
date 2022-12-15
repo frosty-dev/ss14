@@ -22,7 +22,7 @@ namespace Content.Server.Administration.Commands
     {
         public string Command => "ban";
         public string Description => "Bans somebody";
-        public string Help => $"Usage: {Command} <name or user ID> <reason> [duration in minutes, leave out or 0 for permanent ban]";
+        public string Help => $"Usage: {Command} <name or user ID> <reason> [duration in minutes, leave out or 0 for permanent ban] <kick true/false>]";
 
         public async void Execute(IConsoleShell shell, string argStr, string[] args)
         {
@@ -31,11 +31,11 @@ namespace Content.Server.Administration.Commands
             var locator = IoCManager.Resolve<IPlayerLocator>();
             var dbMan = IoCManager.Resolve<IServerDbManager>();
             var chatMan = IoCManager.Resolve<IChatManager>();
-            var entity = IoCManager.Resolve<IEntityManager>();
 
             string target;
             string reason;
             uint minutes;
+            bool kick = false;
 
             switch (args.Length)
             {
@@ -48,13 +48,30 @@ namespace Content.Server.Administration.Commands
                     target = args[0];
                     reason = args[1];
 
-                    if (!uint.TryParse(args[2], out minutes))
+                    if (!ParseMinutes(shell, args[2], out minutes))
                     {
-                        shell.WriteLine($"{args[2]} is not a valid amount of minutes.\n{Help}");
                         return;
                     }
 
                     break;
+
+                case 4:
+                    target = args[0];
+                    reason = args[1];
+
+                    if (!ParseMinutes(shell, args[2], out minutes))
+                    {
+                        return;
+                    }
+
+                    if(!bool.TryParse(args[3], out kick))
+                    {
+                        shell.WriteLine($"{args[3]} is not a valid boolean.\n{Help}");
+                        return;
+                    }
+
+                    break;
+
                 default:
                     shell.WriteLine($"Invalid amount of arguments.{Help}");
                     return;
@@ -121,10 +138,9 @@ namespace Content.Server.Administration.Commands
             var message = $"Вы были забанены по причине \"{reason}\" {until}";
             chatMan.DispatchServerMessage(targetPlayer, message);
 
-            if (targetPlayer.AttachedEntity is not null)
+            if (kick)
             {
-                entity.SystemOrNull<PopupSystem>()
-                    ?.PopupEntity(message, targetPlayer.AttachedEntity.Value, Filter.SinglePlayer(targetPlayer), PopupType.LargeCaution);
+                targetPlayer.ConnectedClient.Disconnect(banDef.DisconnectMessage);
             }
         }
 
@@ -152,7 +168,29 @@ namespace Content.Server.Administration.Commands
                 return CompletionResult.FromHintOptions(durations, "[duration]");
             }
 
+            if (args.Length == 4)
+            {
+                var kick = new CompletionOption[]
+                {
+                    new("true", "Kick"),
+                    new("false", "Don't kick"),
+                };
+
+                return CompletionResult.FromHintOptions(kick, "[kick]");
+            }
+
             return CompletionResult.Empty;
+        }
+
+        private bool ParseMinutes(IConsoleShell shell, string arg, out uint minutes)
+        {
+            if (!uint.TryParse(arg, out minutes))
+            {
+                shell.WriteLine($"{arg} is not a valid amount of minutes.\n{Help}");
+                return false;
+            }
+
+            return true;
         }
     }
 }
