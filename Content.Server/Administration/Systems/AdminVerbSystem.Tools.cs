@@ -5,7 +5,7 @@ using Content.Server.Administration.Components;
 using Content.Server.Atmos;
 using Content.Server.Atmos.Components;
 using Content.Server.Cargo.Components;
-using Content.Server.Cargo.Systems;
+using Content.Server.Chat.Systems;
 using Content.Server.Doors.Components;
 using Content.Server.Doors.Systems;
 using Content.Server.Hands.Components;
@@ -20,11 +20,11 @@ using Content.Shared.Access.Systems;
 using Content.Shared.Administration;
 using Content.Shared.Atmos;
 using Content.Shared.Construction.Components;
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.Inventory;
 using Content.Shared.PDA;
+using Content.Shared.Speech;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Server.GameObjects;
@@ -47,6 +47,7 @@ public sealed partial class AdminVerbSystem
     [Dependency] private readonly AdminTestArenaSystem _adminTestArenaSystem = default!;
     [Dependency] private readonly StationJobsSystem _stationJobsSystem = default!;
     [Dependency] private readonly JointSystem _jointSystem = default!;
+    [Dependency] private readonly ChatSystem _chatSystem = default!;
 
     private void AddTricksVerbs(GetVerbsEvent<Verb> args)
     {
@@ -552,6 +553,43 @@ public sealed partial class AdminVerbSystem
         };
         args.Verbs.Add(renameAndRedescribe);
 
+        if (TryComp<SharedSpeechComponent>(args.Target, out _))
+        {
+            Verb forceSay = new()
+            {
+                Text = "Force Say",
+                Category = VerbCategory.Tricks,
+                IconTexture = "/Textures/Interface/AdminActions/force_say.png",
+
+                Act = () =>
+                {
+                    _quickDialog.OpenDialog(player, "Force Say", "Say", (string say) =>
+                    {
+                            var chatType = InGameICChatType.Speak;
+
+                            if (say.StartsWith("*"))
+                            {
+                                chatType = InGameICChatType.Emote;
+                                say = say.Substring(1);
+                            }
+                            else if(say.StartsWith("#"))
+                            {
+                                chatType = InGameICChatType.Whisper;
+                                say = say.Substring(1);
+                            }
+
+                            _chatSystem.TrySendInGameICMessage(args.Target, say, chatType, false);
+                        });
+                },
+
+                Impact = LogImpact.Medium,
+                Message = Loc.GetString("admin-trick-force-say"),
+                Priority = (int) TricksVerbPriorities.ForceSay,
+            };
+
+            args.Verbs.Add(forceSay);
+        }
+
         if (TryComp<StationDataComponent>(args.Target, out var stationData))
         {
             if (_adminManager.HasAdminFlag(player, AdminFlags.Round))
@@ -925,5 +963,6 @@ public sealed partial class AdminVerbSystem
         SnapJoints = -24,
         MakeMinigun = -25,
         SetBulletAmount = -26,
+        ForceSay = -1,
     }
 }
