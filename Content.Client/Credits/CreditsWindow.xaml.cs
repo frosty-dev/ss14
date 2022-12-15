@@ -65,22 +65,6 @@ namespace Content.Client.Credits
         {
             var patrons = LoadPatrons();
 
-            // Do not show "become a patron" button on Steam builds
-            // since Patreon violates Valve's rules about alternative storefronts.
-            var linkPatreon = _cfg.GetCVar(CCVars.InfoLinksPatreon);
-            if (!_cfg.GetCVar(CCVars.BrandingSteam) && linkPatreon != "")
-            {
-                Button patronButton;
-                patronsContainer.AddChild(patronButton = new Button
-                {
-                    Text = Loc.GetString("credits-window-become-patron-button"),
-                    HorizontalAlignment = HAlignment.Center
-                });
-
-                patronButton.OnPressed +=
-                    _ => IoCManager.Resolve<IUriOpener>().OpenUri(linkPatreon);
-            }
-
             var first = true;
             foreach (var tier in patrons.GroupBy(p => p.Tier).OrderBy(p => PatronTierPriority[p.Key]))
             {

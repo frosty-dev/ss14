@@ -62,3 +62,22 @@ Entries:
     type: Remove
   id: 9
   time: '2022-12-07T15:47:10.0000000+00:00'
+- author: rhailrake
+  changes:
+  - message: HudOverlays.
+    type: Add
+  - message: Shaders.
+    type: Add
+  - message: And more.
+    type: Add
+  id: 10
+  time: '2022-12-14T19:02:50.0000000+00:00'
+- author: RavMorgan
+  changes:
+  - message: "\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0430 \u0432\u043E\u0437\
+      \u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u043A\u0438\u043A\u0430\u0442\
+      \u044C \u0438\u0433\u0440\u043E\u043A\u043E\u0432 \u043F\u043E\u0441\u043B\u0435\
+      \ \u0431\u0430\u043D\u0430."
+    type: Add
+  id: 11
+  time: '2022-12-15T04:43:41.0000000+00:00'

@@ -1,9 +1,11 @@
 <Control xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-         xmlns:parallax="clr-namespace:Content.Client.Parallax"
-         xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls">
-    <parallax:ParallaxControl />
+         xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+         xmlns:mainMenu="clr-namespace:Content.Client.MainMenu">
+    <mainMenu:BackgroundControl
+        TexturePath="/Textures/main_menu_background.png"
+        Stretch="KeepAspectCovered" />
     <Control HorizontalAlignment="Center" VerticalAlignment="Center">
         <PanelContainer StyleClasses="AngleRect" />
         <BoxContainer Orientation="Vertical" MinSize="300 200">

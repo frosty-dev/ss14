@@ -76,3 +76,53 @@
   id: Stealth
   kind: source
   path: "/Textures/Shaders/stealth.swsl"
+
+- type: shader
+  id: Crt
+  kind: source
+  path: "/Textures/Shaders/crt.swsl"
+  params:
+    scanlines_opacity: 0.4
+    scanlines_width: 0.25
+    grille_opacity: 0.3
+    resolution: 1600, 1080
+    roll: true
+    roll_speed: 8.0
+    roll_size: 15.0
+    roll_variation: 1.8
+    distort_intensity: 0.05
+    noise_opacity: 0.4
+    noise_speed: 5.0
+    static_noise_intensity: 0.06
+    aberration: 0.03
+    brightness: 1.4
+    discolor: true
+    warp_amount: 1.0
+    clip_warp: false
+    vignette_intensity: 0.4
+    vignette_opacity: 0.5
+    pixelate: true
+
+- type: shader
+  id: Grain
+  kind: source
+  path: "/Textures/Shaders/grain.swsl"
+  params:
+    strength: 100.0
+
+- type: shader
+  id: Crt2
+  kind: source
+  path: "/Textures/Shaders/crt2.swsl"
+  params:
+    res: 900, 600
+    mask_type: 0
+    bloom_type: 0
+    hardScan: -8.0
+    hardPix: -2.0
+    hardBloomScan: -2.0
+    hardBloomPix: -1.5
+    bloomAmount: 16.0
+    maskDark: 0.5
+    maskLight: 1.5
+    warp: 64.0, 24.0

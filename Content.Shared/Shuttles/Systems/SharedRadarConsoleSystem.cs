@@ -15,31 +15,32 @@ public abstract class SharedRadarConsoleSystem : EntitySystem
 
     private void OnHandleState(EntityUid uid, RadarConsoleComponent component, ref ComponentHandleState args)
     {
-        if (args.Current is not RadarConsoleComponentState state) return;
+        if (args.Current is not RadarConsoleComponentState state)
+            return;
+
         component.MaxRange = state.Range;
+        component.Rotation = state.Rotation;
+        OnStateUpdate(uid, component);
     }
 
     private void OnGetState(EntityUid uid, RadarConsoleComponent component, ref ComponentGetState args)
     {
-        args.State = new RadarConsoleComponentState()
+        args.State = new RadarConsoleComponentState
         {
-            Range = component.MaxRange
+            Range = component.MaxRange,
+            Rotation = component.Rotation
         };
+
+        OnStateUpdate(uid, component);
     }
 
-    protected virtual void UpdateState(RadarConsoleComponent component) {}
+    protected virtual void OnStateUpdate(EntityUid uid, RadarConsoleComponent component) { }
 
-    public void SetRange(RadarConsoleComponent component, float value)
-    {
-        if (component.MaxRange.Equals(value)) return;
-        component.MaxRange = value;
-        Dirty(component);
-        UpdateState(component);
-    }
-
-    [Serializable, NetSerializable]
+    [Serializable]
+    [NetSerializable]
     protected sealed class RadarConsoleComponentState : ComponentState
     {
         public float Range;
+        public Angle Rotation;
     }
 }

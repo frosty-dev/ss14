@@ -22,6 +22,10 @@
             <Button Name="WeekButton" Text="+1w (0)"/>
             <Button Name="MonthButton" Text="+1M (0)"/>
         </BoxContainer>
+        <BoxContainer Orientation="Horizontal">
+            <CheckBox Name="KickCheckBox" Text="Kick"></CheckBox>
+            <Control MinSize="50 0" />
+        </BoxContainer>
         <cc:PlayerListControl Name="PlayerList" VerticalExpand="True" />
         <Control MinWidth="50" />
         <Button Name="SubmitButton" Text="{Loc Ban}" />

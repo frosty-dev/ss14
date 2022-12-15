@@ -2,10 +2,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Content.Server.Chat.Managers;
 using Content.Server.Database;
+using Content.Server.Popups;
 using Content.Shared.Administration;
+using Content.Shared.Chat;
+using Content.Shared.Popups;
 using Robust.Server.Player;
 using Robust.Shared.Console;
+using Robust.Shared.Network;
+using Robust.Shared.Player;
+using Robust.Shared.Utility;
 
 
 namespace Content.Server.Administration.Commands
@@ -15,7 +22,7 @@ namespace Content.Server.Administration.Commands
     {
         public string Command => "ban";
         public string Description => "Bans somebody";
-        public string Help => $"Usage: {Command} <name or user ID> <reason> [duration in minutes, leave out or 0 for permanent ban]";
+        public string Help => $"Usage: {Command} <name or user ID> <reason> [duration in minutes, leave out or 0 for permanent ban] <kick true/false>]";
 
         public async void Execute(IConsoleShell shell, string argStr, string[] args)
         {
@@ -23,10 +30,12 @@ namespace Content.Server.Administration.Commands
             var plyMgr = IoCManager.Resolve<IPlayerManager>();
             var locator = IoCManager.Resolve<IPlayerLocator>();
             var dbMan = IoCManager.Resolve<IServerDbManager>();
+            var chatMan = IoCManager.Resolve<IChatManager>();
 
             string target;
             string reason;
             uint minutes;
+            bool kick = false;
 
             switch (args.Length)
             {
@@ -39,13 +48,30 @@ namespace Content.Server.Administration.Commands
                     target = args[0];
                     reason = args[1];
 
-                    if (!uint.TryParse(args[2], out minutes))
+                    if (!ParseMinutes(shell, args[2], out minutes))
                     {
-                        shell.WriteLine($"{args[2]} is not a valid amount of minutes.\n{Help}");
                         return;
                     }
 
                     break;
+
+                case 4:
+                    target = args[0];
+                    reason = args[1];
+
+                    if (!ParseMinutes(shell, args[2], out minutes))
+                    {
+                        return;
+                    }
+
+                    if(!bool.TryParse(args[3].ToLower(), out kick))
+                    {
+                        shell.WriteLine($"{args[3]} is not a valid boolean.\n{Help}");
+                        return;
+                    }
+
+                    break;
+
                 default:
                     shell.WriteLine($"Invalid amount of arguments.{Help}");
                     return;
@@ -98,15 +124,21 @@ namespace Content.Server.Administration.Commands
 
             await dbMan.AddServerBanAsync(banDef);
 
-            var response = new StringBuilder($"Banned {target} with reason \"{reason}\"");
+            var until = expires == null
+                ? " навсегда."
+                : $" до {expires}";
 
-            response.Append(expires == null ?
-                " permanently."
-                : $" until {expires}");
+            var response = new StringBuilder($"Забанен {target} по причине \"{reason}\" {until}");
 
             shell.WriteLine(response.ToString());
 
-            if (plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
+            if (!plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
+                return;
+
+            var message = $"Вы были забанены по причине \"{reason}\" {until}";
+            chatMan.DispatchServerMessage(targetPlayer, message);
+
+            if (kick)
             {
                 targetPlayer.ConnectedClient.Disconnect(banDef.DisconnectMessage);
             }
@@ -136,7 +168,29 @@ namespace Content.Server.Administration.Commands
                 return CompletionResult.FromHintOptions(durations, "[duration]");
             }
 
+            if (args.Length == 4)
+            {
+                var kick = new CompletionOption[]
+                {
+                    new("true", "Kick"),
+                    new("false", "Don't kick"),
+                };
+
+                return CompletionResult.FromHintOptions(kick, "[kick]");
+            }
+
             return CompletionResult.Empty;
+        }
+
+        private bool ParseMinutes(IConsoleShell shell, string arg, out uint minutes)
+        {
+            if (!uint.TryParse(arg, out minutes))
+            {
+                shell.WriteLine($"{arg} is not a valid amount of minutes.\n{Help}");
+                return false;
+            }
+
+            return true;
         }
     }
 }
