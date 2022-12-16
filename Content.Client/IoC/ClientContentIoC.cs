@@ -20,7 +20,9 @@ using Content.Shared.Module;
 
 using Content.Client.White.JoinQueue;
 using Content.Client.White.Sponsors;
-using Content.Client.White.Trail;
+using Content.Shared.White.Line;
+using Content.Client.White.Line.Manager;
+using Content.Client.White.Trail.Line.Manager;
 
 namespace Content.Client.IoC
 {
@@ -49,7 +51,7 @@ namespace Content.Client.IoC
             IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
 
-            IoCManager.Register<ITrailLineManager<ITrailLine>, TrailLineManager<TrailLine>>(); //prikol
+            IoCManager.Register<ITrailLineManager<ITrailLine>, TrailLineManager>(); //prikol
         }
     }
 }

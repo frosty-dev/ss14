@@ -13,6 +13,8 @@ public sealed class TrailSystem : EntitySystem
     }
     private void OnGetState(EntityUid uid, TrailComponent component, ref ComponentGetState args)
     {
-        args.State = new TrailComponentState(component.ToTrailSettings());
+        var settings = new TrailSettings();
+        TrailSettings.Inject(settings, component);
+        args.State = new TrailComponentState(settings);
     }
 }

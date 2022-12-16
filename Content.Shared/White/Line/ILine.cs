@@ -18,14 +18,8 @@ public interface IDynamicLine<TSettings> : ILine
 {
     MapId MapId { get; set; }
     TSettings Settings { get; set; }
-    void TryCreateSegment(TransformComponent coords);
+    void TryCreateSegment((Vector2 WorldPosition, Angle WorldRotation) worldPosRot, MapId mapId);
     void UpdateSegments(float dt);
-}
-
-public interface IDrawableLine<TDrawData> : ILine
-{
-    void RecalculateDrawData();
-    IEnumerable<TDrawData> GetDrawData();
 }
 
 public interface IAttachedLine : ILine

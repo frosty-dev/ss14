@@ -7,19 +7,42 @@ namespace Content.Shared.White.Trail;
 [NetworkedComponent()]
 public abstract class SharedTrailComponent : Component, ITrailSettings
 {
-    private Color _colorLifetimeStart = Color.White;
-    private Color _colorLifetimeEnd = Color.Transparent;
-    private string? _colorLifetimeDeltaLambdaOperations;
     [NonSerialized]
     private Func<float, float>? _colorLifetimeDeltaLambda;
-    private Vector2 _gravity = new Vector2(0.05f, 0.05f);
-    private float _lifetime = 1f;
-    private Vector2 _maxRandomWalk = new Vector2(0.005f, 0.005f);
-    private float _width = 0.5f;
+
+    private Color _colorLifetimeStart;
+    private Color _colorLifetimeEnd;
+    private string? _colorLifetimeDeltaLambdaOperations;
+    private Vector2 _gravity;
+    private float _lifetime;
+    private Vector2 _maxRandomWalk;
+    private Vector2 _scale;
     private string? _texurePath;
     private Vector2 _creationOffset;
-    private float _сreationDistanceThresholdSquared = 0.001f;
-    private SegmentCreationMethod _сreationMethod = SegmentCreationMethod.OnFrameUpdate;
+    private float _сreationDistanceThresholdSquared;
+    private SegmentCreationMethod _сreationMethod;
+    private TrailLineType _сreatedTrailType;
+    private float _pointsPerUnit;
+
+    protected SharedTrailComponent()
+    {
+        var defaultTrail = TrailSettings.Default;
+        _scale = defaultTrail.Scale;
+        _сreationDistanceThresholdSquared = defaultTrail.СreationDistanceThresholdSquared;
+        _сreationMethod = defaultTrail.СreationMethod;
+        _creationOffset = defaultTrail.CreationOffset;
+        _gravity = defaultTrail.Gravity;
+        _maxRandomWalk = defaultTrail.MaxRandomWalk;
+        _lifetime = defaultTrail.Lifetime;
+        _texurePath = defaultTrail.TexurePath;
+        _colorLifetimeStart = defaultTrail.ColorLifetimeStart;
+        _colorLifetimeEnd = defaultTrail.ColorLifetimeEnd;
+        _colorLifetimeDeltaLambdaOperations = defaultTrail.ColorLifetimeDeltaLambdaOperations;
+        _сreatedTrailType = defaultTrail.CreatedTrailType;
+        _pointsPerUnit = defaultTrail.PointsPerUnit;
+    }
+
+    public Func<float, float>? ColorLifetimeDeltaLambda => _colorLifetimeDeltaLambda;
 
     [DataField("colorLifetimeStart")]
     [ViewVariables(VVAccess.ReadWrite)]
@@ -64,8 +87,6 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         }
     }
 
-    public Func<float, float>? ColorLifetimeDeltaLambda => _colorLifetimeDeltaLambda;
-
     [DataField("gravity")]
     [ViewVariables(VVAccess.ReadWrite)]
     public Vector2 Gravity
@@ -108,16 +129,16 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         }
     }
 
-    [DataField("width", required: true)]
+    [DataField("scale", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float Width
+    public Vector2 Scale
     {
-        get => _width;
+        get => _scale;
         set
         {
-            if (_width == value)
+            if (_scale == value)
                 return;
-            _width = value;
+            _scale = value;
             Dirty();
         }
     }
@@ -164,7 +185,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         }
     }
 
-    [DataField("сreationMethod")]
+    [DataField("creationMethod")]
     [ViewVariables(VVAccess.ReadWrite)]
     public SegmentCreationMethod СreationMethod
     {
@@ -178,21 +199,33 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         }
     }
 
-    public TrailSettings ToTrailSettings()
-        => new()
+    [DataField("trailType")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual TrailLineType CreatedTrailType
+    {
+        get => _сreatedTrailType;
+        set
         {
-            Width = Width,
-            СreationDistanceThresholdSquared = СreationDistanceThresholdSquared,
-            СreationMethod = СreationMethod,
-            CreationOffset = CreationOffset,
-            Gravity = Gravity,
-            MaxRandomWalk = MaxRandomWalk,
-            Lifetime = Lifetime,
-            TexurePath = TexurePath,
-            ColorLifetimeStart = ColorLifetimeStart,
-            ColorLifetimeEnd = ColorLifetimeEnd,
-            ColorLifetimeDeltaLambdaOperations = ColorLifetimeDeltaLambdaOperations
-        };
+            if (_сreatedTrailType == value)
+                return;
+            _сreatedTrailType = value;
+            Dirty();
+        }
+    }
+
+    [DataField("pointsPerUnit")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float PointsPerUnit
+    {
+        get => _pointsPerUnit;
+        set
+        {
+            if (_pointsPerUnit == value)
+                return;
+            _pointsPerUnit = value;
+            Dirty();
+        }
+    }
 }
 
 [Serializable, NetSerializable]

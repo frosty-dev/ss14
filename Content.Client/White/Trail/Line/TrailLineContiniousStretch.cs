@@ -1,63 +1,14 @@
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
+using Robust.Client.Graphics;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
-using Robust.Shared.Sandboxing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Content.Client.White.Trail;
+namespace Content.Client.White.Trail.Line;
 
-public interface ITrailLine : ITimedLine, IAttachedLine, IDynamicLine<ITrailSettings>, IDrawableLine<TrailLineDrawData> { }
-
-public interface ITrailLineManager<out TTrailLine> : IDynamicLineManager<TTrailLine, ITrailSettings> where TTrailLine : ITrailLine { }
-
-public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
-    where TTrailLine : class, ITrailLine, new()
-{
-    private readonly LinkedList<ITrailLine> _lines = new();
-
-    private static readonly ISandboxHelper SandboxHelper = IoCManager.Resolve<ISandboxHelper>();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public IEnumerable<ITrailLine> GetLines() => _lines;
-
-    public ITrailLine Create(ITrailSettings settings, MapId mapId)
-    {
-        var tline = (TTrailLine) SandboxHelper.CreateInstance(typeof(TTrailLine));
-        tline.Attached = true;
-        tline.Settings = settings;
-        tline.MapId = mapId;
-
-        _lines.AddLast(tline);
-        return tline;
-    }
-
-    public void Update(float dt)
-    {
-        var curNode = _lines.First;
-        while (curNode != null)
-        {
-            var curLine = curNode.Value;
-            curNode = curNode.Next;
-
-            if (!curLine.HasSegments())
-            {
-                if (curLine.Attached)
-                    curLine.ResetLifetime();
-                else
-                    _lines.Remove(curLine);
-                continue;
-            }
-
-            curLine.AddLifetime(dt);
-            curLine.RemoveExpiredSegments();
-            curLine.UpdateSegments(dt);
-            curLine.RecalculateDrawData();
-        }
-    }
-}
-
-public sealed class TrailLine : ITrailLine
+public sealed class TrailLineContinuousStretch : ITrailLine
 {
     private static readonly IRobustRandom Random = IoCManager.Resolve<IRobustRandom>();
 
@@ -85,17 +36,17 @@ public sealed class TrailLine : ITrailLine
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void ResetLifetime() => _lifetime = 0f;
 
-    public void TryCreateSegment(TransformComponent xform)
+    public void TryCreateSegment((Vector2 WorldPosition, Angle WorldRotation) worldPosRot, MapId mapId)
     {
         if (!Attached)
             return;
 
-        if (xform.MapID != MapId)
+        if (mapId != MapId)
             return;
-        var posRot = xform.GetWorldPositionRotation();
-        if (posRot.WorldPosition == Vector2.Zero)
+
+        if (worldPosRot.WorldPosition == Vector2.Zero)
             return;
-        var pos = posRot.WorldPosition + posRot.WorldRotation.RotateVec(Settings.CreationOffset);
+        var pos = worldPosRot.WorldPosition + worldPosRot.WorldRotation.RotateVec(Settings.CreationOffset);
 
         _lastCreationPos = pos;
 
@@ -123,6 +74,8 @@ public sealed class TrailLine : ITrailLine
 
     public void UpdateSegments(float dt)
     {
+        RecalculateDrawData();
+
         var gravity = Settings.Gravity;
         var maxRandomWalk = Settings.MaxRandomWalk;
 
@@ -150,12 +103,12 @@ public sealed class TrailLine : ITrailLine
             _segments.RemoveFirst();
     }
 
-    public void RecalculateDrawData()
+    private void RecalculateDrawData()
     {
         if (_segments.Last == null)
             return;
 
-        var baseWidth = Settings.Width;
+        var baseWidth = Settings.Scale.X;
         var segmentLifetime = Settings.Lifetime;
 
         var curNode = _segments.Last;
@@ -179,7 +132,7 @@ public sealed class TrailLine : ITrailLine
         }
     }
 
-    public IEnumerable<TrailLineDrawData> GetDrawData()
+    private IEnumerable<TrailLineDrawData> GetDrawData()
     {
         foreach (var item in _segments)
             if (item.DrawData.HasValue)
@@ -189,10 +142,93 @@ public sealed class TrailLine : ITrailLine
         if (lastPos != null)
         {
             var angle = (lastPos.Value - _lastCreationPos).ToWorldAngle();
-            var rotatedOffset = angle.ToVec() * Settings.Width;
+            var rotatedOffset = angle.ToVec() * Settings.Scale.X;
 
             yield return new(_lastCreationPos - rotatedOffset, _lastCreationPos + rotatedOffset, angle, 1f);
         }
+    }
+
+    public void Render(DrawingHandleWorld handle, Texture? texture)
+    {
+        var drawData = GetDrawData();
+        if (!drawData.Any())
+            return;
+
+        var settings = Settings;
+
+        if (texture != null)
+        {
+            var prev = drawData.First();
+            foreach (var cur in drawData.Skip(1))
+            {
+                var lambda = settings.ColorLifetimeDeltaLambda != null
+                    ? settings.ColorLifetimeDeltaLambda(cur.LifetimePercent)
+                    : cur.LifetimePercent;
+                var color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, lambda);
+                RenderTrailTexture(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, texture, color);
+                prev = cur;
+            }
+        }
+        else
+        {
+            var prev = drawData.First();
+            foreach (var cur in drawData.Skip(1))
+            {
+                Color color;
+                if (settings.ColorLifetimeDeltaLambda == null)
+                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, cur.LifetimePercent);
+                else
+                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, settings.ColorLifetimeDeltaLambda(cur.LifetimePercent));
+                RenderTrailColor(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, color);
+                prev = cur;
+            }
+        }
+
+#if DEBUG
+        if (false)
+        {
+            var prev = drawData.First();
+            foreach (var cur in drawData.Skip(1))
+            {
+                //var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
+                RenderTrailDebugBox(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2);
+                //handle.DrawLine(cur.Point1, cur.Point1 + cur.AngleRight.RotateVec(Vector2.UnitX), Color.Red);
+                prev = cur;
+            }
+        }
+#endif
+    }
+
+    private static void RenderTrailTexture(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2, Texture tex, Color color)
+    {
+        var verts = new DrawVertexUV2D[] {
+            new (from1, Vector2.Zero),
+            new (from2, Vector2.UnitY),
+            new (to2, Vector2.One),
+            new (to1, Vector2.UnitX),
+        };
+
+        handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, tex, verts, color);
+    }
+
+    private static void RenderTrailColor(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2, Color color)
+    {
+        var verts = new Vector2[] {
+            from1,
+            from2,
+            to2,
+            to1,
+        };
+
+        handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, verts, color);
+    }
+
+    private static void RenderTrailDebugBox(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2)
+    {
+        handle.DrawLine(from1, from2, Color.Gray);
+        handle.DrawLine(from1, to1, Color.Gray);
+        handle.DrawLine(from2, to2, Color.Gray);
+        handle.DrawLine(to1, to2, Color.Gray);
     }
 
     private sealed class TrailLineSegment
@@ -204,21 +240,19 @@ public sealed class TrailLine : ITrailLine
         [ViewVariables]
         public TrailLineDrawData? DrawData { get; set; } = null;
     }
-}
-
-public struct TrailLineDrawData
-{
-    public readonly Vector2 Point1;
-    public readonly Vector2 Point2;
-    public readonly Angle AngleRight;
-    public readonly float LifetimePercent;
-
-    public TrailLineDrawData(Vector2 point1, Vector2 point2, Angle angleRight, float lifetimePercent)
+    private struct TrailLineDrawData
     {
-        Point1 = point1;
-        Point2 = point2;
-        AngleRight = angleRight;
-        LifetimePercent = lifetimePercent;
+        public readonly Vector2 Point1;
+        public readonly Vector2 Point2;
+        public readonly Angle AngleRight;
+        public readonly float LifetimePercent;
+
+        public TrailLineDrawData(Vector2 point1, Vector2 point2, Angle angleRight, float lifetimePercent)
+        {
+            Point1 = point1;
+            Point2 = point2;
+            AngleRight = angleRight;
+            LifetimePercent = lifetimePercent;
+        }
     }
 }
-

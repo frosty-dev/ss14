@@ -1,8 +1,9 @@
+using Content.Client.White.Line.Manager;
+using Content.Shared.White.Line;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Client.White.Trail;
 
@@ -35,60 +36,9 @@ public sealed class TrailOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        var handle = args.WorldHandle;
         foreach (var item in _lineManager.GetLines())
-            ProcessTrailLine(args.WorldHandle, item);
-    }
-
-    private void ProcessTrailLine(DrawingHandleWorld handle, ITrailLine line)
-    {
-        var drawData = line.GetDrawData();
-        if (!drawData.Any())
-            return;
-
-        var settings = line.Settings;
-
-        var tex = GetCachedTexture(settings.TexurePath ?? "");
-        if (tex != null)
-        {
-            var prev = drawData.First();
-            foreach (var cur in drawData.Skip(1))
-            {
-                var lambda = settings.ColorLifetimeDeltaLambda != null
-                    ? settings.ColorLifetimeDeltaLambda(cur.LifetimePercent)
-                    : cur.LifetimePercent;
-                var color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, lambda);
-                RenderTrailTexture(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, tex, color);
-                prev = cur;
-            }
-        }
-        else
-        {
-            var prev = drawData.First();
-            foreach (var cur in drawData.Skip(1))
-            {
-                Color color;
-                if (settings.ColorLifetimeDeltaLambda == null)
-                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, cur.LifetimePercent);
-                else
-                    color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, settings.ColorLifetimeDeltaLambda(cur.LifetimePercent));
-                RenderTrailColor(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2, color);
-                prev = cur;
-            }
-        }
-
-#if DEBUG
-        if (false)
-        {
-            var prev = drawData.First();
-            foreach (var cur in drawData.Skip(1))
-            {
-                //var color = Color.InterpolateBetween(settings.ColorLifetimeMod, settings.ColorBase, cur.LifetimePercent);
-                RenderTrailDebugBox(handle, prev.Point1, prev.Point2, cur.Point1, cur.Point2);
-                //handle.DrawLine(cur.Point1, cur.Point1 + cur.AngleRight.RotateVec(Vector2.UnitX), Color.Red);
-                prev = cur;
-            }
-        }
-#endif
+            item.Render(handle, GetCachedTexture(item.Settings.TexurePath ?? ""));
     }
 
     //влепить на ети два метода мемори кеш со слайдинг експирейшоном вместо дикта если проблемы будут
@@ -112,37 +62,5 @@ public sealed class TrailOverlay : Overlay
             texture = texRes;
         _textureDict.Add(path, texture);
         return texture;
-    }
-
-    private static void RenderTrailTexture(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2, Texture tex, Color color)
-    {
-        var verts = new DrawVertexUV2D[] {
-            new (from1, Vector2.Zero),
-            new (from2, Vector2.UnitY),
-            new (to2, Vector2.One),
-            new (to1, Vector2.UnitX),
-        };
-
-        handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, tex, verts, color);
-    }
-
-    private static void RenderTrailColor(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2, Color color)
-    {
-        var verts = new Vector2[] {
-            from1,
-            from2,
-            to2,
-            to1,
-        };
-
-        handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, verts, color);
-    }
-
-    private static void RenderTrailDebugBox(DrawingHandleBase handle, Vector2 from1, Vector2 from2, Vector2 to1, Vector2 to2)
-    {
-        handle.DrawLine(from1, from2, Color.Gray);
-        handle.DrawLine(from1, to1, Color.Gray);
-        handle.DrawLine(from2, to2, Color.Gray);
-        handle.DrawLine(to1, to2, Color.Gray);
     }
 }
