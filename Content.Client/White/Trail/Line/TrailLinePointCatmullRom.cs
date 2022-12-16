@@ -115,8 +115,6 @@ public sealed class TrailLinePointCatmullRom : ITrailLine
 
     private IEnumerable<SplinePointData> CalculateSpline()
     {
-        const float pointsPerUnit = 8f;
-
         if (_segments.Last == null)
             yield break;
 
@@ -132,7 +130,7 @@ public sealed class TrailLinePointCatmullRom : ITrailLine
             ITrailSegment p0 = pointsArray[i - 1], p1 = pointsArray[i], p2 = pointsArray[i + 1], p3 = pointsArray[i + 2];
             Vector2 p0v = p0.Position, p1v = p1.Position, p2v = p2.Position, p3v = p3.Position;
 
-            var stepAmount = 1 / (p2v - p1v).Length / pointsPerUnit;
+            var stepAmount = 1 / (p2v - p1v).Length / Settings.PointsPerUnit;
 
             Vector2? prevPosition = null;
             for (var t = 0f; t < 1f; t += stepAmount)

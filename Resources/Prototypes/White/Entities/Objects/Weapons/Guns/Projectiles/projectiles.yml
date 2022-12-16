@@ -44,7 +44,7 @@
 #      path: "/Audio/Weapons/tap.ogg"
 #    soundForce: true
   - type: Trail
-    trailType: ContiniousStretch
+    trailType: ContinuousStretch
     creationMethod: OnMove
     scale: 0.05, 0.0
     lifetime: 0.1

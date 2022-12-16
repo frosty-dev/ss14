@@ -50,7 +50,7 @@ public sealed class TrailLineManager : ITrailLineManager<ITrailLine>
     private static ITrailLine CreateTrailByType(TrailLineType trailType)
         => trailType switch
         {
-            TrailLineType.ContiniousStretch => new TrailLineContiniousStretch(),
+            TrailLineType.ContinuousStretch => new TrailLineContinuousStretch(),
             TrailLineType.PointCatmullRom => new TrailLinePointCatmullRom(),
             _ => throw new NotImplementedException()
         };

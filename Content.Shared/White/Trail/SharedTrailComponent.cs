@@ -22,6 +22,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     private float _сreationDistanceThresholdSquared;
     private SegmentCreationMethod _сreationMethod;
     private TrailLineType _сreatedTrailType;
+    private float _pointsPerUnit;
 
     protected SharedTrailComponent()
     {
@@ -38,6 +39,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         _colorLifetimeEnd = defaultTrail.ColorLifetimeEnd;
         _colorLifetimeDeltaLambdaOperations = defaultTrail.ColorLifetimeDeltaLambdaOperations;
         _сreatedTrailType = defaultTrail.CreatedTrailType;
+        _pointsPerUnit = defaultTrail.PointsPerUnit;
     }
 
     public Func<float, float>? ColorLifetimeDeltaLambda => _colorLifetimeDeltaLambda;
@@ -207,6 +209,20 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             if (_сreatedTrailType == value)
                 return;
             _сreatedTrailType = value;
+            Dirty();
+        }
+    }
+
+    [DataField("pointsPerUnit")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float PointsPerUnit
+    {
+        get => _pointsPerUnit;
+        set
+        {
+            if (_pointsPerUnit == value)
+                return;
+            _pointsPerUnit = value;
             Dirty();
         }
     }

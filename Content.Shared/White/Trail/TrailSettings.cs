@@ -19,11 +19,12 @@ public sealed class TrailSettings : ITrailSettings
     public Vector2 Gravity { get; set; } = (0.01f, 0.01f);
     public Vector2 MaxRandomWalk { get; set; } = (0.005f, 0.005f);
     public float Lifetime { get; set; } = 1f;
+    public float PointsPerUnit { get; set; } = 4f;
     public string? TexurePath { get; set; }
     public Color ColorLifetimeStart { get; set; } = Color.White;
     public Color ColorLifetimeEnd { get; set; } = Color.Transparent;
     public string? ColorLifetimeDeltaLambdaOperations { get; set; }
-    public TrailLineType CreatedTrailType { get; set; } = TrailLineType.ContiniousStretch;
+    public TrailLineType CreatedTrailType { get; set; } = TrailLineType.ContinuousStretch;
 
     public static void Inject(ITrailSettings into, ITrailSettings from)
     {
@@ -34,6 +35,7 @@ public sealed class TrailSettings : ITrailSettings
         into.Gravity = from.Gravity;
         into.MaxRandomWalk = from.MaxRandomWalk;
         into.Lifetime = from.Lifetime;
+        into.PointsPerUnit = from.PointsPerUnit;
         into.TexurePath = from.TexurePath;
         into.ColorLifetimeStart = from.ColorLifetimeStart;
         into.ColorLifetimeEnd = from.ColorLifetimeEnd;
@@ -50,6 +52,7 @@ public interface ITrailSettings
     Func<float, float>? ColorLifetimeDeltaLambda { get; }
     Vector2 Gravity { get; set; }
     float Lifetime { get; set; }
+    float PointsPerUnit { get; set; }
     Vector2 MaxRandomWalk { get; set; }
     Vector2 Scale { get; set; }
     string? TexurePath { get; set; }
@@ -67,7 +70,7 @@ public enum SegmentCreationMethod : byte
 
 public enum TrailLineType : byte
 {
-    ContiniousStretch,
+    ContinuousStretch,
     PointCatmullRom
 }
 

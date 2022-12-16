@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace Content.Client.White.Trail.Line;
 
-public sealed class TrailLineContiniousStretch : ITrailLine
+public sealed class TrailLineContinuousStretch : ITrailLine
 {
     private static readonly IRobustRandom Random = IoCManager.Resolve<IRobustRandom>();
 
