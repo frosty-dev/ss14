@@ -1,5 +1,3 @@
-using Robust.Shared.Map;
-
 namespace Content.Shared.White.Line;
 
 public interface ILineManager<out TLine>
@@ -11,7 +9,6 @@ public interface ILineManager<out TLine>
 public interface IDynamicLineManager<out TLine, TLineSettings> : ILineManager<TLine>
     where TLine : IDynamicLine<TLineSettings>
 {
-    TLine Create(TLineSettings settings, MapId mapId);
     void Update(float dt);
 }
 

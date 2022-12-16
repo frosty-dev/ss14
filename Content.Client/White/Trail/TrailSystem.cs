@@ -1,5 +1,4 @@
 using Content.Client.White.Line.Manager;
-using Content.Client.White.Trail.Line;
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
 using Robust.Client.Graphics;
@@ -36,19 +35,7 @@ public sealed class TrailSystem : EntitySystem
     {
         if (args.Current is not TrailComponentState state)
             return;
-        var srvSettings = state.Settings;
-
-        component.Scale = srvSettings.Scale;
-        component.СreationDistanceThresholdSquared = srvSettings.СreationDistanceThresholdSquared;
-        component.СreationMethod = srvSettings.СreationMethod;
-        component.CreationOffset = srvSettings.CreationOffset;
-        component.Gravity = srvSettings.Gravity;
-        component.MaxRandomWalk = srvSettings.MaxRandomWalk;
-        component.Lifetime = srvSettings.Lifetime;
-        component.TexurePath = srvSettings.TexurePath;
-        component.ColorLifetimeStart = srvSettings.ColorLifetimeStart;
-        component.ColorLifetimeEnd = srvSettings.ColorLifetimeEnd;
-        component.ColorLifetimeDeltaLambdaOperations = srvSettings.ColorLifetimeDeltaLambdaOperations;
+        TrailSettings.Inject(component, state.Settings);
     }
 
     private void OnTrailRemove(EntityUid uid, TrailComponent comp, ComponentRemove args)
@@ -56,7 +43,9 @@ public sealed class TrailSystem : EntitySystem
         if (comp.Line != null)
         {
             comp.Line.Attached = false;
-            comp.Line.Settings = comp.ToTrailSettings();
+            var detachedSettings = new TrailSettings();
+            TrailSettings.Inject(detachedSettings, comp);
+            comp.Line.Settings = detachedSettings;
         }
     }
 
@@ -73,7 +62,7 @@ public sealed class TrailSystem : EntitySystem
         if (xform.MapID == MapId.Nullspace)
             return;
 
-        comp.Line ??= _lineManager.Create(comp, xform.MapID);
+        comp.Line ??= _lineManager.CreateTrail(comp, xform.MapID);
         comp.Line.TryCreateSegment(xform.GetWorldPositionRotation(), xform.MapID);
     }
 

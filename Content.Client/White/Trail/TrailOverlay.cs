@@ -1,11 +1,9 @@
 using Content.Client.White.Line.Manager;
-using Content.Client.White.Trail.Line;
 using Content.Shared.White.Line;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Client.White.Trail;
 

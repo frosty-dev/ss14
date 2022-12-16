@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace Content.Client.White.Trail.Line;
 
-public sealed class TrailLineCatmullRom : ITrailLine
+public sealed class TrailLinePointCatmullRom : ITrailLine
 {
     private static readonly IRobustRandom Random = IoCManager.Resolve<IRobustRandom>();
 
@@ -26,7 +26,7 @@ public sealed class TrailLineCatmullRom : ITrailLine
     [ViewVariables]
     private Vector2? _virtualSegmentPos = null;
 
-    public TrailLineCatmullRom()
+    public TrailLinePointCatmullRom()
     {
         _vPointHead = new(this);
         _vPointExtHead = new(this);
@@ -91,7 +91,7 @@ public sealed class TrailLineCatmullRom : ITrailLine
         foreach (var item in _segments)
         {
             var offset = gravity;
-            
+
             if (maxRandomWalk != Vector2.Zero && item.Gradient != Vector2.Zero)
             {
                 //var effectiveRandomWalk = maxRandomWalk * (1 - item.GetLifetimeRemaining(_curLifetime) / Settings.Lifetime);
@@ -99,7 +99,7 @@ public sealed class TrailLineCatmullRom : ITrailLine
                 offset += gradientNorm * maxRandomWalk.Y * Random.NextFloat(-1.0f, 1.0f);
                 offset += gradientNorm.Rotated90DegreesAnticlockwiseWorld * maxRandomWalk.X * Random.NextFloat(-1.0f, 1.0f);
             }
-            
+
 
             item.Position += offset;
         }
@@ -203,8 +203,8 @@ public sealed class TrailLineCatmullRom : ITrailLine
                 handle.DrawTextureRect(texture, new Box2Rotated(quad, item.Gradient.ToAngle(), quad.Center), color);
             }
         }
-
-        //RenderDebug(handle);
+        else
+            RenderDebug(handle);
     }
 
     private void RenderDebug(DrawingHandleWorld handle)
@@ -244,9 +244,9 @@ public sealed class TrailLineCatmullRom : ITrailLine
 
     private sealed class TrailSegmentHead : ITrailSegment
     {
-        private readonly TrailLineCatmullRom _line;
+        private readonly TrailLinePointCatmullRom _line;
 
-        public TrailSegmentHead(TrailLineCatmullRom line)
+        public TrailSegmentHead(TrailLinePointCatmullRom line)
         {
             _line = line;
         }
@@ -260,9 +260,9 @@ public sealed class TrailLineCatmullRom : ITrailLine
 
     private sealed class TrailSegmentExtHead : ITrailSegment
     {
-        private readonly TrailLineCatmullRom _line;
+        private readonly TrailLinePointCatmullRom _line;
 
-        public TrailSegmentExtHead(TrailLineCatmullRom line)
+        public TrailSegmentExtHead(TrailLinePointCatmullRom line)
         {
             _line = line;
         }
@@ -285,9 +285,9 @@ public sealed class TrailLineCatmullRom : ITrailLine
 
     private sealed class TrailSegmentExtFirst : ITrailSegment
     {
-        private readonly TrailLineCatmullRom _line;
+        private readonly TrailLinePointCatmullRom _line;
 
-        public TrailSegmentExtFirst(TrailLineCatmullRom line)
+        public TrailSegmentExtFirst(TrailLinePointCatmullRom line)
         {
             _line = line;
         }

@@ -2,24 +2,20 @@ using Content.Client.White.Line.Manager;
 using Content.Shared.White.Line;
 using Content.Shared.White.Trail;
 using Robust.Shared.Map;
-using Robust.Shared.Sandboxing;
 using System.Runtime.CompilerServices;
 
 namespace Content.Client.White.Trail.Line.Manager;
 
-public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
-    where TTrailLine : class, ITrailLine, new()
+public sealed class TrailLineManager : ITrailLineManager<ITrailLine>
 {
     private readonly LinkedList<ITrailLine> _lines = new();
-
-    private static readonly ISandboxHelper SandboxHelper = IoCManager.Resolve<ISandboxHelper>();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public IEnumerable<ITrailLine> GetLines() => _lines;
 
-    public ITrailLine Create(ITrailSettings settings, MapId mapId)
+    public ITrailLine CreateTrail(ITrailSettings settings, MapId mapId)
     {
-        var tline = (TTrailLine) SandboxHelper.CreateInstance(typeof(TTrailLine));
+        var tline = CreateTrailByType(settings.CreatedTrailType);
         tline.Attached = true;
         tline.Settings = settings;
         tline.MapId = mapId;
@@ -50,5 +46,13 @@ public sealed class TrailLineManager<TTrailLine> : ITrailLineManager<ITrailLine>
             curLine.UpdateSegments(dt);
         }
     }
+
+    private static ITrailLine CreateTrailByType(TrailLineType trailType)
+        => trailType switch
+        {
+            TrailLineType.ContiniousStretch => new TrailLineContiniousStretch(),
+            TrailLineType.PointCatmullRom => new TrailLinePointCatmullRom(),
+            _ => throw new NotImplementedException()
+        };
 }
 
