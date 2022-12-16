@@ -33,6 +33,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Content.Shared.Database;
 using Content.Shared.Administration.Logs;
+using Content.Shared.Bed.Sleep;
 
 namespace Content.Server.Cloning
 {
@@ -243,6 +244,8 @@ namespace Content.Server.Cloning
             UpdateStatus(CloningPodStatus.NoMind, clonePod);
             _euiManager.OpenEui(new AcceptCloningEui(mind, this), client);
 
+            AddComp<ForcedSleepingComponent>(mob);
+
             AddComp<ActiveCloningPodComponent>(uid);
 
             // TODO: Ideally, components like this should be on a mind entity so this isn't neccesary.
@@ -301,6 +304,7 @@ namespace Content.Server.Cloning
             clonePod.UsedBiomass = 0;
             UpdateStatus(CloningPodStatus.Idle, clonePod);
             RemCompDeferred<ActiveCloningPodComponent>(uid);
+            RemComp<ForcedSleepingComponent>(entity);
         }
 
         private void EndFailedCloning(EntityUid uid, CloningPodComponent clonePod)
