@@ -108,7 +108,7 @@ public sealed class TrailLineStretch : ITrailLine
         if (_segments.Last == null)
             return;
 
-        var baseWidth = Settings.Width;
+        var baseWidth = Settings.Scale.X;
         var segmentLifetime = Settings.Lifetime;
 
         var curNode = _segments.Last;
@@ -142,7 +142,7 @@ public sealed class TrailLineStretch : ITrailLine
         if (lastPos != null)
         {
             var angle = (lastPos.Value - _lastCreationPos).ToWorldAngle();
-            var rotatedOffset = angle.ToVec() * Settings.Width;
+            var rotatedOffset = angle.ToVec() * Settings.Scale.X;
 
             yield return new(_lastCreationPos - rotatedOffset, _lastCreationPos + rotatedOffset, angle, 1f);
         }

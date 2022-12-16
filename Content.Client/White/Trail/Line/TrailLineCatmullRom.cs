@@ -113,17 +113,9 @@ public sealed class TrailLineCatmullRom : ITrailLine
             _segments.RemoveFirst();
     }
 
-    public void Render(DrawingHandleWorld handle, Texture? texture)
-    {
-        if (_segments.Last == null)
-            return;
-
-        RenderDebug(handle);
-    }
-
     private IEnumerable<SplinePointData> CalculateSpline()
     {
-        const float pointsPerUnit = 4f;
+        const float pointsPerUnit = 8f;
 
         if (_segments.Last == null)
             yield break;
@@ -185,6 +177,34 @@ public sealed class TrailLineCatmullRom : ITrailLine
                 prevPosition = curPosition;
             }
         }
+    }
+
+    public void Render(DrawingHandleWorld handle, Texture? texture)
+    {
+        if (_segments.Last == null)
+            return;
+
+        var settings = Settings;
+
+        var data = CalculateSpline();
+        if (texture != null)
+        {
+            foreach (var item in data)
+            {
+                var lifetimePercent = item.Lifetime / Settings.Lifetime;
+                var lambda = Settings.ColorLifetimeDeltaLambda != null
+                    ? Settings.ColorLifetimeDeltaLambda(lifetimePercent)
+                    : lifetimePercent;
+
+                var color = Color.InterpolateBetween(settings.ColorLifetimeEnd, settings.ColorLifetimeStart, lambda);
+
+                var quad = Box2.FromDimensions(item.Position, Settings.Scale * (texture.Width / EyeManager.PixelsPerMeter, texture.Height / EyeManager.PixelsPerMeter));
+
+                handle.DrawTextureRect(texture, new Box2Rotated(quad, item.Gradient.ToAngle(), quad.Center), color);
+            }
+        }
+
+        //RenderDebug(handle);
     }
 
     private void RenderDebug(DrawingHandleWorld handle)

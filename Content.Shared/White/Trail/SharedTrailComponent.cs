@@ -12,10 +12,10 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     private string? _colorLifetimeDeltaLambdaOperations;
     [NonSerialized]
     private Func<float, float>? _colorLifetimeDeltaLambda;
-    private Vector2 _gravity = new Vector2(0.05f, 0.05f);
+    private Vector2 _gravity = (0.05f, 0.05f);
     private float _lifetime = 1f;
-    private Vector2 _maxRandomWalk = new Vector2(0.005f, 0.005f);
-    private float _width = 0.5f;
+    private Vector2 _maxRandomWalk = (0.005f, 0.005f);
+    private Vector2 _scale = (0.5f, 1f);
     private string? _texurePath;
     private Vector2 _creationOffset;
     private float _сreationDistanceThresholdSquared = 0.001f;
@@ -108,16 +108,16 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         }
     }
 
-    [DataField("width", required: true)]
+    [DataField("scale", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float Width
+    public Vector2 Scale
     {
-        get => _width;
+        get => _scale;
         set
         {
-            if (_width == value)
+            if (_scale == value)
                 return;
-            _width = value;
+            _scale = value;
             Dirty();
         }
     }
@@ -181,7 +181,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     public TrailSettings ToTrailSettings()
         => new()
         {
-            Width = Width,
+            Scale = Scale,
             СreationDistanceThresholdSquared = СreationDistanceThresholdSquared,
             СreationMethod = СreationMethod,
             CreationOffset = CreationOffset,
