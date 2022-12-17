@@ -95,6 +95,9 @@ public sealed class TrailLineContinuousStretch : ITrailLine
 
         if (_virtualSegmentPos.HasValue)
             _virtualSegmentPos = _virtualSegmentPos.Value + gravity;
+
+        if (!Attached)
+            _lastCreationPos = _lastCreationPos + gravity;
     }
 
     public void RemoveExpiredSegments()
