@@ -8,6 +8,7 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.IoC;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.LineEdit;
+using System.Linq;
 
 namespace Content.Client.Administration.UI.Tabs.AdminTab
 {
@@ -15,12 +16,14 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
     [UsedImplicitly]
     public sealed partial class RoleBanWindow : DefaultWindow
     {
+        private readonly List<string> _jobsName = new() {"Captain", "HeadOfPersonnel", "HeadOfSecurity", "ChiefMedicalOfficer", "ChiefEngineer", "Quartermaster", "ResearchDirector", "Warden", "SecurityOfficer", "Detective", "SecurityCadet", "Chemist", "MedicalDoctor", "Psychologist", "MedicalIntern", "AtmosphericTechnician", "StationEngineer", "TechnicalAssistant", "CargoTechnician", "SalvageSpecialist", "Scientist", "ServiceWorker", "Bartender", "Chef", "Botanist", "Clown", "Mime", "Chaplain", "Librarian", "Lawyer", "Janitor", "Musician", "Reporter", "Zookeeper"};
         public RoleBanWindow()
         {
             RobustXamlLoader.Load(this);
-            OnPlayerNameChanged();
-            OnRoleNameChanged();
-            PlayerNameLine.OnTextChanged += _ => OnPlayerNameChanged();
+            OnNamesChanged();
+            PlayerNameLine.OnTextChanged += _ => OnNamesChanged();
+            MinutesLine.OnTextChanged += UpdateButtonsText;
+            RoleNameLine.OnTextChanged += _ => OnNamesChanged();
             PlayerList.OnSelectionChanged += OnPlayerSelectionChanged;
             SubmitByNameButton.OnPressed += SubmitByNameButtonOnPressed;
             SubmitListButton.OnPressed += SubmitListButtonOnPressed;
@@ -66,34 +69,38 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             MonthButton.Text = $"+1M ({minutes / 43200})";
         }
 
-        private void OnPlayerNameChanged()
+        private void OnNamesChanged()
         {
-            SubmitByNameButton.Disabled = string.IsNullOrEmpty(PlayerNameLine.Text);
+            if (string.IsNullOrEmpty(PlayerNameLine.Text) == false && string.IsNullOrEmpty(RoleNameLine.Text) == false)
+            {
+                SubmitByNameButton.Disabled = false;
+            }
+            else
+            {
+                SubmitByNameButton.Disabled = true;
+            }
             SubmitListButton.Disabled = string.IsNullOrEmpty(PlayerNameLine.Text);
         }
 
-        private void OnRoleNameChanged()
-        {
-            SubmitByNameButton.Disabled  = string.IsNullOrEmpty(RoleNameLine.Text);
-        }
-
-        public void OnPlayerSelectionChanged(PlayerInfo? player)
+        private void OnPlayerSelectionChanged(PlayerInfo? player)
         {
             PlayerNameLine.Text = player?.Username ?? string.Empty;
-            OnPlayerNameChanged();
+            OnNamesChanged();
         }
 
         private void SubmitByNameButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
             // Small verification if Player Name exists
             IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"ban \"{PlayerNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
+                $"roleban \"{PlayerNameLine.Text}\" \"{RoleNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
         }
         private void SubmitListButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            // Small verification if Player Name exists
-            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"ban \"{PlayerNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
+            foreach (var name in from name in _jobsName let control = FindControl<CheckBox>(name) where control.Pressed select name)
+            {
+                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
+                    $"roleban \"{PlayerNameLine.Text}\" \"{name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
+            }
         }
     }
 }
