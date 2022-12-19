@@ -3,7 +3,7 @@
   bodyPart: HeadTop
   markingCategory: HeadTop
   speciesRestriction: [Human]
-#  sponsorOnly: true
+  sponsorOnly: true
   sprites:
   - sprite: White/Mobs/Customization/fox_parts.rsi
     state: ears_fox_outer
