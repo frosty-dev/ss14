@@ -11,6 +11,42 @@
     state: ears_cat_inner
 
 - type: marking
+  id: CatEarsStubby
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [Human]
+  sponsorOnly: true
+  sprites:
+    - sprite: White/Mobs/Customization/cat_parts.rsi
+      state: ears_stubby_outer
+    - sprite: White/Mobs/Customization/cat_parts.rsi
+      state: ears_stubby_inner
+
+- type: marking
+  id: CatEarsCurled
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [Human]
+  sponsorOnly: true
+  sprites:
+    - sprite: White/Mobs/Customization/cat_parts.rsi
+      state: ears_curled_outer
+    - sprite: White/Mobs/Customization/cat_parts.rsi
+      state: ears_curled_inner
+
+- type: marking
+  id: CatEarsTorn
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [Human]
+  sponsorOnly: true
+  sprites:
+    - sprite: White/Mobs/Customization/cat_parts.rsi
+      state: ears_torn_outer
+    - sprite: White/Mobs/Customization/cat_parts.rsi
+      state: ears_torn_inner
+
+- type: marking
   id: CatTail
   bodyPart: Tail
   markingCategory: Tail

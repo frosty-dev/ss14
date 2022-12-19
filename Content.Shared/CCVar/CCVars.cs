@@ -1434,10 +1434,10 @@ namespace Content.Shared.CCVar
         */
 
         public static readonly CVarDef<bool> Shaders =
-            CVarDef.Create("graphics.shaders", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+            CVarDef.Create("graphics.shaders", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
         public static readonly CVarDef<bool> FilmGrain =
-            CVarDef.Create("graphics.film_grain", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+            CVarDef.Create("graphics.film_grain", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
 
 
