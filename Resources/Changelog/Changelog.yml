@@ -1,5 +1,4 @@
 Entries:
-<<<<<<< HEAD
 - author: metalgearsloth
   changes:
   - {message: Default camera rotations have been inverted., type: Tweak}
@@ -82,8 +81,6 @@ Entries:
   - {message: Added a sussy lil friend to the station., type: Add}
   id: 2273
   time: '2022-09-11T00:08:17.0000000+00:00'
-=======
->>>>>>> f78dca8504a029ebc4936549cbd1e8354e7420f0
 - author: ashtronaut
   changes:
   - {message: Pipes with high pressure will warn you when unachoring them and take
@@ -2935,8 +2932,6 @@ Entries:
   - {message: NPCs will now smash and pry correctly., type: Fix}
   id: 2759
   time: '2022-12-15T04:30:28.0000000+00:00'
-<<<<<<< HEAD
-=======
 - author: Errant
   changes:
   - {message: Dead people can no longer sleep, type: Fix}
@@ -3012,4 +3007,3 @@ Entries:
   - {message: Thrusters and Gyroscopes can be built and upgraded., type: Add}
   id: 2773
   time: '2022-12-19T04:38:30.0000000+00:00'
->>>>>>> f78dca8504a029ebc4936549cbd1e8354e7420f0
