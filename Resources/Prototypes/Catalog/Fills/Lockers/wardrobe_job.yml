@@ -13,7 +13,11 @@
        - id: ClothingShoesColorBlack
          amount: 2
        - id: ClothingMaskMuzzle
-         amount: 1
+         amount: 2
+       - id: ClothingOuterHardsuitEVAPrisoner
+         amount: 2
+       - id: BoxSurvival
+         amount: 2
 
 #- type: entity
 #  id: WardrobePajamaFilled

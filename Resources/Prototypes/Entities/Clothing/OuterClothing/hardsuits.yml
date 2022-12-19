@@ -190,15 +190,23 @@
     sprite: Clothing/OuterClothing/Suits/syndicate.rsi
 
 - type: entity
-  parent: ClothingOuterEVASuitBase
+  parent: ClothingOuterHardsuitBase
   id:  ClothingOuterHardsuitEVAPrisoner
   name: prisoner EVA suit
   description: A lightweight space suit for prisoners to protect them from the vacuum of space during emergencies.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Hardsuits/evaprisoner.rsi
+    sprite: Clothing/OuterClothing/Hardsuits/prisoner.rsi
   - type: Clothing
-    sprite: Clothing/OuterClothing/Hardsuits/evaprisoner.rsi
+    sprite: Clothing/OuterClothing/Hardsuits/prisoner.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: PressureProtection
+    highPressureMultiplier: 0.3
+    lowPressureMultiplier: 10000
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHardsuitPrisoner
 
 - type: entity
   parent: ClothingOuterHardsuitBase
@@ -588,7 +596,7 @@
     walkModifier: 1.0
     sprintModifier: 1.0
   - type: TemperatureProtection
-    coefficient: 0.001    
+    coefficient: 0.001
   - type: Armor
     modifiers:
       coefficients:
@@ -629,7 +637,7 @@
     sprite: Clothing/OuterClothing/Hardsuits/ERTSuits/ertengineer.rsi
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitERTEngineer
-    
+
 - type: entity
   parent: ClothingOuterHardsuitERTLeader
   id: ClothingOuterHardsuitERTMedical
@@ -653,7 +661,7 @@
     sprite: Clothing/OuterClothing/Hardsuits/ERTSuits/ertsecurity.rsi
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitERTSecurity
-    
+
 - type: entity
   parent: ClothingOuterHardsuitERTLeader
   id: ClothingOuterHardsuitERTJanitor
