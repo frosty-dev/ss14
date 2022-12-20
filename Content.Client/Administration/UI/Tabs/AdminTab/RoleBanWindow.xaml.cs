@@ -92,7 +92,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void OnNamesChanged()
         {
-            if (string.IsNullOrEmpty(PlayerNameLine.Text) == false && string.IsNullOrEmpty(RoleNameLine.Text) == false)
+            if (!string.IsNullOrEmpty(PlayerNameLine.Text) && !string.IsNullOrEmpty(RoleNameLine.Text))
             {
                 SubmitByNameButton.Disabled = false;
             }
