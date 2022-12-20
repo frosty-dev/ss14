@@ -102,7 +102,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             }
             SubmitListButton.Disabled = string.IsNullOrEmpty(PlayerNameLine.Text);
         }
-
         private void OnPlayerSelectionChanged(PlayerInfo? player)
         {
             PlayerNameLine.Text = player?.Username ?? string.Empty;
@@ -115,10 +114,10 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
         }
         private void SubmitListButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            foreach (var checkbox in _checkBoxes)
+            var pressedCheckBoxes = _checkBoxes.Where(checkbox => checkbox.Pressed);
+            foreach (var checkbox in pressedCheckBoxes)
             {
-                if (checkbox.Pressed)
-                    _clientConsoleHost.ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{checkbox.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
+                _clientConsoleHost.ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{checkbox.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
             }
         }
     }
