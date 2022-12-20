@@ -50,20 +50,17 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         SubscribeLocalEvent<PilotComponent, ComponentGetState>(OnGetState);
     }
 
-    private void OnDestinationMessage(EntityUid uid, ShuttleConsoleComponent component,
-        ShuttleConsoleDestinationMessage args)
+    private void OnDestinationMessage(EntityUid uid, ShuttleConsoleComponent component, ShuttleConsoleDestinationMessage args)
     {
-        if (!TryComp<FTLDestinationComponent>(args.Destination, out var dest))
-            return;
+        if (!TryComp<FTLDestinationComponent>(args.Destination, out var dest)) return;
 
-        if (!dest.Enabled)
-            return;
+        if (!dest.Enabled) return;
 
         EntityUid? entity = component.Owner;
 
         var getShuttleEv = new ConsoleShuttleEvent
         {
-            Console = uid
+            Console = uid,
         };
 
         RaiseLocalEvent(entity.Value, ref getShuttleEv);
@@ -73,25 +70,17 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             return;
 
         if (!TryComp<TransformComponent>(entity, out var xform) ||
-            !TryComp<ShuttleComponent>(xform.GridUid, out var shuttle))
-            return;
+            !TryComp<ShuttleComponent>(xform.GridUid, out var shuttle)) return;
 
         if (HasComp<FTLComponent>(xform.GridUid))
         {
-            if (args.Session.AttachedEntity != null)
-            {
-                _popup.PopupCursor(Loc.GetString("shuttle-console-in-ftl"),
-                    Filter.Entities(args.Session.AttachedEntity.Value));
-            }
-
+            _popup.PopupCursor(Loc.GetString("shuttle-console-in-ftl"), args.Session);
             return;
         }
 
         if (!_shuttle.CanFTL(shuttle.Owner, out var reason))
         {
-            if (args.Session.AttachedEntity != null)
-                _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
-
+            _popup.PopupCursor(reason, args.Session);
             return;
         }
 
@@ -379,21 +368,22 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     {
         var console = pilotComponent.Console;
 
-        if (console is not { } helmsman)
-            return;
+        if (console is not ShuttleConsoleComponent helmsman) return;
 
         pilotComponent.Console = null;
         pilotComponent.Position = null;
 
         if (TryComp<SharedEyeComponent>(pilotComponent.Owner, out var eye))
-            eye.Zoom = new Vector2(1.0f, 1.0f);
+        {
+            eye.Zoom = new(1.0f, 1.0f);
+        }
 
-        if (!helmsman.SubscribedPilots.Remove(pilotComponent))
-            return;
+        if (!helmsman.SubscribedPilots.Remove(pilotComponent)) return;
 
         _alertsSystem.ClearAlert(pilotComponent.Owner, AlertType.PilotingShuttle);
 
-        _popupSystem.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotComponent.Owner, Filter.Entities(pilotComponent.Owner));
+        pilotComponent.Owner.PopupMessage(Loc.GetString("shuttle-pilot-end"));
+
         if (pilotComponent.LifeStage < ComponentLifeStage.Stopping)
             EntityManager.RemoveComponent<PilotComponent>(pilotComponent.Owner);
     }

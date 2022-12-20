@@ -77,7 +77,7 @@ public sealed partial class ChatSystem
 
         if (channel == null)
         {
-            _popup.PopupEntity(Loc.GetString("chat-manager-no-such-channel"), source, Filter.Entities(source));
+            _popup.PopupEntity(Loc.GetString("chat-manager-no-such-channel"), source, source);
             channel = null;
         }
 
@@ -88,7 +88,7 @@ public sealed partial class ChatSystem
 
         if (!hasHeadset && !HasComp<IntrinsicRadioTransmitterComponent>(source))
         {
-            _popup.PopupEntity(Loc.GetString("chat-manager-no-headset-on-message"), source, Filter.Entities(source));
+            _popup.PopupEntity(Loc.GetString("chat-manager-no-headset-on-message"), source, source);
         }
 
         return (message, channel);
