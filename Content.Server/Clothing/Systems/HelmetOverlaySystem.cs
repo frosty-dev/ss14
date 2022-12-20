@@ -1,7 +1,7 @@
 ﻿using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
-using Content.Server.Gravity.EntitySystems;
+using Content.Server.Gravity;
 using Content.Server.Power.Components;
 using Content.Server.Radiation.Components;
 using Content.Shared.Clothing.Components;
@@ -13,7 +13,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-namespace Content.Shared.Clothing;
+namespace Content.Server.Clothing.Systems;
 
 public sealed class HelmetOverlaySystem : SharedHelmetOverlaySystem
 {
