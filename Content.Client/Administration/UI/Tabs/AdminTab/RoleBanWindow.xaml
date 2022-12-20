@@ -52,7 +52,7 @@
                         <CheckBox Name="SecurityCadet" Text="{Loc Cadet}"/>
                         <Label Text="{Loc Medical}"/>
                         <CheckBox Name="Chemist" Text="{Loc Chemist}"/>
-                        <CheckBox Name="MedicalDoctor" Text="{Loc Medical Doctor}"/>
+                        <CheckBox Name="MedicalDoctor" Text="{Loc Doctor}"/>
                         <CheckBox Name="Psychologist" Text="{Loc Psychologist}"/>
                         <CheckBox Name="MedicalIntern" Text="{Loc Intern}"/>
                         <Label Text="{Loc Engineering}"/>
