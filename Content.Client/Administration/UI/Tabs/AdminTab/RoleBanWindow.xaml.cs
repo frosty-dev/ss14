@@ -9,6 +9,8 @@ using Robust.Shared.IoC;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.LineEdit;
 using System.Linq;
+using Content.Shared.Roles;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client.Administration.UI.Tabs.AdminTab
 {
@@ -16,7 +18,9 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
     [UsedImplicitly]
     public sealed partial class RoleBanWindow : DefaultWindow
     {
-        private readonly List<string> _jobsName = new() {"Captain", "HeadOfPersonnel", "HeadOfSecurity", "ChiefMedicalOfficer", "ChiefEngineer", "Quartermaster", "ResearchDirector", "Warden", "SecurityOfficer", "Detective", "SecurityCadet", "Chemist", "MedicalDoctor", "Psychologist", "MedicalIntern", "AtmosphericTechnician", "StationEngineer", "TechnicalAssistant", "CargoTechnician", "SalvageSpecialist", "Scientist", "ServiceWorker", "Bartender", "Chef", "Botanist", "Clown", "Mime", "Chaplain", "Librarian", "Lawyer", "Janitor", "Musician", "Reporter", "Zookeeper"};
+        [Dependency] private readonly PrototypeManager _prototypeManager = default!;
+        private List<CheckBox> _checkBoxes = new() { };
+        private IClientConsoleHost _clientConsoleHost = IoCManager.Resolve<IClientConsoleHost>();
         public RoleBanWindow()
         {
             RobustXamlLoader.Load(this);
@@ -32,6 +36,19 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             DayButton.OnPressed += _ => AddMinutes(1440);
             WeekButton.OnPressed += _ => AddMinutes(10080);
             MonthButton.OnPressed += _ => AddMinutes(43200);
+            var nameScope = FindNameScope();
+            var jobs = _prototypeManager.EnumeratePrototypes<JobPrototype>();
+            if (nameScope != null)
+            {
+                foreach (var job in jobs)
+                {
+                    var control = nameScope.Find(job.ID);
+                    if (control is CheckBox box)
+                    {
+                        _checkBoxes.Add(box);
+                    }
+                }
+            }
         }
 
         private bool TryGetMinutes(string str, out uint minutes)
@@ -90,16 +107,14 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void SubmitByNameButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            // Small verification if Player Name exists
-            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"roleban \"{PlayerNameLine.Text}\" \"{RoleNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
+            _clientConsoleHost.ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{RoleNameLine.Text}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
         }
         private void SubmitListButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            foreach (var name in from name in _jobsName let control = FindControl<CheckBox>(name) where control.Pressed select name)
+            foreach (var checkbox in _checkBoxes)
             {
-                IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                    $"roleban \"{PlayerNameLine.Text}\" \"{name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
+                if (checkbox.Pressed)
+                    _clientConsoleHost.ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{checkbox.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
             }
         }
     }
