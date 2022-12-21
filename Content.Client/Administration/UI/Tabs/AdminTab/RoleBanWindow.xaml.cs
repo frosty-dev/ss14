@@ -18,9 +18,9 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
     [UsedImplicitly]
     public sealed partial class RoleBanWindow : DefaultWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        private List<CheckBox> _checkBoxes = new();
-        private IClientConsoleHost _clientConsoleHost = IoCManager.Resolve<IClientConsoleHost>();
+        [Dependency] private readonly IPrototypeManager _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+        private List<CheckBox> CheckBoxes = new();
+        private readonly IClientConsoleHost _clientConsoleHost = IoCManager.Resolve<IClientConsoleHost>();
         public RoleBanWindow()
         {
             RobustXamlLoader.Load(this);
@@ -36,7 +36,6 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             DayButton.OnPressed += _ => AddMinutes(1440);
             WeekButton.OnPressed += _ => AddMinutes(10080);
             MonthButton.OnPressed += _ => AddMinutes(43200);
-            _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             CacheJobs();
         }
         private void CacheJobs()
@@ -51,7 +50,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
                     continue;
                 var control = nameScope.Find(job.ID);
                 if (control is CheckBox)
-                    _checkBoxes.Add(FindControl<CheckBox>(job.ID));
+                    CheckBoxes.Add(FindControl<CheckBox>(job.ID));
             }
         }
 
@@ -114,7 +113,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
         }
         private void SubmitListButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            var pressedCheckBoxes = _checkBoxes.Where(checkbox => checkbox.Pressed);
+            var pressedCheckBoxes = CheckBoxes.Where(checkbox => checkbox.Pressed);
             foreach (var checkbox in pressedCheckBoxes)
             {
                 _clientConsoleHost.ExecuteCommand($"roleban \"{PlayerNameLine.Text}\" \"{checkbox.Name}\" \"{CommandParsing.Escape(ReasonLine.Text)}\" \"{MinutesLine.Text}\"");
