@@ -15,7 +15,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     private Vector2 _creationOffset;
     private float _сreationDistanceThresholdSquared;
     private SegmentCreationMethod _сreationMethod;
-    private Color[] _gradient;
+    private List<Color>? _gradient;
     private float _lengthStep;
     private Spline2DType _splineIteratorType;
     private TrailSplineRendererType _splineRendererType;
@@ -31,7 +31,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         _maxRandomWalk = defaultTrail.MaxRandomWalk;
         _lifetime = defaultTrail.Lifetime;
         _texurePath = defaultTrail.TexurePath;
-        _gradient = defaultTrail.Gradient;
+        //_gradient = defaultTrail.Gradient;
     }
 
     [DataField("gravity")]
@@ -146,9 +146,9 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         }
     }
 
-    [DataField("gradient")]
+    [DataField("gradient", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
-    public Color[] Gradient
+    public List<Color>? Gradient
     {
         get => _gradient;
         set

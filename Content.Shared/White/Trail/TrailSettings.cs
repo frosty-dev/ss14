@@ -18,7 +18,7 @@ public sealed class TrailSettings : ITrailSettings
     public float Lifetime { get; set; } = 0f;
     public float LengthStep { get; set; } = 0.1f;
     public string? TexurePath { get; set; }
-    public Color[] Gradient { get; set; } = new[] { Color.White, Color.Transparent };
+    public List<Color>? Gradient { get; set; } = new() { Color.White, Color.Transparent };
     public Spline2DType SplineIteratorType { get; set; }
     public TrailSplineRendererType SplineRendererType { get; set; }
 
@@ -41,7 +41,7 @@ public sealed class TrailSettings : ITrailSettings
 
 public interface ITrailSettings
 {
-    Color[] Gradient { get; set; }
+    List<Color>? Gradient { get; set; }
     Vector2 Gravity { get; set; }
     float Lifetime { get; set; }
     float LengthStep { get; set; }

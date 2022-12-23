@@ -22,7 +22,7 @@ public sealed class TrailSplineRendererContinuous : ITrailSplineRenderer
         else
             splinePointParams = splineIterator.IteratePointParamsByLength(paPositions, Math.Max(settings.LengthStep, 0.1f)).ToArray();
 
-        var colorToPointMul = 1f / (paPositions.Length - 1) * (settings.Gradient.Length - 1);
+        var colorToPointMul = 1f / (paPositions.Length - 1) * (settings.Gradient?.Count ?? 1 - 1);
         (Vector2, Vector2)? prevPoints = null;
         foreach (var (u, t) in splinePointParams)
         {
@@ -34,13 +34,16 @@ public sealed class TrailSplineRendererContinuous : ITrailSplineRenderer
             if (prevPoints.HasValue)
             {
                 var color = Color.White;
-                if (settings.Gradient.Length == 1)
-                    color = settings.Gradient[0];
-                else if (settings.Gradient.Length > 1)
+                if(settings.Gradient != null)
                 {
-                    var colorGradientPos = (u + t) * colorToPointMul;
-                    var colorGradientU = (int) colorGradientPos;
-                    color = Color.InterpolateBetween(settings.Gradient[colorGradientU], settings.Gradient[colorGradientU + 1], colorGradientPos % 1f);
+                    if (settings.Gradient.Count == 1)
+                        color = settings.Gradient[0];
+                    else if (settings.Gradient.Count > 1)
+                    {
+                        var colorGradientPos = (u + t) * colorToPointMul;
+                        var colorGradientU = (int) colorGradientPos;
+                        color = Color.InterpolateBetween(settings.Gradient[colorGradientU], settings.Gradient[colorGradientU + 1], colorGradientPos % 1f);
+                    }
                 }
 
                 if (texture != null)
