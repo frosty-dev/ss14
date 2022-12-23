@@ -21,8 +21,7 @@ using Content.Shared.Module;
 
 using Content.Client.White.JoinQueue;
 using Content.Client.White.Sponsors;
-
-
+using Content.Client.White.Trail.Line.Manager;
 
 namespace Content.Client.IoC
 {
@@ -51,6 +50,8 @@ namespace Content.Client.IoC
             IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
             IoCManager.Register<UIAudioManager>();
+
+            IoCManager.Register<ITrailLineManager, TrailSplineManager>(); //prikol
         }
     }
 }

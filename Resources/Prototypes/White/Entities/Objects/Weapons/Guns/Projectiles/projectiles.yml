@@ -1,0 +1,57 @@
+
+- type: entity
+  name : laser bolt
+  id: BulletTrailLaser
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers: []
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+    - shape:
+        !type:PhysShapeAabb
+        bounds: "-0.15,-0.3,0.15,0.3"
+      hard: false
+      id: projectile
+      mask:
+      - Impassable
+      - Opaque
+    - &flybyfixture
+      id: fly-by
+      shape: !type:PhysShapeCircle
+        radius: 1.5
+      layer:
+      - Impassable
+      - MidImpassable
+      - HighImpassable
+      - LowImpassable
+      hard: False
+  - type: Ammo
+  - type: Projectile
+    impactEffect: BulletImpactEffect
+    damage:
+      types:
+        Heat: 20
+#    soundHit:
+#      path: "/Audio/Weapons/tap.ogg"
+#    soundForce: true
+  - type: Trail
+    splineIteratorType: Linear
+    splineRendererType: Continuous
+    creationMethod: OnMove
+    scale: 0.05, 0.0
+    lifetime: 0.1
+    randomWalk: 0.001, 0.001
+    gravity: 0, 0
+    gradient:
+      - "#FF0000FF"
+      - "#FF000000"
+
