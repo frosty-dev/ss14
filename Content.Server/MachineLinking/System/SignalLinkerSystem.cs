@@ -148,7 +148,7 @@ namespace Content.Server.MachineLinking.System
             // validate links
             Dictionary<EntityUid, SignalReceiverComponent?> uidCache = new();
             foreach (var tport in transmitter.Outputs)
-                foreach (var rport in tport.Value.ToList())
+                foreach (var rport in tport.Value)
                 {
                     if (!uidCache.TryGetValue(rport.Uid, out var receiver))
                         uidCache.Add(rport.Uid, receiver = CompOrNull<SignalReceiverComponent>(rport.Uid));
@@ -164,15 +164,17 @@ namespace Content.Server.MachineLinking.System
             // validate links
             Dictionary<EntityUid, SignalTransmitterComponent?> uidCache = new();
             foreach (var rport in receiver.Inputs)
-                foreach (var tport in rport.Value.ToList())
+                foreach (var tport in rport.Value)
                 {
                     if (!uidCache.TryGetValue(tport.Uid, out var transmitter))
                         uidCache.Add(tport.Uid, transmitter = CompOrNull<SignalTransmitterComponent>(tport.Uid));
                     if (transmitter == null || !transmitter.Outputs.TryGetValue(tport.Port, out var tpv))
-                        rport.Value.Remove(tport);
+                        toRemove.Add(tport);
                     else if (!tpv.Contains(new(uid, rport.Key)))
                         tpv.Add(new(uid, rport.Key));
                 }
+                toRemove.ForEach(tport => rport.Value.Remove(tport));
+            }
         }
 
         private void OnTransmitterRemoved(EntityUid uid, SignalTransmitterComponent transmitter, ComponentRemove args)

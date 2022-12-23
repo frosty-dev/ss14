@@ -80,8 +80,43 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         if (!_shuttle.CanFTL(shuttle.Owner, out var reason))
         {
+<<<<<<< HEAD
             _popup.PopupCursor(reason, args.Session);
             return;
+=======
+            if (!TryComp<FTLDestinationComponent>(args.Destination, out var dest)) return;
+
+            if (!dest.Enabled) return;
+
+            EntityUid? entity = component.Owner;
+
+            var getShuttleEv = new ConsoleShuttleEvent
+            {
+                Console = uid,
+            };
+
+            RaiseLocalEvent(entity.Value, ref getShuttleEv);
+            entity = getShuttleEv.Console;
+
+            if (entity == null || dest.Whitelist?.IsValid(entity.Value, EntityManager) == false) return;
+
+            if (!TryComp<TransformComponent>(entity, out var xform) ||
+                !TryComp<ShuttleComponent>(xform.GridUid, out var shuttle)) return;
+
+            if (HasComp<FTLComponent>(xform.GridUid))
+            {
+                _popup.PopupCursor(Loc.GetString("shuttle-console-in-ftl"), args.Session);
+                return;
+            }
+
+            if (!_shuttle.CanFTL(shuttle.Owner, out var reason))
+            {
+                _popup.PopupCursor(reason, args.Session);
+                return;
+            }
+
+            _shuttle.FTLTravel(shuttle, args.Destination, hyperspaceTime: _shuttle.TransitTime);
+>>>>>>> 9089ec4d6a947e27635d2b015e4b3d28e5d77f5d
         }
 
         _shuttle.FTLTravel(shuttle, args.Destination, hyperspaceTime: _shuttle.TransitTime);

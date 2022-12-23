@@ -1,3 +1,4 @@
+using Content.Client.Clickable;
 using Content.Client.Gameplay;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Client.GameObjects;
