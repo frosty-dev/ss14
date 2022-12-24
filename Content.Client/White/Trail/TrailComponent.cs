@@ -25,6 +25,19 @@ public sealed class TrailComponent : SharedTrailComponent, ITrailLineHolder
         }
     }
 
+    public override Spline4DType GradientIteratorType
+    {
+        get => base.GradientIteratorType;
+        set
+        {
+            if (base.GradientIteratorType == value)
+                return;
+            base.GradientIteratorType = value;
+            if (TrailLine is TrailSpline trailSpline)
+                trailSpline.GradientIterator = Spline.From4DType(value);
+        }
+    }
+
     public override TrailSplineRendererType SplineRendererType
     {
         get => base.SplineRendererType;

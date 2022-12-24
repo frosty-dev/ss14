@@ -10,6 +10,7 @@ public interface ITrailSplineRenderer
         DrawingHandleWorld handle,
         Texture? texture,
         ISpline<Vector2> splineIterator,
+        ISpline<Vector4> gradientIterator,
         ITrailSettings settings,
         Vector2[] paPositions,
         float[] paLifetimes

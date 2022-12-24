@@ -52,6 +52,6 @@
     randomWalk: 0.001, 0.001
     gravity: 0, 0
     gradient:
-      - "#FF0000FF"
-      - "#FF000000"
+      - 1, 0, 0, 1
+      - 1, 0, 0, 0
 

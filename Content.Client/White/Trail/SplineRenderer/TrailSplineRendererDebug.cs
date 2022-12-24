@@ -11,14 +11,15 @@ public sealed class TrailSplineRendererDebug : ITrailSplineRenderer
         DrawingHandleWorld handle,
         Texture? texture,
         ISpline<Vector2> splineIterator,
+        ISpline<Vector4> gradientIterator,
         ITrailSettings settings,
         Vector2[] paPositions,
         float[] paLifetimes
         )
     {
-        (int u, float t)[] splinePointParams;
+        float[] splinePointParams;
         if (settings.LengthStep == 0f)
-            splinePointParams = Enumerable.Range(0, paPositions.Length - 1).Select(x => (u: x, t: 0f)).ToArray();
+            splinePointParams = Enumerable.Range(0, paPositions.Length - 1).Select(x => (float) x).ToArray();
         else
             splinePointParams = splineIterator.IteratePointParamsByLength(paPositions, Math.Max(settings.LengthStep, 0.1f)).ToArray();
 
@@ -31,14 +32,14 @@ public sealed class TrailSplineRendererDebug : ITrailSplineRenderer
         }
 
         Vector2? prevPosSplinePoint = null;
-        foreach (var (u, t) in splinePointParams)
+        foreach (var u in splinePointParams)
         {
-            var splineData = splineIterator.SamplePositionGradient(paPositions, u, t);
+            var (position, velocity) = splineIterator.SamplePositionVelocity(paPositions, u);
             if (prevPosSplinePoint.HasValue)
-                handle.DrawLine(splineData.Position, prevPosSplinePoint.Value, Color.Red);
-            handle.DrawLine(splineData.Position, splineData.Position + splineData.Gradient, Color.White);
-            handle.DrawCircle(splineData.Position, 0.03f, new Color(0, 255, 0, 255));
-            prevPosSplinePoint = splineData.Position;
+                handle.DrawLine(position, prevPosSplinePoint.Value, Color.Red);
+            handle.DrawLine(position, position + velocity, Color.White);
+            handle.DrawCircle(position, 0.03f, new Color(0, 255, 0, 255));
+            prevPosSplinePoint = position;
         }
     }
 }

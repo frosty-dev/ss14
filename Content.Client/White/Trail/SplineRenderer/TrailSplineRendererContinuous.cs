@@ -11,39 +11,40 @@ public sealed class TrailSplineRendererContinuous : ITrailSplineRenderer
         DrawingHandleWorld handle,
         Texture? texture,
         ISpline<Vector2> splineIterator,
+        ISpline<Vector4> gradientIterator,
         ITrailSettings settings,
         Vector2[] paPositions,
         float[] paLifetimes
         )
     {
-        (int u, float t)[] splinePointParams;
+        float[] splinePointParams;
         if (settings.LengthStep == 0f)
-            splinePointParams = Enumerable.Range(0, paPositions.Length - 1).Select(x => (u: x, t: 0f)).ToArray();
+            splinePointParams = Enumerable.Range(0, paPositions.Length - 1).Select(x => (float) x).ToArray();
         else
             splinePointParams = splineIterator.IteratePointParamsByLength(paPositions, Math.Max(settings.LengthStep, 0.1f)).ToArray();
 
-        var colorToPointMul = 1f / (paPositions.Length - 1) * (settings.Gradient?.Count ?? 1 - 1);
-        (Vector2, Vector2)? prevPoints = null;
-        foreach (var (u, t) in splinePointParams)
-        {
-            var (position, movementGradient) = splineIterator.SamplePositionGradient(paPositions, u, t);
+        var gradientControlGroups = gradientIterator.GetControlGroupAmount(settings.Gradient.Length);
+        var colorToPointMul = 0f;
+        if (gradientControlGroups > 0)
+            colorToPointMul = gradientControlGroups / splineIterator.GetControlGroupAmount(paPositions.Length);
 
-            var offset = movementGradient.Rotated90DegreesAnticlockwiseWorld.Normalized * settings.Scale.X;
+        (Vector2, Vector2)? prevPoints = null;
+        foreach (var u in splinePointParams)
+        {
+            var (position, velocity) = splineIterator.SamplePositionVelocity(paPositions, u);
+
+            var offset = velocity.Rotated90DegreesAnticlockwiseWorld.Normalized * settings.Scale.X;
             var curPoints = (position - offset, position + offset);
 
             if (prevPoints.HasValue)
             {
-                var color = Color.White;
-                if(settings.Gradient != null)
+                var colorVec = Vector4.One;
+                if (settings.Gradient != null && settings.Gradient.Length > 0)
                 {
-                    if (settings.Gradient.Count == 1)
-                        color = settings.Gradient[0];
-                    else if (settings.Gradient.Count > 1)
-                    {
-                        var colorGradientPos = (u + t) * colorToPointMul;
-                        var colorGradientU = (int) colorGradientPos;
-                        color = Color.InterpolateBetween(settings.Gradient[colorGradientU], settings.Gradient[colorGradientU + 1], colorGradientPos % 1f);
-                    }
+                    if (gradientControlGroups > 0)
+                        colorVec = gradientIterator.SamplePosition(settings.Gradient, u * colorToPointMul);
+                    else
+                        colorVec = settings.Gradient[0];
                 }
 
                 if (texture != null)
@@ -54,7 +55,7 @@ public sealed class TrailSplineRendererContinuous : ITrailSplineRenderer
                         new (prevPoints.Value.Item2, Vector2.One),
                         new (prevPoints.Value.Item1, Vector2.UnitX),
                     };
-                    handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, texture, verts, color);
+                    handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, texture, verts, new Color(colorVec.X, colorVec.Y, colorVec.Z, colorVec.W));
                 }
                 else
                 {
@@ -64,7 +65,7 @@ public sealed class TrailSplineRendererContinuous : ITrailSplineRenderer
                         prevPoints.Value.Item2,
                         prevPoints.Value.Item1,
                     };
-                    handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, verts, color);
+                    handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, verts, new Color(colorVec.X, colorVec.Y, colorVec.Z, colorVec.W));
                 }
             }
 

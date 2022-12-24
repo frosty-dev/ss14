@@ -17,6 +17,7 @@ public sealed class TrailSplineManager : ITrailLineManager
             Settings = settings,
             MapId = mapId,
             SplineIterator = Spline.From2DType(settings.SplineIteratorType),
+            GradientIterator = Spline.From4DType(settings.GradientIteratorType),
             Renderer = TrailSplineRenderer.FromType(settings.SplineRendererType)
         };
 

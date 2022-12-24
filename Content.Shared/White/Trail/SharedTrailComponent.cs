@@ -15,10 +15,11 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
     private Vector2 _creationOffset;
     private float _сreationDistanceThresholdSquared;
     private SegmentCreationMethod _сreationMethod;
-    private List<Color>? _gradient;
+    private Vector4[] _gradient;
     private float _lengthStep;
     private Spline2DType _splineIteratorType;
     private TrailSplineRendererType _splineRendererType;
+    private Spline4DType _gradientIteratorType;
 
     protected SharedTrailComponent()
     {
@@ -31,7 +32,8 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
         _maxRandomWalk = defaultTrail.MaxRandomWalk;
         _lifetime = defaultTrail.Lifetime;
         _texurePath = defaultTrail.TexurePath;
-        //_gradient = defaultTrail.Gradient;
+        _gradient = defaultTrail.Gradient;
+        _gradientIteratorType = defaultTrail.GradientIteratorType;
     }
 
     [DataField("gravity")]
@@ -148,7 +150,7 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
 
     [DataField("gradient", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
-    public List<Color>? Gradient
+    public Vector4[] Gradient
     {
         get => _gradient;
         set
@@ -197,6 +199,19 @@ public abstract class SharedTrailComponent : Component, ITrailSettings
             if (_splineRendererType == value)
                 return;
             _splineRendererType = value;
+            Dirty();
+        }
+    }
+    [DataField("gradientIteratorType")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual Spline4DType GradientIteratorType
+    {
+        get => _gradientIteratorType;
+        set
+        {
+            if (_gradientIteratorType == value)
+                return;
+            _gradientIteratorType = value;
             Dirty();
         }
     }

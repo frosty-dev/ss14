@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Content.Shared.White.Spline.CatmullRom;
 
-public abstract class SplineCatmullRom<T> : Spline<T>
+public abstract class SplineCubicBezier<T> : Spline<T>
 {
     protected const int LookupPrecision = 100;
 
@@ -18,10 +18,10 @@ public abstract class SplineCatmullRom<T> : Spline<T>
         var tt = t * t;
         var ttt = tt * t;
         return (
-            -ttt + 2.0f * tt - t,
-            3.0f * ttt - 5.0f * tt + 2.0f,
-            -3.0f * ttt + 4.0f * tt + t,
-            ttt - tt
+            -ttt + 3f * tt - 3f * t + 1f,
+            3f * ttt - 6f * tt + 3f * t,
+            -3f * ttt + 3f * tt,
+            ttt
             );
     }
 
@@ -29,10 +29,10 @@ public abstract class SplineCatmullRom<T> : Spline<T>
     {
         var tt = t * t;
         return (
-            -3.0f * tt + 4.0f * t - 1,
-            9.0f * tt - 10.0f * t,
-            -9.0f * tt + 8.0f * t + 1.0f,
-            3.0f * tt - 2.0f * t
+            -3f * tt + 6f * t - 3,
+            9f * tt - 12f * t + 3,
+            -9f * tt + 6f * t,
+            3f * tt
             );
     }
 
@@ -41,11 +41,15 @@ public abstract class SplineCatmullRom<T> : Spline<T>
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override T SamplePosition(ReadOnlySpan<T> controlPoints, float u)
-        => CalculateCatmullRom(GetCurrentControlPoints(controlPoints, (int) u), PositionCoefficientLookup[GetLookupIndex(u % 1)]);
+    {
+        return CalculateBezier(GetCurrentControlPoints(controlPoints, (int) u), PositionCoefficientLookup[GetLookupIndex(u % 1)]);
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override T SampleVelocity(ReadOnlySpan<T> controlPoints, float u)
-        => CalculateCatmullRom(GetCurrentControlPoints(controlPoints, (int) u), GradientCoefficientLookup[GetLookupIndex(u % 1)]);
+    {
+        return CalculateBezier(GetCurrentControlPoints(controlPoints, (int) u), GradientCoefficientLookup[GetLookupIndex(u % 1)]);
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override (T Position, T Velocity) SamplePositionVelocity(ReadOnlySpan<T> controlPoints, float u)
@@ -53,20 +57,17 @@ public abstract class SplineCatmullRom<T> : Spline<T>
         var lookupIndex = GetLookupIndex(u % 1);
         var currentControlPoints = GetCurrentControlPoints(controlPoints, (int) u);
         return (
-            CalculateCatmullRom(currentControlPoints, PositionCoefficientLookup[lookupIndex]),
-            CalculateCatmullRom(currentControlPoints, GradientCoefficientLookup[lookupIndex])
+            CalculateBezier(currentControlPoints, PositionCoefficientLookup[lookupIndex]),
+            CalculateBezier(currentControlPoints, GradientCoefficientLookup[lookupIndex])
         );
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    protected virtual (T p0, T p1, T p2, T p3) GetCurrentControlPoints(ReadOnlySpan<T> controlPoints, int u)
-    {
-        T p1 = controlPoints[u];
-        T p2 = controlPoints[u + 1];
-        T p0 = u == 0 ? Add(p1, Subtract(p1, p2)) : controlPoints[u - 1];
-        T p3 = u + 2 == controlPoints.Length ? Add(p2, Subtract(p2, p2)) : controlPoints[u + 2];
-        return (p0, p1, p2, p3);
-    }
+    public override float GetControlGroupAmount(int controlPointAmount) => (controlPointAmount - 1) / 3f;
 
-    protected abstract T CalculateCatmullRom((T p0, T p1, T p2, T p3) points, (float c0, float c1, float c2, float c3) coeffs);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected virtual (T p0, T p1, T p2, T p3) GetCurrentControlPoints(ReadOnlySpan<T> controlPoints, int u)
+        => (controlPoints[u], controlPoints[u + 1], controlPoints[u + 2], controlPoints[u + 3]);
+
+    protected abstract T CalculateBezier((T p0, T p1, T p2, T p3) points, (float c0, float c1, float c2, float c3) coeffs);
 }

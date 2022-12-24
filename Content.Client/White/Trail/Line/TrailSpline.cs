@@ -33,6 +33,8 @@ public sealed class TrailSpline : ITrailLine
     [ViewVariables]
     public ISpline<Vector2> SplineIterator { get; set; } = new SplineLinear2D();
     [ViewVariables]
+    public ISpline<Vector4> GradientIterator { get; set; } = new SplineLinear4D();
+    [ViewVariables]
     public ITrailSplineRenderer Renderer { get; set; } = new TrailSplineRendererDebug();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -100,7 +102,7 @@ public sealed class TrailSpline : ITrailLine
                     }
 
                     var effectiveRandomWalk = maxRandomWalk * (curValue.ExistTil - _curLifetime) / lifetime;
-                    var gradientNorm = -SplineIterator.SampleGradient(positions, i, 0f).Normalized;
+                    var gradientNorm = -SplineIterator.SampleVelocity(positions, (float)i).Normalized;
                     offset += gradientNorm * effectiveRandomWalk.Y * Random.NextFloat(-1.0f, 1.0f);
                     offset += gradientNorm.Rotated90DegreesAnticlockwiseWorld * effectiveRandomWalk.X * Random.NextFloat(-1.0f, 1.0f);
                 }
@@ -141,7 +143,7 @@ public sealed class TrailSpline : ITrailLine
             paLifetimes[i] = (x.ExistTil - _curLifetime) / Settings.Lifetime;
         }
 
-        Renderer.Render(handle, texture, SplineIterator, Settings, paPositions, paLifetimes);
+        Renderer.Render(handle, texture, SplineIterator, GradientIterator, Settings, paPositions, paLifetimes);
     }
 
     private sealed class TrailSplineSegment

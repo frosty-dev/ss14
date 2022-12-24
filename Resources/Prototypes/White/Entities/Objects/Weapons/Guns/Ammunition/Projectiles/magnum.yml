@@ -18,6 +18,9 @@
     randomWalk: 0.03, 0.001
     gravity: 0.001, 0.005
     texturePath: /Textures/White/Effects/Trails/Continuous/susTrail.png
+    gradientIteratorType: Bezier
     gradient:
-    - "#FFFFFFFF"
-    - "#FFFFFF00"
+      - 1, 1, 1, 0
+      - 1, 1, 1, 2
+      - 1, 1, 1, 0
+      - 1, 1, 1, 0
