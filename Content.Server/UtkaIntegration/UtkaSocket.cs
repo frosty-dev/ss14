@@ -34,7 +34,7 @@ public sealed class UtkaSocket : UdpServer
 
         var fromDiscordMessage = JsonSerializer.Deserialize<FromDiscordMessage>(message);
 
-        ExecuteCommand(fromDiscordMessage!.Command!, args.ToArray());
+        ExecuteCommand(fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
     }
 
 
