@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Content.Shared.CCVar;
 using Robust.Shared;
 using Robust.Shared.Configuration;
 
@@ -17,7 +18,7 @@ public sealed class UtkaSocketWrapper
     {
         if(_initialized) return;
 
-        _cfg.OnValueChanged(CVars.UtkaSocketKey, value => _key = value, true);
+        _cfg.OnValueChanged(CCVars.UtkaSocketKey, value => _key = value, true);
 
         if(string.IsNullOrEmpty(_key)) return;
 
