@@ -42,7 +42,7 @@ public sealed class UtkaSocketWrapper
     public void Shutdown()
     {
         _utkaSocket?.Stop();
-        _utkaSocket = null;
+        _utkaSocket!.Dispose();
 
         _initialized = false;
     }
