@@ -31,6 +31,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Server.Station.Systems;
+using Content.Server.UtkaIntegration;
 using Content.Shared.Localizations;
 
 using Content.Server.White.Sponsors;
@@ -111,6 +112,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<SponsorsManager>().Initialize();
                 IoCManager.Resolve<JoinQueueManager>().Initialize();
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
+                IoCManager.Resolve<UtkaSocketWrapper>().Initialize();
 
                 _voteManager.Initialize();
                 _updateManager.Initialize();

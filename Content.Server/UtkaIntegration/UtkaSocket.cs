@@ -16,9 +16,12 @@ namespace Content.Server.UtkaIntegration;
 public sealed class UtkaSocket : UdpServer
 {
     public static Dictionary<string, IUtkaCommand> Commands = new();
-    private static string Key = "UtkaKey";
+    private readonly string Key = string.Empty;
 
-    public UtkaSocket(IPAddress address, int port) : base(address, port) { }
+    public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
+    {
+        Key = key;
+    }
 
     protected override void OnStarted()
     {
@@ -40,14 +43,16 @@ public sealed class UtkaSocket : UdpServer
 
     private void ExecuteCommand(string command, string[] args)
     {
+        var sawmill = IoCManager.Resolve<ISawmill>();
+
         if (Commands.ContainsKey(command))
         {
-            var sawmill = IoCManager.Resolve<ISawmill>();
 
             sawmill.Warning($"UTKA SOKETS FAIL! Command {command} not found");
             return;
         }
 
+        sawmill.Warning($"Execiting command from UTKASocket: {command} {string.Join(" ", args)}");
         Commands[command].Execute(this, args);
     }
 
