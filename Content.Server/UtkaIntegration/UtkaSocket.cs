@@ -18,6 +18,8 @@ public sealed class UtkaSocket : UdpServer
     public static Dictionary<string, IUtkaCommand> Commands = new();
     private readonly string Key = string.Empty;
 
+    [Dependency] private readonly ISawmill _sawmill = default!;
+
     public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
     {
         Key = key;
@@ -37,22 +39,26 @@ public sealed class UtkaSocket : UdpServer
 
         var fromDiscordMessage = JsonSerializer.Deserialize<FromDiscordMessage>(message);
 
+        if (fromDiscordMessage!.Key != Key)
+        {
+            _sawmill.Info($"UTKASockets: Received message with invalid key: {fromDiscordMessage.Key}");
+            return;
+        }
+
         ExecuteCommand(fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
     }
 
 
     private void ExecuteCommand(string command, string[] args)
     {
-        var sawmill = IoCManager.Resolve<ISawmill>();
 
         if (Commands.ContainsKey(command))
         {
-
-            sawmill.Warning($"UTKA SOKETS FAIL! Command {command} not found");
+            _sawmill.Error($"UTKASockets: FAIL! Command {command} not found");
             return;
         }
 
-        sawmill.Warning($"Execiting command from UTKASocket: {command} {string.Join(" ", args)}");
+        _sawmill.Info($"UTKASockets: Execiting command from UTKASocket: {command} args: {string.Join(" ", args)}");
         Commands[command].Execute(this, args);
     }
 
