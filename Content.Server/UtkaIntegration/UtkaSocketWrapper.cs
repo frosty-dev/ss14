@@ -23,7 +23,17 @@ public sealed class UtkaSocketWrapper
 
         var port = _cfg.GetCVar(CVars.NetPort) + 100;
 
-        _utkaSocket = new UtkaSocket("0.0.0.0", port, _key);
+        try
+        {
+            _utkaSocket = new UtkaSocket("0.0.0.0", port, _key);
+
+        }
+        catch (Exception e)
+        {
+            Logger.GetSawmill("utkasockets").Error($"Failed to initialize UtkaSocket: {e}");
+            return;
+        }
+
         _utkaSocket.Start();
 
         _initialized = true;
