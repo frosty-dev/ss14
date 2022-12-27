@@ -86,8 +86,10 @@ public sealed class UtkaSocket : UdpServer
 
         foreach (var command in commands)
         {
-            var utkaCommand = Activator.CreateInstance(command) as IUtkaCommand;
-            Commands.Add(utkaCommand!.Name, utkaCommand);
+            if (Activator.CreateInstance(command) is IUtkaCommand utkaCommand)
+            {
+                Commands[utkaCommand.Name] = utkaCommand;
+            }
         }
     }
 }
