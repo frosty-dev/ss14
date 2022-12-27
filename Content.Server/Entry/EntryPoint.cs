@@ -31,7 +31,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Server.Station.Systems;
-using Content.Server.UtkaIntegration;
 using Content.Shared.Localizations;
 
 using Content.Server.White.Sponsors;
@@ -151,8 +150,6 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<GameTicker>().PostInitialize();
                 IoCManager.Resolve<IBqlQueryManager>().DoAutoRegistrations();
                 IoCManager.Resolve<RoleBanManager>().Initialize();
-                IoCManager.Resolve<UtkaSocketWrapper>().Initialize();
-                UtkaSocket.RegisterCommands();
             }
         }
 
