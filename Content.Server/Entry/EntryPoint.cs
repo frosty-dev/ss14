@@ -112,7 +112,6 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<SponsorsManager>().Initialize();
                 IoCManager.Resolve<JoinQueueManager>().Initialize();
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
-                IoCManager.Resolve<UtkaSocketWrapper>().Initialize();
 
                 _voteManager.Initialize();
                 _updateManager.Initialize();
@@ -152,6 +151,8 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<GameTicker>().PostInitialize();
                 IoCManager.Resolve<IBqlQueryManager>().DoAutoRegistrations();
                 IoCManager.Resolve<RoleBanManager>().Initialize();
+                IoCManager.Resolve<UtkaSocketWrapper>().Initialize();
+                UtkaSocket.RegisterCommands();
             }
         }
 

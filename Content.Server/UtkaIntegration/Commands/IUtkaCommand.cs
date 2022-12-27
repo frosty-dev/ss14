@@ -3,9 +3,5 @@
 public interface IUtkaCommand
 {
     string Name { get; }
-
-    public async void Execute(UtkaSocket socket, string[] args)
-    {
-
-    }
+    public void Execute(UtkaSocket socket, FromDiscordMessage message, string[] args);
 }

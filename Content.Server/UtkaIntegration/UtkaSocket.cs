@@ -17,11 +17,12 @@ public sealed class UtkaSocket : UdpServer
 {
     public static Dictionary<string, IUtkaCommand> Commands = new();
     private readonly string Key = string.Empty;
+    private readonly ISawmill _sawmill = default!;
 
-    [Dependency] private readonly ISawmill _sawmill = default!;
 
-    public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
+    public UtkaSocket(string address, int port, string key) : base(address, port)
     {
+        _sawmill = _sawmill = Logger.GetSawmill("utkasockets");
         Key = key;
     }
 
@@ -39,19 +40,18 @@ public sealed class UtkaSocket : UdpServer
 
         var fromDiscordMessage = JsonSerializer.Deserialize<FromDiscordMessage>(message);
 
-        if (fromDiscordMessage!.Key != Key)
+        if (fromDiscordMessage!.Key == null || fromDiscordMessage.Key != Key)
         {
-            _sawmill.Info($"UTKASockets: Received message with invalid key: {fromDiscordMessage.Key}");
+            _sawmill.Info($"UTKASockets: Received message with invalid key from endpoint {endpoint}");
             return;
         }
 
-        ExecuteCommand(fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
+        ExecuteCommand(fromDiscordMessage, fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
     }
 
 
-    private void ExecuteCommand(string command, string[] args)
+    private void ExecuteCommand(FromDiscordMessage message, string command, string[] args)
     {
-
         if (Commands.ContainsKey(command))
         {
             _sawmill.Error($"UTKASockets: FAIL! Command {command} not found");
@@ -59,7 +59,7 @@ public sealed class UtkaSocket : UdpServer
         }
 
         _sawmill.Info($"UTKASockets: Execiting command from UTKASocket: {command} args: {string.Join(" ", args)}");
-        Commands[command].Execute(this, args);
+        Commands[command].Execute(this, message ,args);
     }
 
     protected override void OnSent(EndPoint endpoint, long sent)
@@ -73,7 +73,7 @@ public sealed class UtkaSocket : UdpServer
         base.OnError(error);
 
         var sawmill = IoCManager.Resolve<ISawmill>();
-        sawmill.Warning($"UTKA SOKETS FAIL! Blyat! {error}");
+        sawmill.Warning($"UTKA SOKETS FAIL! {error}");
     }
 
 

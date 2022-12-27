@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Content.Shared.CCVar;
+﻿using Content.Shared.CCVar;
 using Robust.Shared;
 using Robust.Shared.Configuration;
 
@@ -22,7 +21,9 @@ public sealed class UtkaSocketWrapper
 
         if(string.IsNullOrEmpty(_key)) return;
 
-        _utkaSocket = new UtkaSocket(IPAddress.Any, 8888, _key);
+        var port = _cfg.GetCVar(CVars.NetPort) + 100;
+
+        _utkaSocket = new UtkaSocket("0.0.0.0", port, _key);
         _utkaSocket.Start();
 
         _initialized = true;
