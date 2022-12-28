@@ -21,9 +21,9 @@ SERVER_FILES = [
 
 VERSION = os.environ['GITHUB_SHA']
 FORK_ID = "wd"
-BUILD_URL = f"https://ss14.station13.ru/builds/{{FORK_VERSION}}/{FILE}"
-MANIFEST_URL = f"https://ss14.station13.ru/cdn/version/{{FORK_VERSION}}/manifest"
-MANIFEST_DOWNLOAD_URL = f"https://ss14.station13.ru/cdn/version/{{FORK_VERSION}}/download"
+BUILD_URL = f"https://custos.ss14.su/{{FORK_VERSION}}/{FILE}"
+MANIFEST_URL = f"https://procurator.ss14.su/version/{{FORK_VERSION}}/manifest"
+MANIFEST_DOWNLOAD_URL = f"https://procurator.ss14.su/version/{{FORK_VERSION}}/download"
 
 def main() -> None:
     client_file = os.path.join("release", FILE)
