@@ -2,7 +2,7 @@
   id: WhiteBagel
   mapName: 'Bagel Station'
   mapPath: /Maps/White/Whitebagel.yml
-  minPlayers: 35
+  minPlayers: 0
   stations:
     Bagel:
       mapNameTemplate: '{0} Bagel Station {1}'

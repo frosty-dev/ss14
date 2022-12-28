@@ -2,7 +2,7 @@
   id: WhiteMarathon
   mapName: 'Marathon Station'
   mapPath: /Maps/White/Whitemarathon.yml
-  minPlayers: 35
+  minPlayers: 0
   maxPlayers: 70
   stations:
     Marathon:

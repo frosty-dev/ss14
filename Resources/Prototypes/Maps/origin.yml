@@ -2,7 +2,7 @@
   id: WhiteOrigin
   mapName: 'Origin'
   mapPath: /Maps/White/Whiteorigin.yml
-  minPlayers: 35
+  minPlayers: 0
   stations:
     Origin:
       mapNameTemplate: '{0} Origin Station {1}'
