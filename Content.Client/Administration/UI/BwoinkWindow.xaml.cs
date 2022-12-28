@@ -72,7 +72,7 @@ namespace Content.Client.Administration.UI
                 }
 
                 if (info.Antag && info.ActiveThisRound)
-                    sb.Append(new Rune(0x1F5E1)); // 🗡
+                    sb.Append("ANTAG ");//new Rune(0x1F5E1)); // 🗡
 
                 sb.AppendFormat("\"{0}\"", text);
 
