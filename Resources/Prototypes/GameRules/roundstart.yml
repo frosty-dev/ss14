@@ -55,7 +55,7 @@
     id: Sandbox
 
 - type: gameRule
-  id: Secret
+  id: SecretА
   config:
     !type:GenericGameRuleConfiguration
     id: Secret
