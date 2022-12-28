@@ -28,8 +28,8 @@ traitor-no-one-ready = Нет готовых игроков! Не удалось
 traitor-death-match-title = Бой насмерть предателей
 traitor-death-match-description = Все — предатели. Все хотят смерти друг друга.
 traitor-death-match-station-is-too-unsafe-announcement = На станции слишком опасно, чтобы продолжать. У вас есть одна минута.
-traitor-death-match-end-round-description-first-line = КПК были восстановлены...
-traitor-death-match-end-round-description-entry = КПК { $originalName }, с { $tcBalance } ТК
+traitor-death-match-end-round-description-first-line = ПДА были восстановлены...
+traitor-death-match-end-round-description-entry = ПДА { $originalName }, с { $tcBalance } ТК
 
 ## TraitorRole
 
@@ -37,7 +37,7 @@ traitor-death-match-end-round-description-entry = КПК { $originalName }, с {
 traitor-role-greeting =
     Вы - агент Синдиката.
     Ваши цели и кодовые слова перечислены в меню персонажа.
-    Воспользуйтесь аплинком, встроенным в ваш КПК, чтобы приобрести всё необходимое для выполнения работы.
+    Воспользуйтесь аплинком, встроенным в ваш ПДА, чтобы приобрести всё необходимое для выполнения работы.
     Смерть Nanotrasen!
 traitor-role-codewords =
     Кодовые слова следующие:
