@@ -56,4 +56,4 @@ jobs:
         username: ${{ secrets.BUILDS_USERNAME }}
         key: ${{ secrets.BUILDS_SSH_KEY }}
         passphrase: ${{ secrets.BUILDS_SSH_KEY_PASS }}
-        script: sh ~/tenebrae/ss14/retard.sh ${{ github.sha }}
+        script: sh ~/anvil/cortice.sh ${{ github.sha }}
