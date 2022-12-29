@@ -5,10 +5,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using NetCoreServer;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Content.Server.UtkaIntegration;
@@ -22,7 +19,7 @@ public sealed class UtkaSocket : UdpServer
 
     public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
     {
-        _sawmill = _sawmill = Logger.GetSawmill("utkasockets");
+        _sawmill = Logger.GetSawmill("utkasockets");
         Key = key;
     }
 
@@ -40,7 +37,13 @@ public sealed class UtkaSocket : UdpServer
 
         var fromDiscordMessage = JsonSerializer.Deserialize<FromDiscordMessage>(message);
 
-        if (fromDiscordMessage!.Key == null || fromDiscordMessage.Key != Key)
+        if (!NullCheck(fromDiscordMessage!))
+        {
+            _sawmill.Info($"UTKASockets: Received message from discord, but it was cringe.");
+            return;
+        }
+
+        if (fromDiscordMessage!.Key != Key)
         {
             _sawmill.Info($"UTKASockets: Received message with invalid key from endpoint {endpoint}");
             return;
@@ -52,7 +55,7 @@ public sealed class UtkaSocket : UdpServer
 
     private void ExecuteCommand(FromDiscordMessage message, string command, string[] args)
     {
-        if (Commands.ContainsKey(command))
+        if (!Commands.ContainsKey(command))
         {
             _sawmill.Warning($"UTKASockets: FAIL! Command {command} not found");
             return;
@@ -60,6 +63,11 @@ public sealed class UtkaSocket : UdpServer
 
         _sawmill.Info($"UTKASockets: Execiting command from UTKASocket: {command} args: {string.Join(" ", args)}");
         Commands[command].Execute(this, message ,args);
+    }
+
+    private bool NullCheck(FromDiscordMessage fromDiscordMessage)
+    {
+        return fromDiscordMessage is {Key: { }, Ckey: { }, Message: { }, Command: { }};
     }
 
     protected override void OnSent(EndPoint endpoint, long sent)
