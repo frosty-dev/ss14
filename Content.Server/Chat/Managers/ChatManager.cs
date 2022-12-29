@@ -109,7 +109,7 @@ namespace Content.Server.Chat.Managers
 
         public void SendHookOOC(string sender, string message)
         {
-            if (!_oocEnabled && _configurationManager.GetCVar(CCVars.DisablingOOCDisablesRelay))
+            if (_configurationManager.GetCVar(CCVars.DisableHookedOOC))
             {
                 return;
             }
