@@ -20,7 +20,7 @@ public sealed class UtkaSocket : UdpServer
     private readonly ISawmill _sawmill = default!;
 
 
-    public UtkaSocket(string address, int port, string key) : base(address, port)
+    public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
     {
         _sawmill = _sawmill = Logger.GetSawmill("utkasockets");
         Key = key;
