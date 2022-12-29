@@ -8,7 +8,7 @@ public sealed class UtkaSendOOCMessage : IUtkaCommand
     public void Execute(UtkaSocket socket, FromDiscordMessage message, string[] args)
     {
         var chatSystem = IoCManager.Resolve<IChatManager>();
-
-        chatSystem.SendHookOOC($"{message.Ckey}", $"{message.Message}");
+        var finalMessage = string.Join(" ", message.Message!);
+        chatSystem.SendHookOOC($"{message.Ckey}", $"{finalMessage}");
     }
 }
