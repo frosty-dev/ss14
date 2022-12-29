@@ -1473,5 +1473,8 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<bool> ConfigPresetDebug =
             CVarDef.Create("config.preset_debug", true, CVar.SERVERONLY);
+
+        public static readonly CVarDef<string> UtkaSocketKey = CVarDef.Create("utka.socket_key", String.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
     }
 }
