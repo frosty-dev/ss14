@@ -22,7 +22,7 @@ public sealed class UtkaSocketWrapper
 
         if (string.IsNullOrEmpty(_key))
         {
-            Logger.GetSawmill("utkasockets").Error($"No key provided for UtkaSocket, not initializing.");
+            Logger.GetSawmill("utkasockets").Warning($"No key provided for UtkaSocket, not initializing.");
             return;
         }
 
@@ -35,7 +35,7 @@ public sealed class UtkaSocketWrapper
         }
         catch (Exception e)
         {
-            Logger.GetSawmill("utkasockets").Error($"Failed to initialize UtkaSocket: {e}");
+            Logger.GetSawmill("utkasockets").Warning($"Failed to initialize UtkaSocket: {e}");
             return;
         }
 
