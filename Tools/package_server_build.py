@@ -71,6 +71,7 @@ SERVER_CONTENT_ASSEMBLIES = [
 SERVER_EXTRA_ASSEMBLIES = [
     "Npgsql.",
     "Microsoft",
+    "NetCoreServer"
 ]
 
 SERVER_NOT_EXTRA_ASSEMBLIES = [
