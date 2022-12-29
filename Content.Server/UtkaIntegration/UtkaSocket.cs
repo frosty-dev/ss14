@@ -20,7 +20,7 @@ public sealed class UtkaSocket : UdpServer
     private readonly ISawmill _sawmill = default!;
 
 
-    public UtkaSocket(string address, int port, string key) : base(address, port)
+    public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
     {
         _sawmill = _sawmill = Logger.GetSawmill("utkasockets");
         Key = key;
@@ -54,7 +54,7 @@ public sealed class UtkaSocket : UdpServer
     {
         if (Commands.ContainsKey(command))
         {
-            _sawmill.Error($"UTKASockets: FAIL! Command {command} not found");
+            _sawmill.Warning($"UTKASockets: FAIL! Command {command} not found");
             return;
         }
 
@@ -72,8 +72,7 @@ public sealed class UtkaSocket : UdpServer
     {
         base.OnError(error);
 
-        var sawmill = IoCManager.Resolve<ISawmill>();
-        sawmill.Warning($"UTKA SOKETS FAIL! {error}");
+        _sawmill.Warning($"UTKA SOKETS FAIL! {error}");
     }
 
 

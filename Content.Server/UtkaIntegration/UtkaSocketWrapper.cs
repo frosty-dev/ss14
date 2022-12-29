@@ -1,4 +1,5 @@
-﻿using Content.Shared.CCVar;
+﻿using System.Net;
+using Content.Shared.CCVar;
 using Robust.Shared;
 using Robust.Shared.Configuration;
 
@@ -19,18 +20,22 @@ public sealed class UtkaSocketWrapper
 
         _cfg.OnValueChanged(CCVars.UtkaSocketKey, value => _key = value, true);
 
-        if(string.IsNullOrEmpty(_key)) return;
+        if (string.IsNullOrEmpty(_key))
+        {
+            Logger.GetSawmill("utkasockets").Warning($"No key provided for UtkaSocket, not initializing.");
+            return;
+        }
 
         var port = _cfg.GetCVar(CVars.NetPort) + 100;
 
         try
         {
-            _utkaSocket = new UtkaSocket("0.0.0.0", port, _key);
+            _utkaSocket = new UtkaSocket(IPAddress.Any, port, _key);
 
         }
         catch (Exception e)
         {
-            Logger.GetSawmill("utkasockets").Error($"Failed to initialize UtkaSocket: {e}");
+            Logger.GetSawmill("utkasockets").Warning($"Failed to initialize UtkaSocket: {e}");
             return;
         }
 
