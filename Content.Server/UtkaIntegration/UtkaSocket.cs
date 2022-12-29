@@ -5,7 +5,9 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using Content.Server.Utility;
 using NetCoreServer;
+using Robust.Shared.Asynchronous;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Content.Server.UtkaIntegration;
@@ -15,12 +17,15 @@ public sealed class UtkaSocket : UdpServer
     public static Dictionary<string, IUtkaCommand> Commands = new();
     private readonly string Key = string.Empty;
     private readonly ISawmill _sawmill = default!;
+    private readonly ITaskManager _taskManager = default!;
 
 
     public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
     {
-        _sawmill = Logger.GetSawmill("utkasockets");
         Key = key;
+        _sawmill = Logger.GetSawmill("utkasockets");
+        _taskManager = IoCManager.Resolve<ITaskManager>();
+        RegisterCommands();
     }
 
     protected override void OnStarted()
@@ -32,7 +37,6 @@ public sealed class UtkaSocket : UdpServer
     protected override void OnReceived(EndPoint endpoint, byte[] buffer, long offset, long size)
     {
         base.OnReceived(endpoint, buffer, offset, size);
-
         var message = Encoding.UTF8.GetString(buffer, (int) offset, (int) size);
 
         var fromDiscordMessage = JsonSerializer.Deserialize<FromDiscordMessage>(message);
@@ -50,6 +54,8 @@ public sealed class UtkaSocket : UdpServer
         }
 
         ExecuteCommand(fromDiscordMessage, fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
+
+        ReceiveAsync();
     }
 
 
@@ -62,7 +68,7 @@ public sealed class UtkaSocket : UdpServer
         }
 
         _sawmill.Info($"UTKASockets: Execiting command from UTKASocket: {command} args: {string.Join(" ", args)}");
-        Commands[command].Execute(this, message ,args);
+        _taskManager.RunOnMainThread(() => Commands[command].Execute(this, message, args));
     }
 
     private bool NullCheck(FromDiscordMessage fromDiscordMessage)
