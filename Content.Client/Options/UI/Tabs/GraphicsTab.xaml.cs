@@ -135,7 +135,6 @@ namespace Content.Client.Options.UI.Tabs
             ShowHeldItemCheckBox.Pressed = _cfg.GetCVar(CCVars.HudHeldItemShow);
             ViewportWidthSlider.Value = _cfg.GetCVar(CCVars.ViewportWidth);
             FilmGrainCheckBox.Pressed = _cfg.GetCVar(CCVars.FilmGrain);
-            ShadersCheckBox.Pressed = _cfg.GetCVar(CCVars.Shaders);
 
             _cfg.OnValueChanged(CCVars.ViewportMinimumWidth, _ => UpdateViewportWidthRange());
             _cfg.OnValueChanged(CCVars.ViewportMaximumWidth, _ => UpdateViewportWidthRange());
@@ -191,7 +190,6 @@ namespace Content.Client.Options.UI.Tabs
             _cfg.SetCVar(CCVars.HudFpsCounterVisible, FpsCounterCheckBox.Pressed);
             _cfg.SetCVar(CCVars.ViewportWidth, (int) ViewportWidthSlider.Value);
             _cfg.SetCVar(CCVars.FilmGrain, FilmGrainCheckBox.Pressed);
-            _cfg.SetCVar(CCVars.Shaders, ShadersCheckBox.Pressed);
 
             if (HudLayoutOption.SelectedMetadata is string opt)
             {
@@ -230,7 +228,6 @@ namespace Content.Client.Options.UI.Tabs
             var isWidthSame = (int) ViewportWidthSlider.Value == _cfg.GetCVar(CCVars.ViewportWidth);
             var isLayoutSame = HudLayoutOption.SelectedMetadata is string opt && opt == _cfg.GetCVar(CCVars.UILayout);
             var isFilmGrainSame = FilmGrainCheckBox.Pressed == _cfg.GetCVar(CCVars.FilmGrain);
-            var isShaderSame = ShadersCheckBox.Pressed == _cfg.GetCVar(CCVars.Shaders);
 
             ApplyButton.Disabled = isVSyncSame &&
                                    isFullscreenSame &&
@@ -246,8 +243,7 @@ namespace Content.Client.Options.UI.Tabs
                                    isFpsCounterVisibleSame &&
                                    isWidthSame &&
                                    isLayoutSame &&
-                                   isFilmGrainSame &&
-                                   isShaderSame;
+                                   isFilmGrainSame;
         }
 
         private bool ConfigIsFullscreen =>

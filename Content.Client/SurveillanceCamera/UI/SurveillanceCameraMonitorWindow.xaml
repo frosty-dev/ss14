@@ -1,5 +1,5 @@
 <DefaultWindow xmlns="https://spacestation14.io"
-               xmlns:ui="clr-namespace:Content.Client.SurveillanceCamera.UI"
+               xmlns:viewport="clr-namespace:Content.Client.Viewport"
                Title="{Loc 'surveillance-camera-monitor-ui-window'}">
     <BoxContainer Orientation="Horizontal">
         <BoxContainer Orientation="Vertical" MinWidth="350" VerticalExpand="True">
@@ -14,11 +14,11 @@
             <Label Name="CameraStatus" />
         </BoxContainer>
         <Control VerticalExpand="True" HorizontalExpand="True" Margin="5 5 5 5" Name="CameraViewBox">
-            <ui:SurveillanceCameraMonitorViewport Name="CameraView"
-                                               VerticalExpand="True"
-                                               HorizontalExpand="True"
-                                               MinSize="500 500"
-                                               MouseFilter="Ignore" />
+            <viewport:ScalingViewport Name="CameraView"
+                                      VerticalExpand="True"
+                                      HorizontalExpand="True"
+                                      MinSize="500 500"
+                                      MouseFilter="Ignore" />
             <TextureRect VerticalExpand="True" HorizontalExpand="True" MinSize="500 500" Name="CameraViewBackground" />
         </Control>
     </BoxContainer>
