@@ -54,17 +54,17 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     {
         if (!TryComp<FTLDestinationComponent>(args.Destination, out var dest)) return;
 
-        if (!dest.Enabled) return;
+            if (HasComp<FTLComponent>(xform.GridUid))
+            {
+                _popup.PopupCursor(Loc.GetString("shuttle-console-in-ftl"), args.Session);
+                return;
+            }
 
-        EntityUid? entity = component.Owner;
-
-        var getShuttleEv = new ConsoleShuttleEvent
-        {
-            Console = uid,
-        };
-
-        RaiseLocalEvent(entity.Value, ref getShuttleEv);
-        entity = getShuttleEv.Console;
+            if (!_shuttle.CanFTL(shuttle.Owner, out var reason))
+            {
+                _popup.PopupCursor(reason, args.Session);
+                return;
+            }
 
         if (entity == null || dest.Whitelist?.IsValid(entity.Value, EntityManager) == false)
             return;

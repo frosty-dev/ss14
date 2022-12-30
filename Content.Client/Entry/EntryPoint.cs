@@ -24,7 +24,6 @@ using Content.Client.Voting;
 using Content.Shared.Administration;
 using Content.Shared.AME;
 using Content.Shared.Gravity;
-using Content.Shared.Lathe;
 using Content.Shared.Localizations;
 using Content.Shared.Markers;
 using Robust.Client;
@@ -33,14 +32,6 @@ using Robust.Client.Input;
 using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Shared.Configuration;
-using Robust.Shared.ContentPack;
-using Robust.Shared.Map;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Reflection;
-#if FULL_RELEASE
-using Robust.Shared;
-using Robust.Shared.Configuration;
-#endif
 using Robust.Shared.ContentPack;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -84,8 +75,6 @@ namespace Content.Client.Entry
         [Dependency] private readonly IReflectionManager _refl = default!;
         [Dependency] private readonly UIAudioManager _uiAudio = default!;
 
-        public const int NetBufferSizeOverride = 2;
-
         public override void Init()
         {
             ClientContentIoC.Register();
@@ -98,11 +87,6 @@ namespace Content.Client.Entry
 
             IoCManager.BuildGraph();
             IoCManager.InjectDependencies(this);
-
-#if FULL_RELEASE
-            // if FULL_RELEASE, because otherwise this breaks some integration tests.
-            IoCManager.Resolve<IConfigurationManager>().OverrideDefault(CVars.NetBufferSize, NetBufferSizeOverride);
-#endif
 
             _contentLoc.Initialize();
             _componentFactory.DoAutoRegistrations();
