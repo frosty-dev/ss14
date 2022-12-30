@@ -15,7 +15,7 @@
   icon: "ChiefEngineer"
   requireAdminNotify: true
   supervisors: job-supervisors-captain
-  canBeAntag: false
+  canBeAntag: true
   access:
   - Maintenance
   - Engineering

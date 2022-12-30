@@ -21,7 +21,7 @@ public sealed class NukeopsRuleConfiguration : GameRuleConfiguration
     ///     This INCLUDES the operatives. So a value of 3 is satisfied by 2 players & 1 operative
     /// </summary>
     [DataField("playersPerOperative")]
-    public int PlayersPerOperative = 5;
+    public int PlayersPerOperative = 15;
 
     [DataField("maxOps")]
     public int MaxOperatives = 5;

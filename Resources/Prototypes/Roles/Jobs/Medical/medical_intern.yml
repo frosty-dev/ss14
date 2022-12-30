@@ -11,7 +11,7 @@
   startingGear: MedicalInternGear
   icon: "MedicalIntern"
   supervisors: job-supervisors-medicine
-  canBeAntag: false
+  canBeAntag: true
   access:
   - Medical
   - Maintenance
