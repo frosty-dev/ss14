@@ -1158,7 +1158,7 @@ namespace Content.Shared.CCVar
             CVarDef.Create("chat.chat_sanitizer_enabled", true, CVar.SERVERONLY);
 
         public static readonly CVarDef<bool> ChatShowTypingIndicator =
-            CVarDef.Create("chat.show_typing_indicator", false, CVar.CLIENTONLY); // crutch
+            CVarDef.Create("chat.show_typing_indicator", true, CVar.CLIENTONLY); // crutch
 
         /*
          * AFK
@@ -1475,7 +1475,7 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<bool> ConfigPresetDebug =
             CVarDef.Create("config.preset_debug", true, CVar.SERVERONLY);
-        public static readonly CVarDef<string> UtkaSocketKey = 
+        public static readonly CVarDef<string> UtkaSocketKey =
             CVarDef.Create("utka.socket_key", String.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     }

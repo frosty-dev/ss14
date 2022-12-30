@@ -1,4 +1,4 @@
-﻿ent-BaseMechPart = { "" }
+ent-BaseMechPart = { "" }
     .desc = { "" }
     .suffix = { "" }
 ent-BaseMechPartItem = { ent-BaseMechPart }
