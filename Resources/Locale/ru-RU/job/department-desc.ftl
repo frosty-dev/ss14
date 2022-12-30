@@ -1,7 +1,7 @@
-department-Cargo-description = Purchase and deliver useful supplies to the crew.
-department-Civilian-description = Perform small helpful tasks to keep the station sane.
-department-Command-description = Manage the crew and keep them working efficiently.
-department-Engineering-description = Keep the station operational.
-department-Medical-description = Keep the crew healthy.
-department-Security-description = Keep the peace around the station.
-department-Science-description = Research new technologies and dangerous artifacts.
+department-Cargo-description = Покупайте и доставляйте полезные припасы персоналу станции.
+department-Civilian-description = Выполняйте легкие задачки для поддержки станции в хорошем состоянии.
+department-Command-description = Управляйте персоналом станции и помогайте им работать эффективно.
+department-Engineering-description = Поддерживайте станцию в рабочем состоянии.
+department-Medical-description = Поддерживайте здоровье персонала.
+department-Security-description = Поддерживайте порядок на станции.
+department-Science-description = Исследуйте новые технологии и опасные артефакты.
