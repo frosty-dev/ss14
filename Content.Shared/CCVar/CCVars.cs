@@ -335,7 +335,7 @@ namespace Content.Shared.CCVar
          */
 
         public static readonly CVarDef<int> TraitorMinPlayers =
-            CVarDef.Create("traitor.min_players", 5);
+            CVarDef.Create("traitor.min_players", 1);
 
         public static readonly CVarDef<int> TraitorMaxTraitors =
             CVarDef.Create("traitor.max_traitors", 12); // Assuming average server maxes somewhere from like 50-80 people
@@ -367,7 +367,7 @@ namespace Content.Shared.CCVar
          */
 
         public static readonly CVarDef<int> ZombieMinPlayers =
-            CVarDef.Create("zombie.min_players", 20);
+            CVarDef.Create("zombie.min_players", 25);
 
         public static readonly CVarDef<int> ZombieMaxInitialInfected =
             CVarDef.Create("zombie.max_initial_infected", 6);
@@ -514,6 +514,10 @@ namespace Content.Shared.CCVar
 
         public static readonly CVarDef<bool> AdminSoundsEnabled =
             CVarDef.Create("audio.admin_sounds_enabled", true, CVar.ARCHIVE | CVar.CLIENTONLY);
+        public static readonly CVarDef<string> AdminChatSoundPath =
+            CVarDef.Create("audio.admin_chat_sound_path", "/Audio/Items/pop.ogg", CVar.ARCHIVE | CVar.CLIENT | CVar.REPLICATED);
+        public static readonly CVarDef<float> AdminChatSoundVolume =
+            CVarDef.Create("audio.admin_chat_sound_volume", -5f, CVar.ARCHIVE | CVar.CLIENT | CVar.REPLICATED);
 
         /*
          * HUD
@@ -860,7 +864,7 @@ namespace Content.Shared.CCVar
         /// <summary>
         /// If true, whenever OOC is disabled the Discord OOC relay will also be disabled.
         /// </summary>
-        public static readonly CVarDef<bool> DisablingOOCDisablesRelay = CVarDef.Create("ooc.disabling_ooc_disables_relay", true, CVar.SERVERONLY);
+        public static readonly CVarDef<bool> DisableHookedOOC = CVarDef.Create("ooc.disabling_ooc_disables_relay", false, CVar.SERVERONLY);
 
         /// <summary>
         /// Whether or not OOC chat should be enabled during a round.
@@ -1154,7 +1158,7 @@ namespace Content.Shared.CCVar
             CVarDef.Create("chat.chat_sanitizer_enabled", true, CVar.SERVERONLY);
 
         public static readonly CVarDef<bool> ChatShowTypingIndicator =
-            CVarDef.Create("chat.show_typing_indicator", true, CVar.CLIENTONLY);
+            CVarDef.Create("chat.show_typing_indicator", true, CVar.CLIENTONLY); // crutch
 
         /*
          * AFK
@@ -1429,6 +1433,9 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<string> DiscordRoundRoleId =
             CVarDef.Create("discord.round_roleid", string.Empty, CVar.SERVERONLY);
 
+        public static readonly CVarDef<bool> DiscordRoundStartOnly =
+            CVarDef.Create("discord.round_start_only", false, CVar.SERVERONLY);
+
         /*
         * GRAPHICS
         */
@@ -1438,8 +1445,6 @@ namespace Content.Shared.CCVar
 
         public static readonly CVarDef<bool> FilmGrain =
             CVarDef.Create("graphics.film_grain", true, CVar.CLIENTONLY | CVar.ARCHIVE);
-
-
 
         /*
          * CONFIG
@@ -1473,5 +1478,8 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<bool> ConfigPresetDebug =
             CVarDef.Create("config.preset_debug", true, CVar.SERVERONLY);
+        public static readonly CVarDef<string> UtkaSocketKey =
+            CVarDef.Create("utka.socket_key", String.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
     }
 }

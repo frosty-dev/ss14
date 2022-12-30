@@ -7,7 +7,7 @@ using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.White.DiscordShit;
+namespace Content.Server.White.RoundNotifications;
 
 /// <summary>
 /// Listen game events and send notifications to Discord
@@ -20,25 +20,27 @@ public sealed class RoundNotificationsSystem : EntitySystem
     private ISawmill _sawmill = default!;
     private readonly HttpClient _httpClient = new();
 
-    private string _discordWebhook = String.Empty;
-    private string _discordRoleId = String.Empty;
+    private string _webhookUrl = String.Empty;
+    private string _roleId = String.Empty;
+    private bool _roundStartOnly;
 
     /// <inheritdoc/>
     public override void Initialize()
     {
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
         SubscribeLocalEvent<RoundStartedEvent>(OnRoundStarted);
-        SubscribeLocalEvent<RoundEndMessageEvent>(OnRoundEnd);
+        SubscribeLocalEvent<RoundEndedEvent>(OnRoundEnded);
 
-        _config.OnValueChanged(CCVars.DiscordRoundWebhook, value => _discordWebhook = value, true);
-        _config.OnValueChanged(CCVars.DiscordRoundRoleId, value => _discordRoleId = value, true);
+        _config.OnValueChanged(CCVars.DiscordRoundWebhook, value => _webhookUrl = value, true);
+        _config.OnValueChanged(CCVars.DiscordRoundRoleId, value => _roleId = value, true);
+        _config.OnValueChanged(CCVars.DiscordRoundStartOnly, value => _roundStartOnly = value, true);
 
         _sawmill = IoCManager.Resolve<ILogManager>().GetSawmill("notifications");
     }
 
     private void OnRoundRestart(RoundRestartCleanupEvent e)
     {
-        if (String.IsNullOrEmpty(_discordWebhook))
+        if (String.IsNullOrEmpty(_webhookUrl))
             return;
 
         var payload = new WebhookPayload()
@@ -46,14 +48,14 @@ public sealed class RoundNotificationsSystem : EntitySystem
             Content = Loc.GetString("discord-round-new"),
         };
 
-        if (!String.IsNullOrEmpty(_discordRoleId))
+        if (!String.IsNullOrEmpty(_roleId))
         {
             payload = new WebhookPayload()
             {
-                Content = $"<@&{_discordRoleId}> {Loc.GetString("discord-round-new")}",
+                Content = $"<@&{_roleId}> {Loc.GetString("discord-round-new")}",
                 AllowedMentions = new Dictionary<string, string[]>
                 {
-                    { "roles", new []{ _discordRoleId } }
+                    { "roles", new []{ _roleId } }
                 },
             };
         }
@@ -63,7 +65,7 @@ public sealed class RoundNotificationsSystem : EntitySystem
 
     private void OnRoundStarted(RoundStartedEvent e)
     {
-        if (String.IsNullOrEmpty(_discordWebhook))
+        if (String.IsNullOrEmpty(_webhookUrl))
             return;
 
         var map = _gameMapManager.GetSelectedMap();
@@ -76,9 +78,9 @@ public sealed class RoundNotificationsSystem : EntitySystem
         SendDiscordMessage(payload);
     }
 
-    private void OnRoundEnd(RoundEndMessageEvent e)
+    private void OnRoundEnded(RoundEndedEvent e)
     {
-        if (String.IsNullOrEmpty(_discordWebhook))
+        if (String.IsNullOrEmpty(_webhookUrl) || _roundStartOnly)
             return;
 
         var text = Loc.GetString("discord-round-end",
@@ -93,7 +95,7 @@ public sealed class RoundNotificationsSystem : EntitySystem
 
     private async void SendDiscordMessage(WebhookPayload payload)
     {
-        var request = await _httpClient.PostAsync(_discordWebhook,
+        var request = await _httpClient.PostAsync(_webhookUrl,
             new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
 
         var content = await request.Content.ReadAsStringAsync();

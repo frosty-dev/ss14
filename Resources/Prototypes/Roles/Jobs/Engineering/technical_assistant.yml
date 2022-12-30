@@ -1,6 +1,7 @@
 ﻿- type: job
   id: TechnicalAssistant
-  name: job-name-assistant
+  name: job-name-technical-assistant
+  description: job-description-technical-assistant
   playTimeTracker: JobTechnicalAssistant
   requirements:
     - !type:DepartmentTimeRequirement
@@ -10,7 +11,7 @@
   startingGear: TechnicalAssistantGear
   icon: "TechnicalAssistant"
   supervisors: job-supervisors-engineering
-  canBeAntag: false
+  canBeAntag: true
   access:
   - Maintenance
   - Engineering

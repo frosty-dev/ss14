@@ -1,6 +1,7 @@
 - type: job
   id: AtmosphericTechnician
   name: job-name-atmostech
+  description: job-description-atmostech
   playTimeTracker: JobAtmosphericTechnician
   requirements:
     - !type:DepartmentTimeRequirement
@@ -9,7 +10,7 @@
   startingGear: AtmosphericTechnicianGear
   icon: "AtmosphericTechnician"
   supervisors: job-supervisors-ce
-  canBeAntag: false
+  canBeAntag: true
   access:
   - Maintenance
   - Engineering

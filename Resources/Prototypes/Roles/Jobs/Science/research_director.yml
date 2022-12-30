@@ -1,6 +1,7 @@
 - type: job
   id: ResearchDirector
   name: job-name-rd
+  description: job-description-rd
   playTimeTracker: JobResearchDirector
   requirements:
     - !type:DepartmentTimeRequirement
@@ -11,7 +12,7 @@
   icon: "ResearchDirector"
   requireAdminNotify: true
   supervisors: job-supervisors-captain
-  canBeAntag: false
+  canBeAntag: true
   access:
   - Research
   - Command

@@ -1,6 +1,7 @@
 - type: job
   id: ChiefEngineer
   name: job-name-ce
+  description: job-description-ce
   playTimeTracker: JobChiefEngineer
   requirements:
     - !type:RoleTimeRequirement
@@ -14,7 +15,7 @@
   icon: "ChiefEngineer"
   requireAdminNotify: true
   supervisors: job-supervisors-captain
-  canBeAntag: false
+  canBeAntag: true
   access:
   - Maintenance
   - Engineering

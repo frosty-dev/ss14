@@ -1,3 +1,3 @@
-﻿ent-FTLPoint = точка БСС
+ent-FTLPoint = точка БСС
     .desc = { ent-MarkerBase.desc }
     .suffix = { "" }

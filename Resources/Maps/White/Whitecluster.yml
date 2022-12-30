@@ -875,7 +875,7 @@ entities:
   components:
   - type: MetaData
   - type: Transform
-  - index: 4
+  - index: 5
     type: Map
   - type: PhysicsMap
   - type: Broadphase
@@ -1031,7 +1031,6 @@ entities:
     type: Fixtures
   - gravityShakeSound: !type:SoundPathSpecifier
       path: /Audio/Effects/alert.ogg
-    enabled: True
     type: Gravity
   - chunkCollection:
       0,-1:
@@ -10844,10 +10843,15 @@ entities:
     type: GridAtmosphere
   - type: OccluderTree
   - type: Shuttle
-  - type: GridPathfinding
+  - nextUpdate: 0.45
+    type: GridPathfinding
   - type: RadiationGridResistance
   - id: Cluster
     type: BecomesStation
+  - nextShake: 0
+    shakeTimes: 10
+    type: GravityShake
+  - type: GasTileOverlay
 - uid: 128
   type: WallReinforced
   components:
@@ -44000,14 +44004,14 @@ entities:
   - inputs:
       Open:
       - port: Timer
-        uid: 8755
+        uid: 6232
       Close:
       - port: Start
-        uid: 8755
+        uid: 6232
       Toggle: []
       AutoClose:
       - port: Timer
-        uid: 8755
+        uid: 6232
     type: SignalReceiver
 - uid: 5190
   type: WindoorSecurityLocked
@@ -44019,14 +44023,14 @@ entities:
   - inputs:
       Open:
       - port: Timer
-        uid: 6232
+        uid: 8755
       Close:
       - port: Start
-        uid: 6232
+        uid: 8755
       Toggle: []
       AutoClose:
       - port: Timer
-        uid: 6232
+        uid: 8755
     type: SignalReceiver
 - uid: 5191
   type: Table
@@ -51898,18 +51902,18 @@ entities:
 - uid: 6232
   type: BrigTimer
   components:
-  - pos: 29.5,-23.5
+  - pos: 26.5,-23.5
     parent: 127
     type: Transform
   - outputs:
       Start:
       - port: Close
-        uid: 5190
+        uid: 5189
       Timer:
       - port: AutoClose
-        uid: 5190
+        uid: 5189
       - port: Open
-        uid: 5190
+        uid: 5189
     type: SignalTransmitter
 - uid: 6233
   type: WaterCooler
@@ -54568,9 +54572,14 @@ entities:
   - pos: 24.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -73755.59
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54584,9 +54593,14 @@ entities:
   - pos: 24.5,-4.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -73755.59
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54600,9 +54614,14 @@ entities:
   - pos: 24.5,-7.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -73755.59
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54616,9 +54635,12 @@ entities:
   - pos: 24.5,-6.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -73755.59
-    state: Opening
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54668,9 +54690,14 @@ entities:
   - pos: 13.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54684,9 +54711,14 @@ entities:
   - pos: 14.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54700,9 +54732,14 @@ entities:
   - pos: 15.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54716,9 +54753,14 @@ entities:
   - pos: 16.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54732,9 +54774,14 @@ entities:
   - pos: 17.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54748,9 +54795,14 @@ entities:
   - pos: 18.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54764,9 +54816,12 @@ entities:
   - pos: 12.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54780,9 +54835,12 @@ entities:
   - pos: 19.5,-5.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54796,9 +54854,14 @@ entities:
   - pos: 11.5,-6.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54812,9 +54875,14 @@ entities:
   - pos: 11.5,-7.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54828,9 +54896,14 @@ entities:
   - pos: 20.5,-6.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54844,9 +54917,14 @@ entities:
   - pos: 20.5,-7.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74806.47
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54860,9 +54938,14 @@ entities:
   - pos: 20.5,-9.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74721.87
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -54876,9 +54959,14 @@ entities:
   - pos: 20.5,-11.5
     parent: 127
     type: Transform
-  - SecondsUntilStateChange: -74721.87
-    state: Opening
+  - enabled: False
+    type: Occluder
+  - canCollide: False
+    type: Physics
+  - state: Open
     type: Door
+  - airBlocked: False
+    type: Airtight
   - inputs:
       Open: []
       Close: []
@@ -70304,17 +70392,17 @@ entities:
 - uid: 8755
   type: BrigTimer
   components:
-  - pos: 26.5,-23.5
+  - pos: 29.5,-23.5
     parent: 127
     type: Transform
   - outputs:
       Start:
       - port: Close
-        uid: 5189
+        uid: 5190
       Timer:
       - port: AutoClose
-        uid: 5189
+        uid: 5190
       - port: Open
-        uid: 5189
+        uid: 5190
     type: SignalTransmitter
 ...
