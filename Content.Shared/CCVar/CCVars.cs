@@ -514,6 +514,10 @@ namespace Content.Shared.CCVar
 
         public static readonly CVarDef<bool> AdminSoundsEnabled =
             CVarDef.Create("audio.admin_sounds_enabled", true, CVar.ARCHIVE | CVar.CLIENTONLY);
+        public static readonly CVarDef<string> AdminChatSoundPath =
+            CVarDef.Create("audio.admin_chat_sound_path", "/Audio/Items/pop.ogg", CVar.ARCHIVE | CVar.CLIENT | CVar.REPLICATED);
+        public static readonly CVarDef<float> AdminChatSoundVolume =
+            CVarDef.Create("audio.admin_chat_sound_volume", -5f, CVar.ARCHIVE | CVar.CLIENT | CVar.REPLICATED);
 
         /*
          * HUD
@@ -1154,7 +1158,7 @@ namespace Content.Shared.CCVar
             CVarDef.Create("chat.chat_sanitizer_enabled", true, CVar.SERVERONLY);
 
         public static readonly CVarDef<bool> ChatShowTypingIndicator =
-            CVarDef.Create("chat.show_typing_indicator", true, CVar.CLIENTONLY);
+            CVarDef.Create("chat.show_typing_indicator", true, CVar.CLIENTONLY); // crutch
 
         /*
          * AFK
@@ -1429,6 +1433,9 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<string> DiscordRoundRoleId =
             CVarDef.Create("discord.round_roleid", string.Empty, CVar.SERVERONLY);
 
+        public static readonly CVarDef<bool> DiscordRoundStartOnly =
+            CVarDef.Create("discord.round_start_only", false, CVar.SERVERONLY);
+
         /*
         * GRAPHICS
         */
@@ -1438,8 +1445,6 @@ namespace Content.Shared.CCVar
 
         public static readonly CVarDef<bool> FilmGrain =
             CVarDef.Create("graphics.film_grain", true, CVar.CLIENTONLY | CVar.ARCHIVE);
-
-
 
         /*
          * CONFIG
@@ -1473,8 +1478,8 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<bool> ConfigPresetDebug =
             CVarDef.Create("config.preset_debug", true, CVar.SERVERONLY);
-
-        public static readonly CVarDef<string> UtkaSocketKey = CVarDef.Create("utka.socket_key", String.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+        public static readonly CVarDef<string> UtkaSocketKey =
+            CVarDef.Create("utka.socket_key", String.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     }
 }

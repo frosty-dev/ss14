@@ -565,7 +565,6 @@ entities:
     type: Fixtures
   - gravityShakeSound: !type:SoundPathSpecifier
       path: /Audio/Effects/alert.ogg
-    enabled: True
     type: Gravity
   - chunkCollection:
       -1,0:
@@ -25049,8 +25048,13 @@ entities:
     type: BecomesStation
   - type: OccluderTree
   - type: Shuttle
-  - type: GridPathfinding
+  - nextUpdate: 0.45
+    type: GridPathfinding
   - type: RadiationGridResistance
+  - nextShake: 0
+    shakeTimes: 10
+    type: GravityShake
+  - type: GasTileOverlay
 - uid: 31
   type: FirelockGlass
   components:
@@ -36249,14 +36253,14 @@ entities:
   - inputs:
       Open:
       - port: Timer
-        uid: 22285
+        uid: 22283
       Close:
       - port: Start
-        uid: 22285
+        uid: 22283
       Toggle: []
       AutoClose:
       - port: Timer
-        uid: 22285
+        uid: 22283
     type: SignalReceiver
 - uid: 1761
   type: WindoorSecurityLocked
@@ -36267,14 +36271,14 @@ entities:
   - inputs:
       Open:
       - port: Timer
-        uid: 22283
+        uid: 22285
       Close:
       - port: Start
-        uid: 22283
+        uid: 22285
       Toggle: []
       AutoClose:
       - port: Timer
-        uid: 22283
+        uid: 22285
     type: SignalReceiver
 - uid: 1762
   type: WardrobePrisonFilled
@@ -61509,7 +61513,7 @@ entities:
   components:
   - type: MetaData
   - type: Transform
-  - index: 4
+  - index: 7
     type: Map
   - type: PhysicsMap
   - type: Broadphase
@@ -176270,18 +176274,18 @@ entities:
 - uid: 22283
   type: BrigTimer
   components:
-  - pos: -46.5,41.5
+  - pos: -38.5,41.5
     parent: 30
     type: Transform
   - outputs:
       Start:
       - port: Close
-        uid: 1761
+        uid: 1760
       Timer:
       - port: AutoClose
-        uid: 1761
+        uid: 1760
       - port: Open
-        uid: 1761
+        uid: 1760
     type: SignalTransmitter
 - uid: 22284
   type: BrigTimer
@@ -176302,17 +176306,17 @@ entities:
 - uid: 22285
   type: BrigTimer
   components:
-  - pos: -38.5,41.5
+  - pos: -46.5,41.5
     parent: 30
     type: Transform
   - outputs:
       Start:
       - port: Close
-        uid: 1760
+        uid: 1761
       Timer:
       - port: AutoClose
-        uid: 1760
+        uid: 1761
       - port: Open
-        uid: 1760
+        uid: 1761
     type: SignalTransmitter
 ...

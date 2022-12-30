@@ -1,4 +1,4 @@
-﻿ent-BaseMech = { "" }
+ent-BaseMech = { "" }
     .desc = { "" }
     .suffix = { "" }
 ent-MechRipley = ripley

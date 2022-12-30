@@ -25,3 +25,7 @@
 - type: lobbyBackground
   id: AnimeStation
   background: /Textures/LobbyScreens/animestation.png
+
+- type: lobbyBackground
+  id: EzForPapizi
+  background: /Textures/LobbyScreens/papizi.png

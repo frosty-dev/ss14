@@ -21,7 +21,7 @@ air-alarm-ui-window-tab-vents = Вентиляции
 air-alarm-ui-window-tab-scrubbers = Скрубберы
 air-alarm-ui-window-tab-sensors = Сенсоры
 air-alarm-ui-gases = { $gas }: { $amount } моль ({ $percentage }%)
-air-alarm-ui-gases-indicator = { $gas }: [color={ $color }]{ $amount } mol ({ $percentage }%)[/color]
+air-alarm-ui-gases-indicator = { $gas }: [color={ $color }]{ $amount } моль ({ $percentage }%)[/color]
 air-alarm-ui-mode-filtering = Фильтрация
 air-alarm-ui-mode-wide-filtering = Фильтрация (широкая)
 air-alarm-ui-mode-fill = Заполнение

@@ -1,4 +1,4 @@
-﻿ent-BaseMechEquipment = { ent-BaseItem }
+ent-BaseMechEquipment = { ent-BaseItem }
     .desc = { ent-BaseItem.desc }
     .suffix = { "" }
 ent-MechEquipmentGrabber = гидравлическая клешня
