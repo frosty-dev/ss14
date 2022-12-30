@@ -119,7 +119,6 @@ namespace Content.Client.Options.UI.Tabs
             ParallaxLowQualityCheckBox.OnToggled += OnCheckBoxToggled;
             FpsCounterCheckBox.OnToggled += OnCheckBoxToggled;
             FilmGrainCheckBox.OnToggled += OnFilmGrainCheckBoxToggled;
-            ShadersCheckBox.OnToggled += OnShadersCheckBoxToggled;
             ApplyButton.OnPressed += OnApplyButtonPressed;
             VSyncCheckBox.Pressed = _cfg.GetCVar(CVars.DisplayVSync);
             FullscreenCheckBox.Pressed = ConfigIsFullscreen;
