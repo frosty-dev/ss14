@@ -13,13 +13,10 @@ public sealed class BackgroundControl : TextureRect
     [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     private IRenderTexture? _buffer;
-    private readonly ShaderInstance _grainShader;
 
     public BackgroundControl()
     {
         IoCManager.InjectDependencies(this);
-
-        _grainShader = _prototype.Index<ShaderPrototype>("Crt").Instance().Duplicate();
     }
 
     protected override void Dispose(bool disposing)
@@ -47,13 +44,6 @@ public sealed class BackgroundControl : TextureRect
             base.Draw(handle);
         }, Color.Transparent);
 
-        if (_cfg.GetCVar(CCVars.Shaders))
-        {
-            _grainShader.SetParameter("SCREEN_TEXTURE", _buffer.Texture);
-            handle.UseShader(_grainShader);
-        }
-
         handle.DrawTextureRect(_buffer.Texture, PixelSizeBox);
-        handle.UseShader(null);
     }
 }
