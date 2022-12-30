@@ -1433,6 +1433,9 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<string> DiscordRoundRoleId =
             CVarDef.Create("discord.round_roleid", string.Empty, CVar.SERVERONLY);
 
+        public static readonly CVarDef<bool> DiscordRoundStartOnly =
+            CVarDef.Create("discord.round_start_only", false, CVar.SERVERONLY);
+
         /*
         * GRAPHICS
         */
