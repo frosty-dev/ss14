@@ -70,6 +70,9 @@ public sealed class HumanoidComponent : Component
     public Dictionary<HumanoidVisualLayers, HumanoidSpeciesSpriteLayer> BaseLayers = new();
 
     public string LastSpecies = default!;
+
+    //White
+    [ViewVariables(VVAccess.ReadWrite)] public string? HumanoidSpeakColor;
 }
 
 [DataDefinition]

@@ -6,6 +6,7 @@ using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Components;
 using Content.Server.Humanoid;
+using Content.Shared.Humanoid;
 using Content.Server.MobState;
 using Content.Server.Players;
 using Content.Server.Popups;
@@ -296,6 +297,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             name = nameEv.Name;
         }
 
+        name = FormattedMessage.EscapeText(name);
         var wrappedMessage = Loc.GetString("chat-manager-entity-say-wrap-message",
             ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
 
@@ -337,6 +339,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             RaiseLocalEvent(source, nameEv);
             name = nameEv.Name;
         }
+        name = FormattedMessage.EscapeText(name);
 
 
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",

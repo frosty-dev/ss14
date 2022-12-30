@@ -553,43 +553,6 @@ public sealed partial class AdminVerbSystem
         };
         args.Verbs.Add(renameAndRedescribe);
 
-        if (TryComp<SharedSpeechComponent>(args.Target, out _))
-        {
-            Verb forceSay = new()
-            {
-                Text = "Force Say",
-                Category = VerbCategory.Tricks,
-                IconTexture = "/Textures/Interface/AdminActions/force_say.png",
-
-                Act = () =>
-                {
-                    _quickDialog.OpenDialog(player, "Force Say", "Say", (string say) =>
-                    {
-                            var chatType = InGameICChatType.Speak;
-
-                            if (say.StartsWith("*"))
-                            {
-                                chatType = InGameICChatType.Emote;
-                                say = say.Substring(1);
-                            }
-                            else if(say.StartsWith("#"))
-                            {
-                                chatType = InGameICChatType.Whisper;
-                                say = say.Substring(1);
-                            }
-
-                            _chatSystem.TrySendInGameICMessage(args.Target, say, chatType, false);
-                        });
-                },
-
-                Impact = LogImpact.Medium,
-                Message = Loc.GetString("admin-trick-force-say"),
-                Priority = (int) TricksVerbPriorities.ForceSay,
-            };
-
-            args.Verbs.Add(forceSay);
-        }
-
         if (TryComp<StationDataComponent>(args.Target, out var stationData))
         {
             if (_adminManager.HasAdminFlag(player, AdminFlags.Round))
