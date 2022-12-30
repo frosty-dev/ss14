@@ -7,7 +7,7 @@ using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Robust.Shared.Configuration;
 
-namespace Content.Server.Corvax.RoundNotifications;
+namespace Content.Server.White.RoundNotifications;
 
 /// <summary>
 /// Listen game events and send notifications to Discord
