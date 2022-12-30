@@ -5,6 +5,7 @@
   startingGear: LawyerGear
   icon: "Lawyer"
   supervisors: job-supervisors-hop
+  canBeAntag: false
   access:
   - Service
   - Brig
