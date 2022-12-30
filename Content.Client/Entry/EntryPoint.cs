@@ -35,6 +35,10 @@ using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Reflection;
+using Robust.Shared.ContentPack;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 
 using Content.Client.White.Sponsors;
 using Content.Client.White.JoinQueue;
@@ -72,6 +76,7 @@ namespace Content.Client.Entry
         [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
         [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
         [Dependency] private readonly JoinQueueManager _queueManager = default!;
+        [Dependency] private readonly IReflectionManager _refl = default!;
         [Dependency] private readonly UIAudioManager _uiAudio = default!;
 
         public override void Init()
@@ -202,6 +207,10 @@ namespace Content.Client.Entry
             }
             else
             {
+                // Calling this in integration tests causes to fail some of them.
+                if (!_refl.IsInIntegrationTest())
+                    _baseClient.StartSinglePlayer();
+
                 _stateManager.RequestStateChange<MainScreen>();
             }
         }
