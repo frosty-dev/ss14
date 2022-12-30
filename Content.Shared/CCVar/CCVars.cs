@@ -1158,7 +1158,7 @@ namespace Content.Shared.CCVar
             CVarDef.Create("chat.chat_sanitizer_enabled", true, CVar.SERVERONLY);
 
         public static readonly CVarDef<bool> ChatShowTypingIndicator =
-            CVarDef.Create("chat.show_typing_indicator", true, CVar.CLIENTONLY);
+            CVarDef.Create("chat.show_typing_indicator", false, CVar.CLIENTONLY); // crutch
 
         /*
          * AFK
