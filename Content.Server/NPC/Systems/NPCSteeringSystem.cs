@@ -41,7 +41,6 @@ namespace Content.Server.NPC.Systems
 
         [Dependency] private readonly IAdminManager _admin = default!;
         [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly IDependencyCollection _dependencies = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IParallelManager _parallel = default!;
@@ -212,7 +211,7 @@ namespace Content.Server.NPC.Systems
                 MaxDegreeOfParallelism = _parallel.ParallelProcessCount,
             };
 
-            foreach (var (steering, _, mover, xform) in npcs)
+            Parallel.For(0, npcs.Length, options, i =>
             {
                 var (_, steering, mover, xform) = npcs[i];
 
