@@ -7,214 +7,57 @@ namespace Content.Shared.White.Trail;
 [NetworkedComponent()]
 public abstract class SharedTrailComponent : Component, ITrailSettings
 {
-    private Vector2 _gravity;
-    private float _lifetime;
-    private Vector2 _maxRandomWalk;
-    private Vector2 _scale;
-    private string? _texurePath;
-    private Vector2 _creationOffset;
-    private float _сreationDistanceThresholdSquared;
-    private SegmentCreationMethod _сreationMethod;
-    private Vector4[] _gradient;
-    private float _lengthStep;
-    private Spline2DType _splineIteratorType;
-    private TrailSplineRendererType _splineRendererType;
-    private Spline4DType _gradientIteratorType;
-
-    protected SharedTrailComponent()
-    {
-        var defaultTrail = TrailSettings.Default;
-        _scale = defaultTrail.Scale;
-        _сreationDistanceThresholdSquared = defaultTrail.СreationDistanceThresholdSquared;
-        _сreationMethod = defaultTrail.СreationMethod;
-        _creationOffset = defaultTrail.CreationOffset;
-        _gravity = defaultTrail.Gravity;
-        _maxRandomWalk = defaultTrail.MaxRandomWalk;
-        _lifetime = defaultTrail.Lifetime;
-        _texurePath = defaultTrail.TexurePath;
-        _gradient = defaultTrail.Gradient;
-        _gradientIteratorType = defaultTrail.GradientIteratorType;
-    }
-
     [DataField("gravity")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public Vector2 Gravity
-    {
-        get => _gravity;
-        set
-        {
-            if (_gravity == value)
-                return;
-            _gravity = value;
-            Dirty();
-        }
-    }
+    public virtual Vector2 Gravity { get; set; }
 
     [DataField("lifetime", required: true)]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float Lifetime
-    {
-        get => _lifetime;
-        set
-        {
-            if (_lifetime == value)
-                return;
-            _lifetime = value;
-            Dirty();
-        }
-    }
-
-    [DataField("randomWalk")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public Vector2 MaxRandomWalk
-    {
-        get => _maxRandomWalk;
-        set
-        {
-            if (_maxRandomWalk == value)
-                return;
-            _maxRandomWalk = value;
-            Dirty();
-        }
-    }
-
-    [DataField("scale", required: true)]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public Vector2 Scale
-    {
-        get => _scale;
-        set
-        {
-            if (_scale == value)
-                return;
-            _scale = value;
-            Dirty();
-        }
-    }
-
-    [DataField("texturePath")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public string? TexurePath
-    {
-        get => _texurePath;
-        set
-        {
-            if (_texurePath == value)
-                return;
-            _texurePath = value;
-            Dirty();
-        }
-    }
-
-    [DataField("creationOffset")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public Vector2 CreationOffset
-    {
-        get => _creationOffset;
-        set
-        {
-            if (_creationOffset == value)
-                return;
-            _creationOffset = value;
-            Dirty();
-        }
-    }
-
-    [DataField("сreationDistanceThresholdSquared")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public float СreationDistanceThresholdSquared
-    {
-        get => _сreationDistanceThresholdSquared;
-        set
-        {
-            if (_сreationDistanceThresholdSquared == value)
-                return;
-            _сreationDistanceThresholdSquared = value;
-            Dirty();
-        }
-    }
-
-    [DataField("creationMethod")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public SegmentCreationMethod СreationMethod
-    {
-        get => _сreationMethod;
-        set
-        {
-            if (_сreationMethod == value)
-                return;
-            _сreationMethod = value;
-            Dirty();
-        }
-    }
-
-    [DataField("gradient", required: true)]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public Vector4[] Gradient
-    {
-        get => _gradient;
-        set
-        {
-            if (_gradient == value)
-                return;
-            _gradient = value;
-            Dirty();
-        }
-    }
+    public virtual float Lifetime { get; set; }
 
     [DataField("lengthStep")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public float LengthStep
-    {
-        get => _lengthStep;
-        set
-        {
-            if (_lengthStep == value)
-                return;
-            _lengthStep = value;
-            Dirty();
-        }
-    }
+    public virtual float LengthStep { get; set; }
+
+    [DataField("randomWalk")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual Vector2 MaxRandomWalk { get; set; }
+
+    [DataField("scale", required: true)]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual Vector2 Scale { get; set; }
+
+    [DataField("texturePath")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual string? TexurePath { get; set; }
+
+    [DataField("creationOffset")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual Vector2 CreationOffset { get; set; }
+
+    [DataField("сreationDistanceThresholdSquared")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual float СreationDistanceThresholdSquared { get; set; }
+
+    [DataField("creationMethod")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual SegmentCreationMethod СreationMethod { get; set; }
+
+    [DataField("gradient", required: true)]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual Vector4[] Gradient { get; set; } = new Vector4[] { Vector4.One, new Vector4(1f, 1f, 1f, 0f) };
+
+    [DataField("gradientIteratorType")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public virtual Spline4DType GradientIteratorType { get; set; }
 
     [DataField("splineIteratorType")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public virtual Spline2DType SplineIteratorType
-    {
-        get => _splineIteratorType;
-        set
-        {
-            if (_splineIteratorType == value)
-                return;
-            _splineIteratorType = value;
-            Dirty();
-        }
-    }
+    public virtual Spline2DType SplineIteratorType { get; set; }
+
     [DataField("splineRendererType")]
     [ViewVariables(VVAccess.ReadWrite)]
-    public virtual TrailSplineRendererType SplineRendererType
-    {
-        get => _splineRendererType;
-        set
-        {
-            if (_splineRendererType == value)
-                return;
-            _splineRendererType = value;
-            Dirty();
-        }
-    }
-    [DataField("gradientIteratorType")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public virtual Spline4DType GradientIteratorType
-    {
-        get => _gradientIteratorType;
-        set
-        {
-            if (_gradientIteratorType == value)
-                return;
-            _gradientIteratorType = value;
-            Dirty();
-        }
-    }
+    public virtual TrailSplineRendererType SplineRendererType { get; set; }
 }
 
 [Serializable, NetSerializable]
