@@ -15,7 +15,7 @@ public sealed class NukeopsRuleConfiguration : GameRuleConfiguration
     public override string Id => "Nukeops";
 
     [DataField("minPlayers")]
-    public int MinPlayers = 5;
+    public int MinPlayers = 15;
 
     /// <summary>
     ///     This INCLUDES the operatives. So a value of 3 is satisfied by 2 players & 1 operative
