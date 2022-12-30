@@ -11,6 +11,7 @@
   icon: "ResearchDirector"
   requireAdminNotify: true
   supervisors: job-supervisors-captain
+#  canBeAntag: false
   access:
   - Research
   - Command

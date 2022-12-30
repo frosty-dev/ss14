@@ -10,6 +10,7 @@
   startingGear: TechnicalAssistantGear
   icon: "TechnicalAssistant"
   supervisors: job-supervisors-engineering
+#  canBeAntag: false
   access:
   - Maintenance
   - Engineering
