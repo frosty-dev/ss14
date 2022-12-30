@@ -6,7 +6,7 @@ using Robust.Shared.Console;
 
 namespace Content.Client.Commands;
 
-[AdminCommand(AdminFlags.Admin)]
+[AdminCommand(AdminFlags.Debug)]
 public sealed class SetGlobalZoomCommand : IConsoleCommand
 {
     public string Command => "setglobalzoom";
