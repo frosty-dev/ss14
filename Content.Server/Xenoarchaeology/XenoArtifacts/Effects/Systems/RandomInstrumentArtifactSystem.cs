@@ -17,7 +17,9 @@ public sealed class RandomInstrumentArtifactSystem : EntitySystem
 
     private void OnStartup(EntityUid uid, RandomInstrumentArtifactComponent component, ComponentStartup args)
     {
-        var instrument = EnsureComp<InstrumentComponent>(uid);
+        if (!TryComp<SharedInstrumentComponent>(uid, out var instrument))
+            return;
+
         _instrument.SetInstrumentProgram(instrument, (byte) _random.Next(0, 127), 0);
     }
 }
