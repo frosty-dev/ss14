@@ -53,13 +53,13 @@ namespace Content.Server.Body.Components
         ///     The base bloodloss damage to be incurred if below <see cref="BloodlossThreshold"/>
         /// </summary>
         [DataField("bloodlossDamage", required: true)]
-        public DamageSpecifier BloodlossDamage = new();
+        public DamageSpecifier BloodlossDamage = default!;
 
         /// <summary>
         ///     The base bloodloss damage to be healed if above <see cref="BloodlossThreshold"/>
         /// </summary>
         [DataField("bloodlossHealDamage", required: true)]
-        public DamageSpecifier BloodlossHealDamage = new();
+        public DamageSpecifier BloodlossHealDamage = default!;
 
         /// <summary>
         ///     How frequently should this bloodstream update, in seconds?

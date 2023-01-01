@@ -15,12 +15,18 @@ namespace Content.Server.Audio
 
         private void HandlePowerSupply(EntityUid uid, AmbientOnPoweredComponent component, ref PowerNetBatterySupplyEvent args)
         {
-            SetAmbience(uid, args.Supply);
+            if (!EntityManager.TryGetComponent<AmbientSoundComponent>(uid, out var ambientSound)) return;
+            if (ambientSound.Enabled == args.Supply) return;
+            ambientSound.Enabled = args.Supply;
+            Dirty(ambientSound);
         }
 
         private void HandlePowerChange(EntityUid uid, AmbientOnPoweredComponent component, ref PowerChangedEvent args)
         {
-            SetAmbience(uid, args.Powered);
+            if (!EntityManager.TryGetComponent<AmbientSoundComponent>(uid, out var ambientSound)) return;
+            if (ambientSound.Enabled == args.Powered) return;
+            ambientSound.Enabled = args.Powered;
+            Dirty(ambientSound);
         }
     }
 }
