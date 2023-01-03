@@ -1,11 +1,17 @@
 - type: gameMapPool
-  id: WhiteMapPool
+  id: DefaultMapPool
   maps:
-    - WhiteBagel
+    - Bagel
+    - Box
+    - Cluster
+    - Kettle
+    - Marathon
+    - Omega
+    - Moose
+    - Origin
+    - Meta
+
+- type: gameMapPool
+  id: WhiteMapBox
+  maps:
     - WhiteBox
-    - WhiteCluster
-    - WhiteKettle
-    - WhiteMarathon
-    - WhiteOmega
-    - WhiteMoose
-    - WhiteOrigin

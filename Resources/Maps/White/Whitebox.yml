@@ -5222,7 +5222,7 @@ entities:
   components:
   - type: MetaData
   - type: Transform
-  - index: 4
+  - index: 2
     type: Map
   - type: PhysicsMap
   - type: Broadphase
