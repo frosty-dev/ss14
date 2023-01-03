@@ -42,6 +42,18 @@
   categories:
   - UplinkWeapons
 
+# Headshot
+- type: listing
+  id: UplinkRifleAk
+  name: CV-47
+  description: Tra-ta-ta-ta
+  productEntity: WeaponRifleAk
+  cost:
+    Telecrystal: 10
+  categories:
+    - UplinkWeapons
+
+
 - type: listing
   id: UplinkEsword
   name: uplink-esword-name
@@ -188,6 +200,17 @@
     Telecrystal: 2
   categories:
   - UplinkAmmo
+
+# For the AK
+- type: listing
+  id: UplinkAkAmmo
+  name: CV-47 Magazine
+  description: Ready to kill?
+  productEntity: MagazineLightRifle
+  cost:
+    Telecrystal: 2
+  categories:
+    - UplinkAmmo
 
 #Utility
 
