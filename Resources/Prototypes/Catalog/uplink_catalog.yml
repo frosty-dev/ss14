@@ -82,7 +82,7 @@
   description: uplink-explosive-grenade-desc
   productEntity: ExGrenade
   cost:
-    Telecrystal: 4
+    Telecrystal: 6
   categories:
   - UplinkExplosives
 
@@ -127,7 +127,7 @@
   description: uplink-c4-desc
   productEntity: C4
   cost:
-    Telecrystal: 2
+    Telecrystal: 6
   categories:
   - UplinkExplosives
 
@@ -137,7 +137,7 @@
   description: uplink-c4-bundle-desc
   productEntity: ClothingBackpackDuffelSyndicateC4tBundle
   cost:
-    Telecrystal: 12
+    Telecrystal: 16
   categories:
   - UplinkExplosives
 

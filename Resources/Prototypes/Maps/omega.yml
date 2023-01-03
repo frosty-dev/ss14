@@ -1,7 +1,7 @@
 ﻿- type: gameMap
-  id: WhiteOmega
+  id: Omega
   mapName: 'Omega'
-  mapPath: /Maps/White/Whiteomega.yml
+  mapPath: /Maps/omega.yml
   minPlayers: 0
   maxPlayers: 35
   stations:

@@ -1,7 +1,7 @@
 ﻿- type: gameMap
-  id: WhiteOrigin
+  id: Origin
   mapName: 'Origin'
-  mapPath: /Maps/White/Whiteorigin.yml
+  mapPath: /Maps/origin.yml
   minPlayers: 0
   stations:
     Origin:
