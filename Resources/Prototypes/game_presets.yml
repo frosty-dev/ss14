@@ -1,12 +1,12 @@
-#- type: gamePreset
-#  id: Survival
-#  alias:
-#    - survival
-#  name: survival-title
-#  showInVote: false # secret
-#  description: survival-description
-#  rules:
-#    - RampingStationEventScheduler
+- type: gamePreset
+  id: Survival
+  alias:
+    - survival
+  name: survival-title
+  showInVote: false # secret
+  description: survival-description
+  rules:
+    - RampingStationEventScheduler
 
 - type: gamePreset
   id: Extended
