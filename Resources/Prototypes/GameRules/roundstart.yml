@@ -78,3 +78,9 @@
   config:
     !type:GenericGameRuleConfiguration
     id: RampingStationEventScheduler
+
+- type: gameRule
+  id: MeteorStationEventScheduler
+  config:
+    !type:GenericGameRuleConfiguration
+    id: MeteorStationEventScheduler
