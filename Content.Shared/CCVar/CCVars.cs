@@ -1401,9 +1401,9 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<string> InfoLinksBugReport =
             CVarDef.Create("infolinks.bug_report", "", CVar.SERVER | CVar.REPLICATED);
 
-        /**
+           /*
          * SPONSORS
-         */
+           */
 
         /// <summary>
         /// URL of the sponsors server API.
@@ -1412,9 +1412,9 @@ namespace Content.Shared.CCVar
             CVarDef.Create("sponsor.api_url", "", CVar.SERVERONLY);
 
 
-        /*
+           /*
          * Queue
-         */
+           */
 
         /// <summary>
         ///     Controls if the connections queue is enabled. If enabled stop kicking new players after `SoftMaxPlayers` cap and instead add them to queue.
@@ -1423,9 +1423,9 @@ namespace Content.Shared.CCVar
             QueueEnabled = CVarDef.Create("queue.enabled", false, CVar.SERVERONLY);
 
 
-        /*
+           /*
          * Discord
-         */
+           */
 
         public static readonly CVarDef<string> DiscordRoundWebhook =
             CVarDef.Create("discord.round_webhook", string.Empty, CVar.SERVERONLY);
@@ -1436,11 +1436,33 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<bool> DiscordRoundStartOnly =
             CVarDef.Create("discord.round_start_only", false, CVar.SERVERONLY);
 
-        /*
+          /*
         * GRAPHICS
-        */
+          */
         public static readonly CVarDef<bool> FilmGrain =
             CVarDef.Create("graphics.film_grain", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+        /**
+     * TTS (Text-To-Speech)
+        */
+
+        /// <summary>
+        /// URL of the TTS server API.
+        /// </summary>
+        public static readonly CVarDef<bool> TTSEnabled =
+            CVarDef.Create("tts.enabled", true, CVar.SERVERONLY);
+
+        /// <summary>
+        /// URL of the TTS server API.
+        /// </summary>
+        public static readonly CVarDef<string> TTSApiUrl =
+            CVarDef.Create("tts.api_url", "", CVar.SERVERONLY);
+
+        /// <summary>
+        /// TTS Volume
+        /// </summary>
+        public static readonly CVarDef<float> TtsVolume =
+            CVarDef.Create("tts.volume", 0f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
         /*
          * CONFIG
