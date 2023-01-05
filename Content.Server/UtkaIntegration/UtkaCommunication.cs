@@ -15,5 +15,16 @@ public sealed class FromDiscordMessage
 
     [JsonPropertyName("message")]
     public List<string>? Message { get; set; }
+}
 
+public sealed class ToUtkaMessage
+{
+    [JsonPropertyName("key")]
+    public string? Key { get; set; }
+
+    [JsonPropertyName("command")]
+    public string? Command { get; set; }
+
+    [JsonPropertyName("message")]
+    public List<string>? Message { get; set; }
 }

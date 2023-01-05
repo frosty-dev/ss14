@@ -19,6 +19,8 @@ public sealed class UtkaSocket : UdpServer
     private readonly ISawmill _sawmill = default!;
     private readonly ITaskManager _taskManager = default!;
 
+    public List<EndPoint> EndPoints = new();
+
 
     public UtkaSocket(IPAddress address, int port, string key) : base(address, port)
     {
@@ -37,6 +39,7 @@ public sealed class UtkaSocket : UdpServer
     protected override void OnReceived(EndPoint endpoint, byte[] buffer, long offset, long size)
     {
         base.OnReceived(endpoint, buffer, offset, size);
+
         var message = Encoding.UTF8.GetString(buffer, (int) offset, (int) size);
 
         var fromDiscordMessage = JsonSerializer.Deserialize<FromDiscordMessage>(message);
@@ -53,13 +56,28 @@ public sealed class UtkaSocket : UdpServer
             return;
         }
 
-        ExecuteCommand(fromDiscordMessage, fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
+        if (!EndPoints.Contains(endpoint))
+        {
+            EndPoints.Add(endpoint);
+        }
+
+
+        ExecuteCommand(endpoint, fromDiscordMessage, fromDiscordMessage!.Command!, fromDiscordMessage!.Message!.ToArray());
 
         ReceiveAsync();
     }
 
+    public void SendMessage(ToUtkaMessage message)
+    {
+        foreach (var endPoint in EndPoints)
+        {
+            var finalMessage = JsonSerializer.Serialize(message);
+            SendAsync(endPoint, finalMessage);
+        }
+    }
 
-    private void ExecuteCommand(FromDiscordMessage message, string command, string[] args)
+
+    private void ExecuteCommand(EndPoint requester, FromDiscordMessage message, string command, string[] args)
     {
         if (!Commands.ContainsKey(command))
         {
@@ -68,7 +86,7 @@ public sealed class UtkaSocket : UdpServer
         }
 
         _sawmill.Info($"UTKASockets: Execiting command from UTKASocket: {command} args: {string.Join(" ", args)}");
-        _taskManager.RunOnMainThread(() => Commands[command].Execute(this, message, args));
+        _taskManager.RunOnMainThread(() => Commands[command].Execute(this, requester, message, args));
     }
 
     private bool NullCheck(FromDiscordMessage fromDiscordMessage)

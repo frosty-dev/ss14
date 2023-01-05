@@ -2,12 +2,15 @@
 using Content.Shared.CCVar;
 using Robust.Shared;
 using Robust.Shared.Configuration;
+using Robust.Shared.Network;
+using Robust.Shared.Network.Messages;
 
 namespace Content.Server.UtkaIntegration;
 
 public sealed class UtkaSocketWrapper
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly INetManager _netManager = default!;
 
     private UtkaSocket? _utkaSocket;
 
@@ -41,7 +44,26 @@ public sealed class UtkaSocketWrapper
 
         _utkaSocket.Start();
 
+        _netManager.RegisterNetMessage<MsgConCmd>(OnConsoleCommand);
+
         _initialized = true;
+    }
+
+    private void OnConsoleCommand(MsgConCmd message) // Я не хочу создавать очередной говнокласс для одного метода.
+    {
+        var toUtkaMessage = new ToUtkaMessage()
+        {
+            Key = _key,
+            Command = "garbage",
+            Message = new List<string>() {message.Text}
+        };
+
+        SendMessage(toUtkaMessage);
+    }
+
+    public void SendMessage(ToUtkaMessage message)
+    {
+        _utkaSocket?.SendMessage(message);
     }
 
     public void Shutdown()
