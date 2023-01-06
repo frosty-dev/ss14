@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Content.Shared.CCVar;
 using Prometheus;
 using Robust.Shared.Configuration;
@@ -80,7 +82,15 @@ public sealed class TTSManager
             Ckey = entityName,
         };
 
-        var leadPascalDeveloper = $"{url}ckey={body.Ckey}&speaker={body.Speaker}&text={body.Text}";
+        var uriBuilder = new UriBuilder(url);
+        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+        query["ckey"] = body.Ckey;
+        query["speaker"] = body.Speaker;
+        query["text"] = body.Text;
+        uriBuilder.Query = query.ToString();
+
+        var leadPascalDeveloper = uriBuilder.ToString();
+        
         var reqTime = DateTime.UtcNow;
         try
         {
