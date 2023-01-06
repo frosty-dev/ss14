@@ -54,7 +54,7 @@ public sealed class TTSManager
     /// <param name="text">SSML formatted text</param>
     /// <returns>OGG audio bytes</returns>
     /// <exception cref="Exception">Throws if url or token CCVar not set or http request failed</exception>
-    public async Task<byte[]> ConvertTextToSpeech(string speaker, string text)
+    public async Task<byte[]> ConvertTextToSpeech(string entityName, string speaker, string text)
     {
         var url = _cfg.GetCVar(CCVars.TTSApiUrl);
         if (string.IsNullOrWhiteSpace(url))
@@ -75,6 +75,7 @@ public sealed class TTSManager
         {
             Text = text,
             Speaker = speaker,
+            Ckey = entityName,
         };
 
         var reqTime = DateTime.UtcNow;
@@ -126,35 +127,16 @@ public sealed class TTSManager
         return Convert.ToHexString(bytes);
     }
 
-    private struct GenerateVoiceRequest
+    private record GenerateVoiceRequest
     {
-        public GenerateVoiceRequest()
-        {
-        }
-
         [JsonPropertyName("text")]
-        public string Text { get; set; } = "";
+        public string Text { get; set; } = default!;
 
         [JsonPropertyName("speaker")]
-        public string Speaker { get; set; } = "";
+        public string Speaker { get; set; } = default!;
 
-        [JsonPropertyName("ssml")]
-        public bool SSML { get; private set; } = true;
-
-        [JsonPropertyName("word_ts")]
-        public bool WordTS { get; private set; } = false;
-
-        [JsonPropertyName("put_Accent")]
-        public bool PutAccent { get; private set; } = true;
-
-        [JsonPropertyName("put_yo")]
-        public bool PutYo { get; private set; } = false;
-
-        [JsonPropertyName("sample_rate")]
-        public int SampleRate { get; private set; } = 24000;
-
-        [JsonPropertyName("format")]
-        public string Format { get; private set; } = "ogg";
+        [JsonPropertyName("ckey")]
+        public string Ckey { get; set; } = default!;
     }
 
     private struct GenerateVoiceResponse
