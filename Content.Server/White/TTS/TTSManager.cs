@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -11,6 +12,7 @@ using System.Web;
 using Content.Shared.CCVar;
 using Prometheus;
 using Robust.Shared.Configuration;
+using Robust.Shared.Utility;
 
 namespace Content.Server.White.TTS;
 
@@ -90,7 +92,7 @@ public sealed class TTSManager
         uriBuilder.Query = query.ToString();
 
         var leadPascalDeveloper = uriBuilder.ToString();
-        
+
         var reqTime = DateTime.UtcNow;
         try
         {
@@ -102,7 +104,7 @@ public sealed class TTSManager
             }
 
             var json = await response.Content.ReadFromJsonAsync<GenerateVoiceResponse>();
-            var soundData = Convert.FromBase64String(json.Results.First().Audio);
+            var soundData =  await response.Content.ReadAsByteArrayAsync(cts.Token);
             _cache.Add(cacheKey, soundData);
             CachedCount.Inc();
 
