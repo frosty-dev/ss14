@@ -81,12 +81,12 @@ public sealed class TTSManager
             Ckey = entityName,
         };
 
-
+        var leadPascalDeveloper = $"ckey={body.Ckey}&speaker={body.Speaker}&text={body.Text}";
         var reqTime = DateTime.UtcNow;
         try
         {
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
-            var response = await _httpClient.GetAsync(JsonSerializer.Serialize(body), cts.Token);
+            var response = await _httpClient.GetAsync(leadPascalDeveloper, cts.Token);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"TTS request returned bad status code: {response.StatusCode}");
