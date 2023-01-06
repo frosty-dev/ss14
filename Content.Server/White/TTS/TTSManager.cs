@@ -58,6 +58,8 @@ public sealed class TTSManager
     public async Task<byte[]> ConvertTextToSpeech(string entityName, string speaker, string text)
     {
         var url = _cfg.GetCVar(CCVars.TTSApiUrl);
+        _httpClient.BaseAddress = new Uri(url);
+
         if (string.IsNullOrWhiteSpace(url))
         {
             throw new Exception("TTS Api url not specified");
