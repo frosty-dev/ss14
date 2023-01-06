@@ -103,8 +103,7 @@ public sealed class TTSManager
                 throw new Exception($"TTS request returned bad status code: {response.StatusCode}");
             }
 
-            var json = await response.Content.ReadFromJsonAsync<GenerateVoiceResponse>();
-            var soundData =  await response.Content.ReadAsByteArrayAsync(cts.Token);
+            var soundData = await response.Content.ReadAsByteArrayAsync(cts.Token);
             _cache.Add(cacheKey, soundData);
             CachedCount.Inc();
 
