@@ -58,7 +58,6 @@ public sealed class TTSManager
     public async Task<byte[]> ConvertTextToSpeech(string entityName, string speaker, string text)
     {
         var url = _cfg.GetCVar(CCVars.TTSApiUrl);
-        _httpClient.BaseAddress = new Uri(url);
 
         if (string.IsNullOrWhiteSpace(url))
         {
@@ -81,7 +80,7 @@ public sealed class TTSManager
             Ckey = entityName,
         };
 
-        var leadPascalDeveloper = $"ckey={body.Ckey}&speaker={body.Speaker}&text={body.Text}";
+        var leadPascalDeveloper = $"{url}ckey={body.Ckey}&speaker={body.Speaker}&text={body.Text}";
         var reqTime = DateTime.UtcNow;
         try
         {
