@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,11 +79,12 @@ public sealed class TTSManager
             Ckey = entityName,
         };
 
+
         var reqTime = DateTime.UtcNow;
         try
         {
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
-            var response = await _httpClient.PostAsJsonAsync(url, body, cts.Token);
+            var response = await _httpClient.GetAsync(JsonSerializer.Serialize(body), cts.Token);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"TTS request returned bad status code: {response.StatusCode}");
