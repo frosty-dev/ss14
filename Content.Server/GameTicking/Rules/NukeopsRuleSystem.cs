@@ -792,6 +792,9 @@ public sealed class NukeopsRuleSystem : GameRuleSystem
             return;
 
         mind.AddRole(new TraitorRole(mind, _prototypeManager.Index<AntagPrototype>(_nukeopsRuleConfig.OperativeRoleProto)));
+        AddComp<NukeOperativeComponent>(mind.OwnedEntity.Value);
+        _faction.RemoveFaction(mind.OwnedEntity.Value, "NanoTrasen", false);
+        _faction.AddFaction(mind.OwnedEntity.Value, "Syndicate");
         SetOutfitCommand.SetOutfit(mind.OwnedEntity.Value, "SyndicateOperativeGearFull", EntityManager);
     }
 

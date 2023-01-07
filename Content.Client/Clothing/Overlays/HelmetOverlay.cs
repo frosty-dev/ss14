@@ -1,12 +1,9 @@
 ﻿using System.Linq;
-using Content.Client.Resources;
 using Content.Client.Stylesheets;
 using Content.Shared.Clothing.Components;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
-using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Clothing.Overlays;
@@ -15,9 +12,7 @@ public sealed class HelmetOverlay : Overlay
 {
     [Dependency] private readonly IResourceCache _cache = default!;
     [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     private IRenderTexture? _buffer;
     private TimeSpan _lastDraw = TimeSpan.Zero;
@@ -53,7 +48,7 @@ public sealed class HelmetOverlay : Overlay
             return;
 
         _lastDraw = _timing.CurTime;
-        var font = _cache.Exo2Stack(size: 32);
+        var font = _cache.NotoStack(size: 32);
 
         _buffer?.Dispose();
         _buffer = _clyde.CreateRenderTarget(new Vector2i(ScreenTexture.Width, ScreenTexture.Height),
@@ -66,10 +61,6 @@ public sealed class HelmetOverlay : Overlay
             var bounds = new UIBox2(0, 0, ScreenTexture.Width, ScreenTexture.Height);
 
             handle.DrawTextureRect(ScreenTexture, bounds);
-
-            // Overlay
-            if (_state.Texture is { } texture)
-                handle.DrawTextureRect(_cache.GetTexture(texture), bounds);
 
             if (!_state.HasHud)
                 goto skipHud;
