@@ -1,7 +1,7 @@
 - type: gameMap
-  id: WhiteMoose
+  id: Moose
   mapName: 'Moose'
-  mapPath: /Maps/White/Whitemoose.yml
+  mapPath: /Maps/moose.yml
   minPlayers: 0
   maxPlayers: 35
   fallback: true

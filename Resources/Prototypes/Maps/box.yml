@@ -1,7 +1,7 @@
 - type: gameMap
-  id: WhiteBox
+  id: Box
   mapName: 'Box Station'
-  mapPath: /Maps/White/Whitebox.yml
+  mapPath: /Maps/box.yml
   minPlayers: 0
   stations:
     Boxstation:

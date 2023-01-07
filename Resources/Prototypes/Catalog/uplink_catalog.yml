@@ -42,6 +42,18 @@
   categories:
   - UplinkWeapons
 
+# Headshot
+- type: listing
+  id: UplinkRifleAk
+  name: CV-47
+  description: Tra-ta-ta-ta
+  productEntity: WeaponRifleAk
+  cost:
+    Telecrystal: 16
+  categories:
+    - UplinkWeapons
+
+
 - type: listing
   id: UplinkEsword
   name: uplink-esword-name
@@ -82,7 +94,7 @@
   description: uplink-explosive-grenade-desc
   productEntity: ExGrenade
   cost:
-    Telecrystal: 4
+    Telecrystal: 6
   categories:
   - UplinkExplosives
 
@@ -112,7 +124,7 @@
   description: uplink-penguin-grenade-desc
   productEntity: MobGrenadePenguin
   cost:
-    Telecrystal: 6
+    Telecrystal: 5
   categories:
     - UplinkExplosives
   conditions:
@@ -127,7 +139,7 @@
   description: uplink-c4-desc
   productEntity: C4
   cost:
-    Telecrystal: 2
+    Telecrystal: 6
   categories:
   - UplinkExplosives
 
@@ -137,7 +149,7 @@
   description: uplink-c4-bundle-desc
   productEntity: ClothingBackpackDuffelSyndicateC4tBundle
   cost:
-    Telecrystal: 12
+    Telecrystal: 16
   categories:
   - UplinkExplosives
 
@@ -185,9 +197,20 @@
   description: uplink-mosin-ammo-desc
   productEntity: BoxMagazineLightRifle
   cost:
-    Telecrystal: 2
+    Telecrystal: 10
   categories:
   - UplinkAmmo
+
+# For the AK
+- type: listing
+  id: UplinkAkAmmo
+  name: CV-47 Magazine
+  description: Ready to kill?
+  productEntity: MagazineLightRifle
+  cost:
+    Telecrystal: 4
+  categories:
+    - UplinkAmmo
 
 #Utility
 
