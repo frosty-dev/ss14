@@ -29,6 +29,19 @@ public sealed class RadarConsoleSystem : SharedRadarConsoleSystem
         EntityCoordinates? coordinates = onGrid ? xform.Coordinates : null;
         Angle? angle = onGrid ? Angle.FromDegrees(component.Rotation) : null;
 
+        if (TryComp<IntrinsicUIComponent>(component.Owner, out var intrinsic))
+        {
+            foreach (var uiKey in intrinsic.UIs)
+            {
+                if (uiKey.Key?.Equals(RadarConsoleUiKey.Key) == true)
+                {
+                    coordinates = new EntityCoordinates(component.Owner, Vector2.Zero);
+                    angle = Angle.Zero;
+                    break;
+                }
+            }
+        }
+
         var radarState = new RadarConsoleBoundInterfaceState(
             component.MaxRange,
             coordinates,
