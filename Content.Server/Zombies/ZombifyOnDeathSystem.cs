@@ -115,7 +115,6 @@ namespace Content.Server.Zombies
 
             //diona pacifist remove
             RemComp<PacifistComponent>(target);
-            RemComp<PacifiedComponent>(target);
 
             var vocal = EnsureComp<VocalComponent>(target);
             var scream = new SoundCollectionSpecifier ("ZombieScreams");

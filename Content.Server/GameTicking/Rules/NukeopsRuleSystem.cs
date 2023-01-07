@@ -178,7 +178,6 @@ public sealed class NukeopsRuleSystem : GameRuleSystem
             _operativePlayers.Add(name, session);
 
         //diona pacifist remove
-        RemComp<PacifistComponent>(uid);
         RemComp<PacifiedComponent>(uid);
     }
 
