@@ -61,9 +61,8 @@ namespace Content.Client.Stylesheets
             progressBarForeground.SetContentMarginOverride(StyleBox.Margin.Vertical, 5);
 
             var textureInvertedTriangle = resCache.GetTexture("/Textures/Interface/Nano/inverted_triangle.svg.png");
-            var styleBase = new StyleBase(resCache);
 
-            Stylesheet = new Stylesheet(styleBase.Stylesheet.Rules.Concat(new StyleRule[]
+            Stylesheet = new Stylesheet(BaseRules.Concat(new StyleRule[]
             {
                 Element<Label>().Class(StyleClassLabelHeading)
                     .Prop(Label.StylePropertyFont, notoSansBold16)
