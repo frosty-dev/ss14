@@ -18,8 +18,6 @@ using Content.Server.Spawners.Components;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Server.Traitor;
-using Content.Server.Traits.Assorted;
-using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Dataset;
 using Content.Shared.MobState;
 using Content.Shared.MobState.Components;
