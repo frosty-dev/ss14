@@ -84,21 +84,13 @@ public sealed class TTSManager
             Ckey = entityName,
         };
 
-        var uriBuilder = new UriBuilder(url);
-        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-        query["ckey"] = body.Ckey;
-        query["speaker"] = body.Speaker;
-        query["text"] = body.Text;
-        query["file"] = "1";
-        uriBuilder.Query = query.ToString();
-
-        var leadPascalDeveloper = uriBuilder.ToString();
+        var request = CreateRequestLink(url, body);
 
         var reqTime = DateTime.UtcNow;
         try
         {
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
-            var response = await _httpClient.GetAsync(leadPascalDeveloper, cts.Token);
+            var response = await _httpClient.GetAsync(request, cts.Token);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"TTS request returned bad status code: {response.StatusCode}");
@@ -107,7 +99,7 @@ public sealed class TTSManager
             var soundData = await response.Content.ReadAsByteArrayAsync(cts.Token);
             _cache.Add(cacheKey, soundData);
             CachedCount.Inc();
-    
+
             _sawmill.Debug($"Generated new sound for '{text}' speech by '{speaker}' speaker ({soundData.Length} bytes)");
             RequestTimings.WithLabels("Success").Observe((DateTime.UtcNow - reqTime).TotalSeconds);
 
@@ -125,6 +117,18 @@ public sealed class TTSManager
             _sawmill.Error($"Failed of request generation new sound for '{text}' speech by '{speaker}' speaker\n{e}");
             throw new Exception("TTS request failed");
         }
+    }
+
+    private static string CreateRequestLink(string url, GenerateVoiceRequest body)
+    {
+        var uriBuilder = new UriBuilder(url);
+        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+        query["ckey"] = body.Ckey;
+        query["speaker"] = body.Speaker;
+        query["text"] = body.Text;
+        query["file"] = "1";
+        uriBuilder.Query = query.ToString();
+        return uriBuilder.ToString();
     }
 
     public void ResetCache()
