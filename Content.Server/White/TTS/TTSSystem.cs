@@ -43,7 +43,7 @@ public sealed partial class TTSSystem : EntitySystem
         var textSanitized = Sanitize(args.OriginalMessage);
         var textSsml = ToSsmlText(textSanitized, SpeechRate.Fast);
         var metadata = Comp<MetaDataComponent>(uid);
-        var soundData = await _ttsManager.ConvertTextToSpeech(metadata.EntityName, protoVoice.Speaker, textSsml);
+        var soundData = await _ttsManager.ConvertTextToSpeech(metadata.EntityName, protoVoice.Speaker, textSanitized);
         RaiseNetworkEvent(new PlayTTSEvent(uid, soundData), Filter.Pvs(uid));
     }
 
