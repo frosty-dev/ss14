@@ -1,6 +1,8 @@
 using Content.Server.GameTicking;
+using Content.Shared.Gravity;
 using Content.Shared.Spawners.Components;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 
 namespace Content.Server.StationEvents.Events
@@ -10,6 +12,7 @@ namespace Content.Server.StationEvents.Events
         public override string Prototype => "MeteorSwarm";
 
         private float _cooldown;
+        [Dependency] public readonly SharedGravitySystem _gravity = default!;
 
         /// <summary>
         /// We'll send a specific amount of waves of meteors towards the station per ending rather than using a timer.
@@ -73,6 +76,10 @@ namespace Content.Server.StationEvents.Events
                 if (!TryComp<PhysicsComponent>(grid.Owner, out var gridBody))
                 {
                     continue;
+                }
+                if (HasComp<MapGridComponent>(grid.Owner))
+                {
+                    _gravity.StartGridShake(grid.Owner);
                 }
 
                 var aabb = gridBody.GetWorldAABB();

@@ -21,7 +21,7 @@
   - type: Explosive
     explosionType: Default
     totalIntensity: 600.0
-    intensitySlope: 30
+    intensitySlope: 60
     maxIntensity: 45
   - type: Physics
     bodyType: Dynamic
