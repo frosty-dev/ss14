@@ -176,6 +176,9 @@ public sealed class NukeopsRuleSystem : GameRuleSystem
         var name = MetaData(uid).EntityName;
         if (session != null)
             _operativePlayers.Add(name, session);
+
+        //diona pacifist remove
+        RemComp<PacifiedComponent>(uid);
     }
 
     private void OnComponentRemove(EntityUid uid, NukeOperativeComponent component, ComponentRemove args)
