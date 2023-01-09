@@ -5,6 +5,12 @@
   speaker: aidar
 
 - type: ttsVoice
+  id: Eugene
+  name: tts-voice-name-eugene
+  sex: Male
+  speaker: eugene
+
+- type: ttsVoice
   id: Baya
   name: tts-voice-name-baya
   sex: Female
@@ -21,9 +27,3 @@
   name: tts-voice-name-xenia
   sex: Female
   speaker: xenia
-
-- type: ttsVoice
-  id: Eugene
-  name: tts-voice-name-eugene
-  sex: Male
-  speaker: eugene

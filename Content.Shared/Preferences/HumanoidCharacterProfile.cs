@@ -185,7 +185,7 @@ namespace Content.Shared.Preferences
 
             var voiceId = random.Pick(prototypeManager
                 .EnumeratePrototypes<TTSVoicePrototype>()
-                .Where(o => o.RoundStart && o.Sex == sex).ToArray()
+                .Where(o => CanHaveVoice(o, sex)).ToArray()
             ).ID;
 
             var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
@@ -511,6 +511,15 @@ namespace Content.Shared.Preferences
 
             _traitPreferences.Clear();
             _traitPreferences.AddRange(traits);
+
+            prototypeManager.TryIndex<TTSVoicePrototype>(Voice, out var voice);
+            if (voice is null || !CanHaveVoice(voice, Sex))
+                Voice = SharedHumanoidSystem.DefaultSexVoice[sex];
+        }
+        
+        public static bool CanHaveVoice(TTSVoicePrototype voice, Sex sex)
+        {
+            return voice.RoundStart && sex == Sex.Unsexed || (voice.Sex == sex || voice.Sex == Sex.Unsexed);
         }
 
         // sorry this is kind of weird and duplicated,
