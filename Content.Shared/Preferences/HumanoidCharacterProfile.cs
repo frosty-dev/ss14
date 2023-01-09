@@ -183,8 +183,10 @@ namespace Content.Shared.Preferences
                 age = random.Next(speciesPrototype.MinAge, speciesPrototype.OldAge); // people don't look and keep making 119 year old characters with zero rp, cap it at middle aged
             }
 
-            var voicePrototypes = prototypeManager.EnumeratePrototypes<TTSVoicePrototype>().ToList();
-            var voiceId = random.Pick(voicePrototypes).ID;
+            var voiceId = random.Pick(prototypeManager
+                .EnumeratePrototypes<TTSVoicePrototype>()
+                .Where(o => o.RoundStart && o.Sex == sex).ToArray()
+            ).ID;
 
             var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
 

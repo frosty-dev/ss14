@@ -9,7 +9,8 @@ public sealed partial class TTSSystem
 {
     private void OnTransformSpeech(TransformSpeechEvent args)
     {
-        if (!_isEnabled) return;
+        if (!_isEnabled)
+            return;
         args.Message = args.Message.Replace("+", "");
     }
 

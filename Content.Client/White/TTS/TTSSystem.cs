@@ -172,6 +172,14 @@ public sealed class TTSSystem : EntitySystem
         _currentStreams.Add(stream);
     }
 
+
+    public void StopAllStreams()
+    {
+        foreach (var stream in _currentStreams)
+        {
+            stream.Source.StopPlaying();
+        }
+    }
     private void EndStreams()
     {
         foreach (var stream in _currentStreams)

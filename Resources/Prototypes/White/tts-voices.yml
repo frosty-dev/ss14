@@ -27,9 +27,3 @@
   name: tts-voice-name-eugene
   sex: Male
   speaker: eugene
-
-- type: ttsVoice
-  id: Random
-  name: tts-voice-name-random
-  sex: Unsexed
-  speaker: random
