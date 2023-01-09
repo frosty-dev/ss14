@@ -1456,7 +1456,7 @@ namespace Content.Shared.CCVar
         /// URL of the TTS server API.
         /// </summary>
         public static readonly CVarDef<string> TTSApiUrl =
-            CVarDef.Create("tts.api_url", "http://127.0.0.1:2386/", CVar.SERVERONLY);
+            CVarDef.Create("tts.api_url", "", CVar.SERVERONLY);
 
         /// <summary>
         /// TTS Volume
