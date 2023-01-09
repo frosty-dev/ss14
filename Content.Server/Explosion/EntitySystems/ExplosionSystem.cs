@@ -4,12 +4,13 @@ using Content.Server.Atmos.Components;
 using Content.Server.Explosion.Components;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NPC.Pathfinding;
+using Content.Server.Station.Systems;
+using Content.Shared.Audio;
 using Content.Shared.Camera;
 using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.Explosion;
 using Content.Shared.GameTicking;
-using Content.Shared.Gravity;
 using Content.Shared.Inventory;
 using Content.Shared.Throwing;
 using Robust.Server.GameStates;
@@ -43,13 +44,15 @@ public sealed partial class ExplosionSystem : EntitySystem
     [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
     [Dependency] private readonly PVSOverrideSystem _pvsSys = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] public readonly SharedGravitySystem _gravity = default!;
     [Dependency] protected readonly IMapManager MapManager = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly StationSystem _stationSystem = default!;
 
     /// <summary>
     ///     "Tile-size" for space when there are no nearby grids to use as a reference.
     /// </summary>
     public const ushort DefaultTileSize = 1;
+    private readonly SoundCollectionSpecifier _meteorsHit = new("ShuttleImpactSound");
 
     private AudioParams _audioParams = AudioParams.Default.WithVolume(-3f);
 
@@ -299,13 +302,7 @@ public sealed partial class ExplosionSystem : EntitySystem
 
         if (canShakeGrid)
         {
-            foreach (var grid in MapManager.GetAllMapGrids(epicenter.MapId))
-            {
-                if (HasComp<MapGridComponent>(grid.Owner))
-                {
-                    _gravity.StartGridShake(grid.Owner);
-                }
-            }
+            ShakeGrid(epicenter, totalIntensity);
         }
 
         // camera shake
@@ -356,5 +353,23 @@ public sealed partial class ExplosionSystem : EntitySystem
             if (effect > 0.01f)
                 _recoilSystem.KickCamera(uid, -delta.Normalized * effect);
         }
+    }
+
+    private void ShakeGrid(MapCoordinates epicenter, float totalIntensity)
+    {
+        foreach (var grid in MapManager.GetAllMapGrids(epicenter.MapId))
+        {
+            if (HasComp<MapGridComponent>(grid.Owner))
+            {
+                CameraShake(300, epicenter, totalIntensity);
+                PlayShakeSound(grid.Owner);
+            }
+        }
+    }
+
+    private void PlayShakeSound(EntityUid uid)
+    {
+        var filter = _stationSystem.GetInOwningStation(uid, 150);
+        _audio.Play(_meteorsHit, filter, uid, false, AudioHelpers.WithVariation(1f).WithVolume(0));
     }
 }
