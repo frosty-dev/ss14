@@ -7,7 +7,7 @@ namespace Content.Client.Preferences.UI;
 
 public sealed partial class HumanoidProfileEditor
 {
-    private List<TTSVoicePrototype> _voiceList = default!; // Corvax-TTS
+    private List<TTSVoicePrototype> _voiceList = default!;
 
     private void InitializeVoice()
     {
@@ -19,7 +19,6 @@ public sealed partial class HumanoidProfileEditor
             SetVoice(_voiceList[args.Id].ID);
         };
 
-        _voicePlayButton.OnPressed += _ => { PlayTTS(); };
     }
 
     private void UpdateTTSVoicesControls()
@@ -58,10 +57,5 @@ public sealed partial class HumanoidProfileEditor
         {
             SetVoice(_voiceList[firstVoiceChoiceId].ID);
         }
-    }
-
-    private void PlayTTS()
-    {
-
     }
 }

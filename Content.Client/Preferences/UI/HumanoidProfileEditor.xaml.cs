@@ -64,7 +64,6 @@ namespace Content.Client.Preferences.UI
         private OptionButton _sexButton => CSexButton;
         private OptionButton _genderButton => CPronounsButton;
         private OptionButton _voiceButton => CVoiceButton;
-        private Button _voicePlayButton => CVoicePlayButton; // tts-shit
         private Slider _skinColor => CSkin;
         private OptionButton _clothingButton => CClothingButton;
         private OptionButton _backpackButton => CBackpackButton;
