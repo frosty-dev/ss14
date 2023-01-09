@@ -1,3 +1,4 @@
+using Content.Server.Chat.Managers;
 using Content.Server.Singularity.Events;
 using Content.Shared.Singularity.Components;
 using Content.Shared.Tag;
@@ -19,6 +20,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popupSystem = default!;
     [Dependency] private readonly PhysicsSystem _physics = default!;
     [Dependency] private readonly AppearanceSystem _visualizer = default!;
+    [Dependency] private readonly IChatManager _chatManager = default!;
 
     public override void Initialize()
     {
@@ -201,6 +203,11 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
 
         if (component.PowerBuffer < component.PowerMinimum && component.Connections.Count != 0)
         {
+
+            #region Logging
+            _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-field-down",
+                        ("fieldgenerator", (ToPrettyString(component.Owner)))));
+            #endregion Logging
             RemoveConnections(component);
         }
 
