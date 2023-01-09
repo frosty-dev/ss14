@@ -98,7 +98,7 @@
   config:
     !type:StationEventRuleConfiguration
     id: MeteorSwarm
-    earliestStart: 15
+    earliestStart: 3
     weight: 10
     minimumPlayers: 1
     startAnnouncement: station-event-meteor-swarm-start-announcement
