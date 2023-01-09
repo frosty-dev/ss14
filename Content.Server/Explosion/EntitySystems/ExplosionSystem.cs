@@ -361,7 +361,7 @@ public sealed partial class ExplosionSystem : EntitySystem
         {
             if (HasComp<MapGridComponent>(grid.Owner))
             {
-                CameraShake(300, epicenter, totalIntensity);
+                CameraShake(1000, epicenter, totalIntensity);
                 PlayShakeSound(grid.Owner);
             }
         }
