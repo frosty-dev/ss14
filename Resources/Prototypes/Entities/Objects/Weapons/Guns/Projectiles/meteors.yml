@@ -21,8 +21,9 @@
   - type: Explosive
     explosionType: Default
     totalIntensity: 600.0
-    intensitySlope: 30
+    intensitySlope: 60
     maxIntensity: 45
+    canShakeGrid: true
   - type: Physics
     bodyType: Dynamic
   - type: Fixtures

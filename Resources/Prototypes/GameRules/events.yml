@@ -38,7 +38,7 @@
     id: DiseaseOutbreak
     weight: 5
     endAfter: 1
-    earliestStart: 15
+    earliestStart: 5
 
 - type: gameRule
   id: Dragon
@@ -47,7 +47,7 @@
     id: Dragon
     weight: 10
     endAfter: 2
-    earliestStart: 15
+    earliestStart: 5
     minimumPlayers: 1
 
 - type: gameRule
@@ -57,7 +57,7 @@
     id: RevenantSpawn
     weight: 5
     endAfter: 1
-    earliestStart: 20
+    earliestStart: 5
     minimumPlayers: 1
 
 - type: gameRule
@@ -77,7 +77,7 @@
     startAudio:
       path: /Audio/Announcements/attention.ogg
     endAnnouncement: station-event-gas-leak-end-announcement
-    earliestStart: 10
+    earliestStart: 5
     minimumPlayers: 1
     weight: 5
     startAfter: 20
@@ -87,7 +87,7 @@
   config:
     !type:StationEventRuleConfiguration
     id: KudzuGrowth
-    earliestStart: 15
+    earliestStart: 5
     minimumPlayers: 1
     weight: 5
     startAfter: 50
@@ -98,23 +98,22 @@
   config:
     !type:StationEventRuleConfiguration
     id: MeteorSwarm
-    earliestStart: 30
-    weight: 5
+    earliestStart: 5
+    weight: 10
     minimumPlayers: 1
     startAnnouncement: station-event-meteor-swarm-start-announcement
     endAnnouncement: station-event-meteor-swarm-end-announcement
     startAudio:
       path: /Audio/Announcements/meteors.ogg
-      params:
-        volume: -4
-    startAfter: 30
+      volume: -4
+    startAfter: 15
 
 - type: gameRule
   id: MouseMigration
   config:
     !type:StationEventRuleConfiguration
     id: MouseMigration
-    earliestStart: 30
+    earliestStart: 5
     minimumPlayers: 1
     weight: 5
     endAfter: 50
@@ -151,7 +150,7 @@
     startAnnouncement: station-event-vent-clog-start-announcement
     startAudio:
       path: /Audio/Announcements/attention.ogg
-    earliestStart: 15
+    earliestStart: 5
     minimumPlayers: 1
     weight: 5
     startAfter: 50
@@ -162,7 +161,7 @@
   config:
     !type:StationEventRuleConfiguration
     id: VentCritters
-    earliestStart: 15
+    earliestStart: 5
     minimumPlayers: 1
     weight: 5
     endAfter: 60
