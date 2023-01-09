@@ -16,7 +16,7 @@ using static Robust.Client.UserInterface.StylesheetHelpers;
 
 namespace Content.Client.Stylesheets
 {
-    public static partial class ResCacheExtension
+    public static class ResCacheExtension
     {
         public static Font NotoStack(this IResourceCache resCache, string variation = "Regular", int size = 10, bool display = false)
         {
@@ -487,9 +487,7 @@ namespace Content.Client.Stylesheets
             var directionIconQuestionTex = resCache.GetTexture("/Textures/Interface/VerbIcons/information.svg.192dpi.png");
             var directionIconHereTex = resCache.GetTexture("/Textures/Interface/VerbIcons/dot.svg.192dpi.png");
 
-            var styleBase = new StyleBase(resCache);
-
-            Stylesheet = new Stylesheet(styleBase.Stylesheet.Rules.Concat(new[]
+            Stylesheet = new Stylesheet(BaseRules.Concat(new[]
             {
                 // Window title.
                 new StyleRule(
@@ -760,6 +758,15 @@ namespace Content.Client.Stylesheets
                 Element<ContainerButton>().Class(ListContainer.StyleClassListContainerButton)
                     .Pseudo(ContainerButton.StylePseudoClassDisabled)
                     .Prop(Control.StylePropertyModulateSelf, new Color(10, 10, 12)),
+
+                // Main menu: Make those buttons bigger.
+                new StyleRule(new SelectorChild(
+                    new SelectorElement(typeof(Button), null, "mainMenu", null),
+                    new SelectorElement(typeof(Label), null, null, null)),
+                    new[]
+                    {
+                        new StyleProperty("font", notoSansBold16),
+                    }),
 
                 // Main menu: also make those buttons slightly more separated.
                 new StyleRule(new SelectorElement(typeof(BoxContainer), null, "mainMenuVBox", null),
