@@ -126,7 +126,7 @@ public sealed class StationSpawningSystem : EntitySystem
             {
                 EntityManager.AddComponent<DetailExaminableComponent>(entity).Content = profile.FlavorText;
             }
-            EntityManager.AddComponent<TTSComponent>(entity).VoicePrototypeId = profile.Voice;
+            EntityManager.EnsureComponent<TTSComponent>(entity).VoicePrototypeId = profile.Voice;
         }
 
         DoJobSpecials(job, entity);
