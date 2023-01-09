@@ -377,6 +377,5 @@ public sealed partial class ExplosionSystem : EntitySystem
         var mapEntityCoords = EntityCoordinates.FromMap(EntityManager, _mapManager.GetMapEntityId(epicenter.MapId), epicenter);
         var filter = Filter.Pvs(epicenter).AddPlayersByPvs(epicenter, 1000);
         _audio.PlayGlobal(_meteorsHit, filter, false, AudioHelpers.WithVariation(1f).WithVolume(-10f));
-        //_meteorsHit, filter, mapEntityCoords, false, AudioHelpers.WithVariation(1f).WithVolume(-5f)
     }
 }
