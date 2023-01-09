@@ -316,6 +316,11 @@ public sealed partial class ExplosionSystem : EntitySystem
         var filter = Filter.Pvs(epicenter).AddInRange(epicenter, audioRange);
         SoundSystem.Play(type.Sound.GetSound(), filter, mapEntityCoords, _audioParams);
 
+        if (canShakeGrid)
+        {
+            ShakeGrid(epicenter, totalIntensity);
+        }
+
         return new Explosion(this,
             type,
             spaceData,
@@ -362,14 +367,16 @@ public sealed partial class ExplosionSystem : EntitySystem
             if (HasComp<MapGridComponent>(grid.Owner))
             {
                 CameraShake(1000, epicenter, totalIntensity);
-                PlayShakeSound(grid.Owner);
+                PlayShakeSound(grid.Owner, epicenter);
             }
         }
     }
 
-    private void PlayShakeSound(EntityUid uid)
+    private void PlayShakeSound(EntityUid uid, MapCoordinates epicenter)
     {
-        var filter = _stationSystem.GetInOwningStation(uid, 150);
-        _audio.Play(_meteorsHit, filter, uid, false, AudioHelpers.WithVariation(1f).WithVolume(0));
+        var mapEntityCoords = EntityCoordinates.FromMap(EntityManager, _mapManager.GetMapEntityId(epicenter.MapId), epicenter);
+        var filter = Filter.Pvs(epicenter).AddPlayersByPvs(epicenter, 1000);
+        _audio.PlayGlobal(_meteorsHit, filter, false, AudioHelpers.WithVariation(1f).WithVolume(-10f));
+        //_meteorsHit, filter, mapEntityCoords, false, AudioHelpers.WithVariation(1f).WithVolume(-5f)
     }
 }
