@@ -19,6 +19,13 @@ public abstract class SharedHumanoidSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
 
     public const string DefaultSpecies = "Human";
+    public const string DefaultVoice = "Eugene";
+    public static readonly Dictionary<Sex, string> DefaultSexVoice = new()
+    {
+        {Sex.Male, "Eugene"},
+        {Sex.Female, "Kseniya"},
+        {Sex.Unsexed, "Xenia"},
+    };
 
     public void SetAppearance(EntityUid uid,
         string species,

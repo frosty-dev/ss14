@@ -46,6 +46,7 @@ namespace Content.Tests.Server.Preferences
                 "Charlie Charlieson",
                 "The biggest boy around.",
                 "Human",
+                "Eugene",
                 21,
                 Sex.Male,
                 Gender.Epicene,

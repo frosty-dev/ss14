@@ -273,6 +273,7 @@
         amount: 5
   #  - type: Recyclable Turns out turning off recycler safeties without considering the instagib is a bad idea
   #    safe: false
+  - type: TTS
   - type: Speech
     speechSounds: Alto
   - type: Vocal

@@ -63,13 +63,13 @@ namespace Content.Client.Preferences.UI
         private Button _saveButton => CSaveButton;
         private OptionButton _sexButton => CSexButton;
         private OptionButton _genderButton => CPronounsButton;
+        private OptionButton _voiceButton => CVoiceButton;
         private Slider _skinColor => CSkin;
         private OptionButton _clothingButton => CClothingButton;
         private OptionButton _backpackButton => CBackpackButton;
         private SingleMarkingPicker _hairPicker => CHairStylePicker;
         private SingleMarkingPicker _facialHairPicker => CFacialHairPicker;
         private EyeColorPicker _eyesPicker => CEyeColorPicker;
-
         private TabContainer _tabContainer => CTabContainer;
         private BoxContainer _jobList => CJobList;
         private BoxContainer _antagList => CAntagList;
@@ -115,7 +115,6 @@ namespace Content.Client.Preferences.UI
             _preferencesManager = preferencesManager;
             _configurationManager = configurationManager;
             _markingManager = IoCManager.Resolve<MarkingManager>();
-
             #region Left
 
             #region Randomize
@@ -170,6 +169,15 @@ namespace Content.Client.Preferences.UI
             };
 
             #endregion Gender
+
+            //TTS-Start
+            #region Voice
+
+            InitializeVoice();
+
+
+            #endregion
+            //TTS-End
 
             #region Species
 
@@ -628,7 +636,8 @@ namespace Content.Client.Preferences.UI
 
         private void OnSkinColorOnValueChanged()
         {
-            if (Profile is null) return;
+            if (Profile is null)
+                return;
 
             var skin = _prototypeManager.Index<SpeciesPrototype>(Profile.Species).SkinColoration;
 
@@ -772,12 +781,19 @@ namespace Content.Client.Preferences.UI
                     break;
             }
             UpdateGenderControls();
+            UpdateTTSVoicesControls();
             IsDirty = true;
         }
 
         private void SetGender(Gender newGender)
         {
             Profile = Profile?.WithGender(newGender);
+            IsDirty = true;
+        }
+
+        private void SetVoice(string newVoice)
+        {
+            Profile = Profile?.WithVoice(newVoice);
             IsDirty = true;
         }
 
@@ -867,7 +883,8 @@ namespace Content.Client.Preferences.UI
                 {
                     sexes.Add(sex);
                 }
-            } else
+            }
+            else
             {
                 sexes.Add(Sex.Unsexed);
             }
@@ -883,7 +900,6 @@ namespace Content.Client.Preferences.UI
             else
                 _sexButton.SelectId((int) sexes[0]);
         }
-
         private void UpdateSkinColor()
         {
             if (Profile == null)
@@ -1038,7 +1054,8 @@ namespace Content.Client.Preferences.UI
 
         public void UpdateControls()
         {
-            if (Profile is null) return;
+            if (Profile is null)
+                return;
             UpdateNameEdit();
             UpdateFlavorTextEdit();
             UpdateSexControls();
@@ -1056,6 +1073,7 @@ namespace Content.Client.Preferences.UI
             UpdateTraitPreferences();
             UpdateMarkings();
             RebuildSpriteView();
+            UpdateTTSVoicesControls();
 
             _preferenceUnavailableButton.SelectId((int) Profile.PreferenceUnavailable);
         }
