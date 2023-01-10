@@ -206,7 +206,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
 
             #region Logging
             _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-field-down",
-                        ("fieldgenerator", (ToPrettyString(component.Owner)))));
+                        ("fieldgenerator", ToPrettyString(component.Owner))));
             #endregion Logging
             RemoveConnections(component);
         }

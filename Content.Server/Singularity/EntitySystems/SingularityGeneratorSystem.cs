@@ -55,14 +55,14 @@ public sealed class SingularityGeneratorSystem : EntitySystem
         if (!fieldComp.Any())
         {
             _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-no-fields",
-                ("singularity", (ToPrettyString(uid)))));
+                ("singularity", ToPrettyString(uid))));
         }
         foreach (var singComp in fieldComp)
         {
             if (!singComp.Owner.ToCoordinates().InRange(_entityManager, uid.ToCoordinates(), 7))
             {
                 _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-no-fields",
-                    ("singularity", (ToPrettyString(uid)))));
+                    ("singularity", ToPrettyString(uid))));
                 break;
             }
         }

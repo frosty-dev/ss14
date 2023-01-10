@@ -186,7 +186,7 @@ namespace Content.Server.AME
             radius = Math.Min(radius, 8);
             var lastPlayer = _masterController?._lastPlayerIncreasedFuel;
             _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-AME-exploded", ("lastplayer",
-                (_entityManager.ToPrettyString(lastPlayer.GetValueOrDefault())))));
+                _entityManager.ToPrettyString(lastPlayer.GetValueOrDefault()))));
             EntitySystem.Get<ExplosionSystem>().TriggerExplosive(MasterController.Owner, radius: radius, delete: false);
         }
     }

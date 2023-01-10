@@ -115,7 +115,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
         if (old_value != value && eventHorizon.CanBreachContainment)
         {
             _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-can-breach-containment",
-                ("singularity", (ToPrettyString(uid)))));
+                ("singularity", ToPrettyString(uid))));
         }
     }
 

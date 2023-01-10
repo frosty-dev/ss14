@@ -250,8 +250,8 @@ namespace Content.Server.AME.Components
 
             if (state != newState)
             {
-                _chatManager.SendAdminAnnouncement(Loc.GetString(warn_message ,
-                    ("lastplayer", (_entityManager.ToPrettyString(_lastPlayerIncreasedFuel.GetValueOrDefault())))));
+                _chatManager.SendAdminAnnouncement(Loc.GetString(warn_message,
+                    ("lastplayer", _entityManager.ToPrettyString(_lastPlayerIncreasedFuel.GetValueOrDefault()))));
                 _appearance?.SetData(AMEControllerVisuals.DisplayState, newState);
             }
 
