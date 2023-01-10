@@ -27,7 +27,7 @@ using Content.Shared.Module;
 
 using Content.Server.White.JoinQueue;
 using Content.Server.White.Sponsors;
-
+using Content.Server.White.TTS;
 
 
 namespace Content.Server.IoC
@@ -65,6 +65,7 @@ namespace Content.Server.IoC
             IoCManager.Register<ServerInfoManager>();
             IoCManager.Register<SponsorsManager>();
             IoCManager.Register<JoinQueueManager>();
+            IoCManager.Register<TTSManager>();
             IoCManager.Register<UtkaSocketWrapper>();
         }
     }
