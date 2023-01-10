@@ -80,6 +80,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
             var curTime = _timing.CurTime;
             if (eventHorizon.NextConsumeWaveTime <= curTime)
                 Update(eventHorizon.Owner, eventHorizon, xform);
+            if (eventHorizon is { WasDetectedInBreach: false, CanBreachContainment: true })
+            {
+                _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-can-breach-containment",
+                    ("singularity", ToPrettyString(eventHorizon.Owner))));
+                eventHorizon.WasDetectedInBreach = true;
+            }
         }
     }
 
@@ -100,7 +106,6 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
             return;
         if(!Resolve(uid, ref xform))
             return;
-        var old_value = eventHorizon.CanBreachContainment;
         // Handle singularities some admin smited into a locker.
         if (_containerSystem.TryGetContainingContainer(uid, out var container, transform: xform)
         && !AttemptConsumeEntity(container.Owner, eventHorizon))
@@ -111,12 +116,6 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
 
         if (eventHorizon.Radius > 0.0f)
             ConsumeEverythingInRange(xform.Owner, eventHorizon.Radius, xform, eventHorizon);
-        var value = eventHorizon.CanBreachContainment;
-        if (old_value != value && eventHorizon.CanBreachContainment)
-        {
-            _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-can-breach-containment",
-                ("singularity", ToPrettyString(uid))));
-        }
     }
 
 #region Consume
