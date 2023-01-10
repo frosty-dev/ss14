@@ -5,12 +5,14 @@ using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
 using Content.Server.Chat;
 using Content.Server.Chat.Systems;
+using Content.Server.GameTicking;
 using Content.Server.Interaction;
 using Content.Server.Popups;
 using Content.Server.RoundEnd;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
+using Content.Server.StationEvents;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
@@ -37,6 +39,8 @@ namespace Content.Server.Communications
         [Dependency] private readonly StationSystem _stationSystem = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+        [Dependency] private readonly MeteorStationEventSchedulerSystem _meteorEvent = default!;
+        [Dependency] private readonly GameTicker _gameTicker = default!;
 
         private const int MaxMessageLength = 256;
         private const float UIUpdateInterval = 5.0f;
@@ -280,6 +284,15 @@ namespace Content.Server.Communications
             {
                 _popupSystem.PopupEntity(Loc.GetString("comms-console-permission-denied"), uid, message.Session);
                 return;
+            }
+            if (_meteorEvent.RuleStarted)
+            {
+                 var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
+                 if (roundTime < _meteorEvent._timeUntillCallShuttle)
+                 {
+                    _popupSystem.PopupEntity(Loc.GetString("comms-console-meteor-connection"), uid, message.Session);
+                    return;
+                 }
             }
             _roundEndSystem.RequestRoundEnd(uid);
             _adminLogger.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(mob):player} has called the shuttle.");

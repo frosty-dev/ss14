@@ -8,6 +8,7 @@ comms-console-menu-recall-shuttle = Recall emergency shuttle
 # Popup
 comms-console-permission-denied = Permission denied
 comms-console-no-connection = Network missing
+comms-console-meteor-connection = No connection to shuttle, try later
 
 # Placeholder values
 comms-console-announcement-sent-by = Sent by

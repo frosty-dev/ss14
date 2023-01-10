@@ -6,6 +6,7 @@ comms-console-menu-call-shuttle = Вызвать эвакуационный ша
 comms-console-menu-recall-shuttle = Отозвать эвакуационный шаттл
 # Popup
 comms-console-permission-denied = В доступе отказано
+comms-console-meteor-connection = Нет связи с шаттлом, попробуйте позже
 comms-console-no-connection = Отсутствие связи
 # Placeholder values
 comms-console-announcement-sent-by = Отправитель

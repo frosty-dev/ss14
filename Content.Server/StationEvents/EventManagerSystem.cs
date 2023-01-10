@@ -70,6 +70,9 @@ public sealed class EventManagerSystem : EntitySystem
         return FindEvent(availableEvents);
     }
 
+    /// <summary>
+    /// Runs a certain event.
+    /// </summary>
     public string RunCertainEvent(string eventId)
     {
         var certainEvent = PickCertainEvent(eventId);
@@ -88,6 +91,9 @@ public sealed class EventManagerSystem : EntitySystem
         return str;
     }
 
+    /// <summary>
+    /// Picks certain event.
+    /// </summary>
     public StationEventRuleConfiguration? PickCertainEvent(string eventId)
     {
         var availableEvent = AvailableCertainEvent(eventId);

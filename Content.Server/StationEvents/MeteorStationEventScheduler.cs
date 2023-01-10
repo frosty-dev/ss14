@@ -1,5 +1,7 @@
-﻿using Content.Server.GameTicking;
+﻿using Content.Server.Chat.Systems;
+using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
+using Content.Server.Station.Components;
 using Content.Server.StationEvents.Events;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
@@ -15,6 +17,7 @@ public sealed class MeteorStationEventSchedulerSystem : GameRuleSystem
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly EventManagerSystem _event = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
+    [Dependency] private readonly ChatSystem _chatSystem = default!;
 
     [ViewVariables(VVAccess.ReadWrite)]
     private float _endTime;
@@ -24,6 +27,10 @@ public sealed class MeteorStationEventSchedulerSystem : GameRuleSystem
     private float _startingChaos;
     [ViewVariables(VVAccess.ReadWrite)]
     private float _timeUntilNextEvent;
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float _timeUntillCallShuttle = 1800;
+    [ViewVariables(VVAccess.ReadWrite)]
+    private bool _shuttleAnnouncement = true;
 
     [ViewVariables]
     public float ChaosModifier
@@ -71,6 +78,16 @@ public sealed class MeteorStationEventSchedulerSystem : GameRuleSystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
+        if (roundTime >= _timeUntillCallShuttle && _shuttleAnnouncement)
+        {
+            foreach (var comp in EntityQuery<StationDataComponent>(true))
+            {
+                _chatSystem.DispatchStationAnnouncement(comp.Owner, Loc.GetString("emergency_shuttle_meteor_available"));
+            }
+            _shuttleAnnouncement = false;
+        }
 
         if (!RuleStarted || !_event.EventsEnabled)
             return;
