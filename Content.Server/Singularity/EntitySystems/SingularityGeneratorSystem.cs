@@ -16,6 +16,7 @@ public sealed class SingularityGeneratorSystem : EntitySystem
     [Dependency] private readonly IChatManager _chatManager = default!;
 #endregion Dependencies
 
+private readonly int _checkFieldRange = 12;
     public override void Initialize()
     {
         base.Initialize();
@@ -59,7 +60,7 @@ public sealed class SingularityGeneratorSystem : EntitySystem
         }
         foreach (var singComp in fieldComp)
         {
-            if (!singComp.Owner.ToCoordinates().InRange(_entityManager, uid.ToCoordinates(), 7))
+            if (!singComp.Owner.ToCoordinates().InRange(_entityManager, uid.ToCoordinates(), _checkFieldRange))
             {
                 _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-no-fields",
                     ("singularity", ToPrettyString(uid))));

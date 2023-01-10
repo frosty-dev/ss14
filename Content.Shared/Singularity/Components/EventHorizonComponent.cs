@@ -28,6 +28,14 @@ public sealed class EventHorizonComponent : Component
     [Access(friends:typeof(SharedEventHorizonSystem))]
     public bool CanBreachContainment = false;
 
+
+    ///<summary>
+    /// Whether the event horizon was reported in admin about containment breach
+    /// </summary>
+    [DataField("wasDetectedInBreach")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public bool WasDetectedInBreach = false;
+
     /// <summary>
     /// The ID of the fixture used to detect if the event horizon has collided with any physics objects.
     /// Can be set to null, in which case no such fixture is used.
