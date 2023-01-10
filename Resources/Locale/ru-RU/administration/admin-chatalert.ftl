@@ -6,3 +6,4 @@ admin-chatalert-singularity-field-down = { $fieldgenerator } отключилс�
 admin-chatalert-singularity-can-breach-containment = { $singularity } слишком большая! Она сбегает из места сдерживания!
 admin-chatalert-plasma-pump-pressure-change = { $player } переключил давление в { $pump } на { $pressure }!
 admin-chatalert-plasma-pump-enabled = { $player } включил { $pump }!
+admin-chatalert-plasma-canister-opened = { $player } открыл { $canister } с плазмой!
