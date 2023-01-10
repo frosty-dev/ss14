@@ -2,6 +2,7 @@ using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Binary.Components;
 using Content.Server.Atmos.Piping.Components;
+using Content.Server.Chat.Managers;
 using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.Atmos;
@@ -24,6 +25,8 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
         [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+        [Dependency] private readonly EntityManager _entityManager = default!;
+        [Dependency] private readonly IChatManager _chatManager = default!;
 
         public override void Initialize()
         {
@@ -117,8 +120,12 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
         private void OnToggleStatusMessage(EntityUid uid, GasPressurePumpComponent pump, GasPressurePumpToggleStatusMessage args)
         {
             pump.Enabled = args.Enabled;
+            var player = args.Session.AttachedEntity!.Value;
             _adminLogger.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
-                $"{ToPrettyString(args.Session.AttachedEntity!.Value):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}");
+                $"{ToPrettyString(player):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}");
+            if (_entityManager.GetComponent<MetaDataComponent>(uid).EntityName == "plasma pump" && args.Enabled)
+                _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-plasma-pump-enabled",
+                    ("pump", ToPrettyString(uid)), ("player", ToPrettyString(player))));
             DirtyUI(uid, pump);
             UpdateAppearance(uid, pump);
         }
@@ -126,8 +133,12 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
         private void OnOutputPressureChangeMessage(EntityUid uid, GasPressurePumpComponent pump, GasPressurePumpChangeOutputPressureMessage args)
         {
             pump.TargetPressure = Math.Clamp(args.Pressure, 0f, Atmospherics.MaxOutputPressure);
+            var player = args.Session.AttachedEntity!.Value;
             _adminLogger.Add(LogType.AtmosPressureChanged, LogImpact.Medium,
-                $"{ToPrettyString(args.Session.AttachedEntity!.Value):player} set the pressure on {ToPrettyString(uid):device} to {args.Pressure}kPa");
+                $"{ToPrettyString(player):player} set the pressure on {ToPrettyString(uid):device} to {args.Pressure}kPa");
+            if (_entityManager.GetComponent<MetaDataComponent>(uid).EntityName == "plasma pump")
+                _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-plasma-pump-pressure-change",
+                    ("pump", ToPrettyString(uid)), ("player", ToPrettyString(player)), ("pressure", args.Pressure)));
             DirtyUI(uid, pump);
 
         }
