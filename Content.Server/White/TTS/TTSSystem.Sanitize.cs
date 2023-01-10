@@ -17,7 +17,7 @@ public sealed partial class TTSSystem
     private string Sanitize(string text)
     {
         text = text.Trim();
-        text = Regex.Replace(text, @"-", "минус");
+        text = Regex.Replace(text, @"Ё", "Е");
         text = Regex.Replace(text, @"<[^>]*>", "");
         text = Regex.Replace(text, @"[a-zA-Z]", ReplaceLat2Cyr, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         text = Regex.Replace(text, @"[^a-zA-Z0-9а-яА-ЯёЁ,!?+./ \r\n\t:—()-]", ReplaceMatchedWord, RegexOptions.Multiline | RegexOptions.IgnoreCase);
