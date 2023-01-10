@@ -1,3 +1,4 @@
+using Content.Server.Chat.Managers;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Robust.Shared.Map;
@@ -25,6 +26,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IMapManager _mapMan = default!;
     [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
+    [Dependency] private readonly IChatManager _chatManager = default!;
 #endregion Dependencies
 
     /// <summary>
@@ -98,7 +100,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
             return;
         if(!Resolve(uid, ref xform))
             return;
-
+        var old_value = eventHorizon.CanBreachContainment;
         // Handle singularities some admin smited into a locker.
         if (_containerSystem.TryGetContainingContainer(uid, out var container, transform: xform)
         && !AttemptConsumeEntity(container.Owner, eventHorizon))
@@ -109,6 +111,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
 
         if (eventHorizon.Radius > 0.0f)
             ConsumeEverythingInRange(xform.Owner, eventHorizon.Radius, xform, eventHorizon);
+        var value = eventHorizon.CanBreachContainment;
+        if (old_value != value && eventHorizon.CanBreachContainment)
+        {
+            _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-can-breach-containment",
+                ("singularity", ToPrettyString(uid))));
+        }
     }
 
 #region Consume

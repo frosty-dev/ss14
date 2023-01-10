@@ -4,6 +4,7 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.Atmos.Piping.Unary.Components;
 using Content.Server.Cargo.Systems;
+using Content.Server.Chat.Managers;
 using Content.Server.Lock;
 using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.NodeGroups;
@@ -33,7 +34,9 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
         [Dependency] private readonly PopupSystem _popupSystem = default!;
         [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
         [Dependency] private readonly SharedAudioSystem _audioSys = default!;
+        [Dependency] private readonly IChatManager _chatManager = default!;
 
+        private readonly int _plasmaThreshold = 1000;
         public override void Initialize()
         {
             base.Initialize();
@@ -154,7 +157,13 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 containedGasDict.Add((Gas)i, canister.Air.Moles[i]);
             }
 
-            _adminLogger.Add(LogType.CanisterValve, impact, $"{ToPrettyString(args.Session.AttachedEntity.GetValueOrDefault()):player} set the valve on {ToPrettyString(uid):canister} to {args.Valve:valveState} while it contained [{string.Join(", ", containedGasDict)}]");
+            var player = args.Session.AttachedEntity.GetValueOrDefault();
+            _adminLogger.Add(LogType.CanisterValve, impact, $"{ToPrettyString(player):player} set the valve on {ToPrettyString(uid):canister} to {args.Valve:valveState} while it contained [{string.Join(", ", containedGasDict)}]");
+            if (args.Valve && containedGasDict[Gas.Plasma] >= _plasmaThreshold)
+            {
+                _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-plasma-canister-opened",
+                    ("player", ToPrettyString(player)), ("canister", ToPrettyString(uid))));
+            }
 
             canister.ReleaseValve = args.Valve;
             DirtyUI(uid, canister);

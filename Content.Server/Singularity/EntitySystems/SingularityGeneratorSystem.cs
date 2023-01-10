@@ -1,5 +1,8 @@
-﻿using Content.Server.ParticleAccelerator.Components;
+﻿using System.Linq;
+using Content.Server.Chat.Managers;
+using Content.Server.ParticleAccelerator.Components;
 using Content.Server.Singularity.Components;
+using Content.Shared.Coordinates;
 using Content.Shared.Singularity.Components;
 using Robust.Shared.Physics.Events;
 
@@ -9,6 +12,8 @@ public sealed class SingularityGeneratorSystem : EntitySystem
 {
 #region Dependencies
     [Dependency] private readonly IViewVariablesManager _vvm = default!;
+    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IChatManager _chatManager = default!;
 #endregion Dependencies
 
     public override void Initialize()
@@ -44,6 +49,24 @@ public sealed class SingularityGeneratorSystem : EntitySystem
             return;
 
         SetPower(comp, 0);
+
+        #region Logging
+        var fieldComp = _entityManager.EntityQuery<ContainmentFieldComponent>();
+        if (!fieldComp.Any())
+        {
+            _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-no-fields",
+                ("singularity", ToPrettyString(uid))));
+        }
+        foreach (var singComp in fieldComp)
+        {
+            if (!singComp.Owner.ToCoordinates().InRange(_entityManager, uid.ToCoordinates(), 7))
+            {
+                _chatManager.SendAdminAnnouncement(Loc.GetString("admin-chatalert-singularity-no-fields",
+                    ("singularity", ToPrettyString(uid))));
+                break;
+            }
+        }
+        #endregion Logging
         EntityManager.SpawnEntity(comp.SpawnPrototype, Transform(comp.Owner).Coordinates);
     }
 
