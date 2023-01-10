@@ -7,3 +7,4 @@ admin-chatalert-singularity-can-breach-containment = { $singularity } too powerf
 admin-chatalert-plasma-pump-pressure-change = { $player } set the pressure on { $pump } to { $pressure }!
 admin-chatalert-plasma-pump-enabled = { $player } enabled { $pump }!
 admin-chatalert-plasma-canister-opened = { $player } opened { $canister } with plasma gas!
+admin-chatalert-gravity-generator-turned = { $player } turned { $gravgen } to { $status }!

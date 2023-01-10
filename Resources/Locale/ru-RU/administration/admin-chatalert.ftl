@@ -7,3 +7,4 @@ admin-chatalert-singularity-can-breach-containment = { $singularity } слишк
 admin-chatalert-plasma-pump-pressure-change = { $player } переключил давление в { $pump } на { $pressure }!
 admin-chatalert-plasma-pump-enabled = { $player } включил { $pump }!
 admin-chatalert-plasma-canister-opened = { $player } открыл { $canister } с плазмой!
+admin-chatalert-gravity-generator-turned = { $player } переключил { $gravgen } на { $status }!
