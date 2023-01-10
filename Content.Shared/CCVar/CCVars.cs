@@ -1464,6 +1464,9 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<float> TtsVolume =
             CVarDef.Create("tts.volume", 0f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+        public static readonly CVarDef<int> TTSMaxCacheSize =
+            CVarDef.Create("tts.max_cash_size", 250, CVar.SERVERONLY | CVar.ARCHIVE);
+
         /*
          * CONFIG
          */
