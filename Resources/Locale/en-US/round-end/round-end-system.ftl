@@ -1,7 +1,11 @@
 ## RoundEndSystem
 
+round-end-system-shuttle-called-announcement-by-who = An emergency shuttle has been sent. ETA: {$time} {$units}.
+    Shuttle called by { $requester }.
 round-end-system-shuttle-called-announcement = An emergency shuttle has been sent. ETA: {$time} {$units}.
 round-end-system-shuttle-auto-called-announcement = An automatic crew shift change shuttle has been sent. ETA: {$time} {$units}. Recall the shuttle to extend the shift.
+round-end-system-shuttle-recalled-announcement-by-who = The emergency shuttle has been recalled.
+    Shuttle recalled by { $requester }.
 round-end-system-shuttle-recalled-announcement = The emergency shuttle has been recalled.
 round-end-system-round-restart-eta-announcement = Restarting the round in {$minutes} minutes...
 
