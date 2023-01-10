@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Server.Administration.Logs;
+using Content.Server.Chat.Managers;
 using Content.Server.Mind.Components;
 using Content.Server.NodeContainer;
 using Content.Server.Power.Components;
@@ -20,6 +21,8 @@ namespace Content.Server.AME.Components
         [Dependency] private readonly IEntityManager _entities = default!;
         [Dependency] private readonly IEntitySystemManager _sysMan = default!;
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+        [Dependency] private readonly IChatManager _chatManager = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
 
         [ViewVariables] private BoundUserInterface? UserInterface => Owner.GetUIOrNull(AMEControllerUiKey.Key);
         private bool _injecting;
@@ -36,6 +39,7 @@ namespace Content.Server.AME.Components
         [ViewVariables]
         private int _stability = 100;
 
+        [ViewVariables(VVAccess.ReadOnly)] public EntityUid? _lastPlayerIncreasedFuel = null;
         public ContainerSlot JarSlot = default!;
         [ViewVariables] public bool HasJar => JarSlot.ContainedEntity != null;
 
@@ -155,7 +159,6 @@ namespace Content.Server.AME.Components
 
             if (!PlayerCanUseController(player, needsPower))
                 return;
-
             switch (msg.Button)
             {
                 case UiButton.Eject:
@@ -166,6 +169,7 @@ namespace Content.Server.AME.Components
                     break;
                 case UiButton.IncreaseFuel:
                     InjectionAmount += 2;
+                    _lastPlayerIncreasedFuel = player;
                     break;
                 case UiButton.DecreaseFuel:
                     InjectionAmount = InjectionAmount > 0 ? InjectionAmount -= 2 : 0;
@@ -231,11 +235,23 @@ namespace Content.Server.AME.Components
             _appearance.TryGetData<string>(AMEControllerVisuals.DisplayState, out var state);
 
             var newState = "on";
-            if (stability < 50) { newState = "critical"; }
-            if (stability < 10) { newState = "fuck"; }
+            var warn_message = "";
+            if (stability < 50)
+            {
+                newState = "critical";
+                warn_message = "admin-chatalert-caution-stability";
+            }
+
+            if (stability < 10)
+            {
+                newState = "fuck";
+                warn_message = "admin-chatalert-danger-stability";
+            }
 
             if (state != newState)
             {
+                _chatManager.SendAdminAnnouncement(Loc.GetString(warn_message,
+                    ("lastplayer", _entityManager.ToPrettyString(_lastPlayerIncreasedFuel.GetValueOrDefault()))));
                 _appearance?.SetData(AMEControllerVisuals.DisplayState, newState);
             }
 

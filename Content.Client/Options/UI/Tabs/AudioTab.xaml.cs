@@ -36,6 +36,7 @@ namespace Content.Client.Options.UI.Tabs
             AmbienceSoundsSlider.OnValueChanged += OnAmbienceSoundsSliderChanged;
             AmbienceMusicVolumeSlider.OnValueChanged += OnAmbienceMusicVolumeSliderChanged;
             LobbyVolumeSlider.OnValueChanged += OnLobbyVolumeSliderChanged;
+            TtsVolumeSlider.OnValueChanged += OnTtsVolumeSliderChanged;
             LobbyMusicCheckBox.OnToggled += OnLobbyMusicCheckToggled;
             RestartSoundsCheckBox.OnToggled += OnRestartSoundsCheckToggled;
             EventMusicCheckBox.OnToggled += OnEventMusicCheckToggled;
@@ -56,6 +57,7 @@ namespace Content.Client.Options.UI.Tabs
             MidiVolumeSlider.OnValueChanged -= OnMidiVolumeSliderChanged;
             AmbienceVolumeSlider.OnValueChanged -= OnAmbienceVolumeSliderChanged;
             LobbyVolumeSlider.OnValueChanged -= OnLobbyVolumeSliderChanged;
+            TtsVolumeSlider.OnValueChanged -= OnTtsVolumeSliderChanged;
             UIVolumeSlider.OnValueChanged -= OnAmbienceVolumeSliderChanged;
             AmbienceSoundsSlider.OnValueChanged -= OnAmbienceSoundsSliderChanged;
             AmbienceMusicVolumeSlider.OnValueChanged -= OnAmbienceMusicVolumeSliderChanged;
@@ -86,6 +88,13 @@ namespace Content.Client.Options.UI.Tabs
         {
             UpdateChanges();
         }
+
+        //TTS-Start
+        private void OnTtsVolumeSliderChanged(Range obj)
+        {
+            UpdateChanges();
+        }
+        //TTS-End
 
         private void OnAmbienceMusicVolumeSliderChanged(Range obj)
         {
@@ -132,6 +141,7 @@ namespace Content.Client.Options.UI.Tabs
             _cfg.SetCVar(CVars.MidiVolume, LV100ToDB(MidiVolumeSlider.Value));
             _cfg.SetCVar(CCVars.AmbienceVolume, LV100ToDB(AmbienceVolumeSlider.Value));
             _cfg.SetCVar(CCVars.AmbienceMusicVolume, LV100ToDB(AmbienceMusicVolumeSlider.Value));
+            _cfg.SetCVar(CCVars.TtsVolume, LV100ToDB(TtsVolumeSlider.Value));
             _cfg.SetCVar(CCVars.UIVolume, LV100ToDB(UIVolumeSlider.Value));
             _cfg.SetCVar(CCVars.LobbyMusicVolume, LV100ToDB(LobbyVolumeSlider.Value));
             _cfg.SetCVar(CCVars.MaxAmbientSources, (int)AmbienceSoundsSlider.Value);
@@ -154,6 +164,7 @@ namespace Content.Client.Options.UI.Tabs
             MasterVolumeSlider.Value = _cfg.GetCVar(CVars.AudioMasterVolume) * 100;
             MidiVolumeSlider.Value = DBToLV100(_cfg.GetCVar(CVars.MidiVolume));
             AmbienceMusicVolumeSlider.Value = DBToLV100(_cfg.GetCVar(CCVars.AmbienceMusicVolume));
+            TtsVolumeSlider.Value = DBToLV100(_cfg.GetCVar(CCVars.TtsVolume));
             AmbienceVolumeSlider.Value = DBToLV100(_cfg.GetCVar(CCVars.AmbienceVolume));
             UIVolumeSlider.Value = DBToLV100(_cfg.GetCVar(CCVars.UIVolume));
             LobbyVolumeSlider.Value = DBToLV100(_cfg.GetCVar(CCVars.LobbyMusicVolume));
@@ -193,6 +204,8 @@ namespace Content.Client.Options.UI.Tabs
                 Math.Abs(AmbienceMusicVolumeSlider.Value - DBToLV100(_cfg.GetCVar(CCVars.AmbienceMusicVolume))) < 0.01f;
             var isLobbyVolumeSame =
                 Math.Abs(LobbyVolumeSlider.Value - DBToLV100(_cfg.GetCVar(CCVars.LobbyMusicVolume))) < 0.01f;
+            var isTtsVolumeSame =
+                Math.Abs(TtsVolumeSlider.Value - DBToLV100(_cfg.GetCVar(CCVars.TtsVolume))) < 0.01f;
             var isAmbientSoundsSame = (int)AmbienceSoundsSlider.Value == _cfg.GetCVar(CCVars.MaxAmbientSources);
             var isLobbySame = LobbyMusicCheckBox.Pressed == _cfg.GetCVar(CCVars.LobbyMusicEnabled);
             var isRestartSoundsSame = RestartSoundsCheckBox.Pressed == _cfg.GetCVar(CCVars.RestartSoundsEnabled);
@@ -200,6 +213,7 @@ namespace Content.Client.Options.UI.Tabs
             var isAdminSoundsSame = AdminSoundsCheckBox.Pressed == _cfg.GetCVar(CCVars.AdminSoundsEnabled);
             var isEverythingSame = isMasterVolumeSame && isMidiVolumeSame && isAmbientVolumeSame && isAmbientSoundsSame && isLobbySame && isRestartSoundsSame && isEventSame
                                    && isAdminSoundsSame && isAmbientMusicVolumeSame && isUIVolumeSame && isLobbyVolumeSame;
+            isEverythingSame = isEverythingSame && isTtsVolumeSame;
             ApplyButton.Disabled = isEverythingSame;
             ResetButton.Disabled = isEverythingSame;
             MasterVolumeLabel.Text =
@@ -210,6 +224,8 @@ namespace Content.Client.Options.UI.Tabs
                 Loc.GetString("ui-options-volume-percent", ("volume", AmbienceVolumeSlider.Value / 100));
             UIVolumeLabel.Text =
                 Loc.GetString("ui-options-volume-percent", ("volume", UIVolumeSlider.Value / 100));
+            TtsVolumeLabel.Text =
+                Loc.GetString("ui-options-volume-percent", ("volume", TtsVolumeSlider.Value / 100));
             LobbyVolumeLabel.Text =
                 Loc.GetString("ui-options-volume-percent", ("volume", LobbyVolumeSlider.Value / 100));
             AmbienceSoundsLabel.Text = ((int)AmbienceSoundsSlider.Value).ToString();
