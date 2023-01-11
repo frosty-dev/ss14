@@ -285,6 +285,7 @@ namespace Content.Server.Communications
                 _popupSystem.PopupEntity(Loc.GetString("comms-console-permission-denied"), uid, message.Session);
                 return;
             }
+
             if (_meteorEvent.RuleStarted)
             {
                  var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
@@ -294,7 +295,7 @@ namespace Content.Server.Communications
                     return;
                  }
             }
-            _roundEndSystem.RequestRoundEnd(uid);
+            _roundEndSystem.RequestRoundEnd(uid, player:mob);
             _adminLogger.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(mob):player} has called the shuttle.");
         }
 
@@ -313,7 +314,7 @@ namespace Content.Server.Communications
                 return;
             }
 
-            _roundEndSystem.CancelRoundEndCountdown(uid);
+            _roundEndSystem.CancelRoundEndCountdown(uid, player:mob);
             _adminLogger.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(mob):player} has recalled the shuttle.");
         }
 

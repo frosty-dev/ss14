@@ -1,10 +1,12 @@
 using System.Threading;
+using Content.Server.Access.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
 using Content.Shared.CCVar;
 using Content.Server.Chat;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
+using Content.Server.Communications;
 using Content.Server.GameTicking;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
@@ -34,6 +36,7 @@ namespace Content.Server.RoundEnd
         [Dependency] private readonly GameTicker _gameTicker = default!;
         [Dependency] private readonly ShuttleSystem _shuttle = default!;
         [Dependency] private readonly StationSystem _stationSystem = default!;
+        [Dependency] private readonly IdCardSystem _idCardSystem = default!;
 
         public TimeSpan DefaultCooldownDuration { get; set; } = TimeSpan.FromSeconds(30);
 
@@ -91,7 +94,7 @@ namespace Content.Server.RoundEnd
             return _cooldownTokenSource == null;
         }
 
-        public void RequestRoundEnd(EntityUid? requester = null, bool checkCooldown = true, bool autoCall = false)
+        public void RequestRoundEnd(EntityUid? requester = null, bool checkCooldown = true, bool autoCall = false, EntityUid? player = null)
         {
             var duration = DefaultCountdownDuration;
 
@@ -106,10 +109,10 @@ namespace Content.Server.RoundEnd
                 }
             }
 
-            RequestRoundEnd(duration, requester, checkCooldown, autoCall);
+            RequestRoundEnd(duration, requester, checkCooldown, autoCall, player);
         }
 
-        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, bool autoCall = false)
+        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, bool autoCall = false, EntityUid? player = null)
         {
             if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
 
@@ -117,7 +120,9 @@ namespace Content.Server.RoundEnd
 
             if (_countdownTokenSource != null) return;
             _countdownTokenSource = new();
-
+            var ftlstring = player != null
+                ? "round-end-system-shuttle-called-announcement-by-who"
+                : "round-end-system-shuttle-called-announcement";
             if (requester != null)
             {
                 _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called by {ToPrettyString(requester.Value):user}");
@@ -154,9 +159,12 @@ namespace Content.Server.RoundEnd
             }
             else
             {
-                _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-called-announcement",
+                _idCardSystem.TryFindIdCard(player.GetValueOrDefault(), out var id);
+                var author = id != null ? $"{id.FullName} ({id.JobTitle})".Trim() : "";
+                _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(ftlstring,
                     ("time", time),
-                    ("units", Loc.GetString(units))),
+                    ("units", Loc.GetString(units)),
+                    ("requester", author)),
                     Loc.GetString("Station"),
                     false,
                     null,
@@ -173,7 +181,7 @@ namespace Content.Server.RoundEnd
             RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
         }
 
-        public void CancelRoundEndCountdown(EntityUid? requester = null, bool checkCooldown = true)
+        public void CancelRoundEndCountdown(EntityUid? requester = null, bool checkCooldown = true, EntityUid? player = null)
         {
             if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
             if (checkCooldown && _cooldownTokenSource != null) return;
@@ -181,7 +189,9 @@ namespace Content.Server.RoundEnd
             if (_countdownTokenSource == null) return;
             _countdownTokenSource.Cancel();
             _countdownTokenSource = null;
-
+            var ftlstring = player != null
+                ? "round-end-system-shuttle-recalled-announcement-by-who"
+                : "round-end-system-shuttle-recalled-announcement";
             if (requester != null)
             {
                 _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled by {ToPrettyString(requester.Value):user}");
@@ -190,10 +200,10 @@ namespace Content.Server.RoundEnd
             {
                 _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled");
             }
-
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
+            _idCardSystem.TryFindIdCard(player.GetValueOrDefault(), out var id);
+            var author = id != null ? $"{id.FullName} ({id.JobTitle})".Trim() : "";
+            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(ftlstring, ("requester", author)),
                 Loc.GetString("Station"), false, colorOverride: Color.Gold);
-
             SoundSystem.Play("/Audio/Announcements/shuttlerecalled.ogg", Filter.Broadcast());
 
             LastCountdownStart = null;
