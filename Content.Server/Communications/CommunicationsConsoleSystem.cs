@@ -289,7 +289,7 @@ namespace Content.Server.Communications
             if (_meteorEvent.RuleStarted)
             {
                  var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
-                 if (roundTime < _meteorEvent._timeUntillCallShuttle)
+                 if (roundTime < _meteorEvent._timeUntilCallShuttle)
                  {
                     _popupSystem.PopupEntity(Loc.GetString("comms-console-meteor-connection"), uid, message.Session);
                     return;

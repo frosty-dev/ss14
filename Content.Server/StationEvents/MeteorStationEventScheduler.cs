@@ -28,7 +28,7 @@ public sealed class MeteorStationEventSchedulerSystem : GameRuleSystem
     [ViewVariables(VVAccess.ReadWrite)]
     private float _timeUntilNextEvent;
     [ViewVariables(VVAccess.ReadWrite)]
-    public float _timeUntillCallShuttle = 1800;
+    public float _timeUntilCallShuttle = 1800;
     [ViewVariables(VVAccess.ReadWrite)]
     private bool _shuttleAnnouncement = true;
 
@@ -80,7 +80,7 @@ public sealed class MeteorStationEventSchedulerSystem : GameRuleSystem
         base.Update(frameTime);
 
         var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
-        if (roundTime >= _timeUntillCallShuttle && _shuttleAnnouncement)
+        if (roundTime >= _timeUntilCallShuttle && _shuttleAnnouncement)
         {
             foreach (var comp in EntityQuery<StationDataComponent>(true))
             {
