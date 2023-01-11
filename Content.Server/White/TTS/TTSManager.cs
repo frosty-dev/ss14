@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -56,7 +57,7 @@ public sealed class TTSManager
     public async Task<byte[]> ConvertTextToSpeech(string entityName, string speaker, string text)
     {
         var url = _cfg.GetCVar(CCVars.TTSApiUrl);
-
+        var maxCacheSize = _cfg.GetCVar(CCVars.TTSMaxCacheSize);
         if (string.IsNullOrWhiteSpace(url))
         {
             throw new Exception("TTS Api url not specified");
@@ -91,6 +92,12 @@ public sealed class TTSManager
             }
 
             var soundData = await response.Content.ReadAsByteArrayAsync(cts.Token);
+
+            if(_cache.Count > maxCacheSize)
+            {
+                _cache.Remove(_cache.Last().Key);
+            }
+
             _cache.Add(cacheKey, soundData);
             CachedCount.Inc();
 
