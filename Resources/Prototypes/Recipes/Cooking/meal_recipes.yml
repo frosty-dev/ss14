@@ -504,6 +504,19 @@
   solids:
     FoodFlyAmanita: 3
 
+- type: microwaveMealRecipe
+  id: RecipeFoodSoupBeet
+  name: beet recipe
+  result: FoodSoupBeet
+  time: 10
+  reagents:
+    Water: 10
+  solids:
+    FoodBowlBig: 1
+    FoodTomato: 2
+    FoodOnionSlice: 1
+    FoodMeat: 1
+
 #Other
 - type: microwaveMealRecipe
   id: RecipeMeatSteak
