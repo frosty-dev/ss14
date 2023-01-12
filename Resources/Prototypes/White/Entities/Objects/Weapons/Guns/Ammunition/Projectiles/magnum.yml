@@ -1,0 +1,26 @@
+- type: entity
+  id: BulletMagnumSaloKEP
+  name: bullet (.4X APFSDS tungsten-salo alloy core impact kinetic energy penetrator)
+  parent: BaseBulletHighVelocity
+  noSpawn: true
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 44
+  - type: Trail
+    splineIteratorType: CatmullRom
+    splineRendererType: Continuous
+    creationMethod: OnMove
+    lengthStep: 0.1
+    scale: 0.05, 0.0
+    lifetime: 1
+    randomWalk: 0.03, 0.001
+    gravity: 0.001, 0.005
+    texturePath: /Textures/White/Effects/Trails/Continuous/susTrail.png
+    gradientIteratorType: Bezier
+    gradient:
+      - 1, 1, 1, 0
+      - 1, 1, 1, 2
+      - 1, 1, 1, 0
+      - 1, 1, 1, 0
