@@ -125,7 +125,7 @@
   alias:
     - survivalmeteor
   name: survivalmeteor-title
-  showInVote: false
+  showInVote: true
   description: survivalmeteor-description
   rules:
     - MeteorStationEventScheduler
