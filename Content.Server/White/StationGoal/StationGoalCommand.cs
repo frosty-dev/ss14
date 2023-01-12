@@ -25,7 +25,7 @@ namespace Content.Server.White.StationGoal
             }
 
             var id = args[0];
-            if (!EntitySystem.Get<StationGoalSystem>().CreateStationGoalById(id))
+            if (!EntitySystem.Get<StationGoalSystem>().CreateStaticGoal(id))
             {
                 shell.WriteError($"No station goal with id={id} has been found!");
             }

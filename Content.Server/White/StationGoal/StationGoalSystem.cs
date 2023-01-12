@@ -40,21 +40,18 @@ namespace Content.Server.White.StationGoal
             _stationGoalPaperSystem.SpawnStationGoalPaper(goal);
         }
 
-        public void CreateStaticGoal(string goalId)
+        public bool CreateStaticGoal(string goalId)
         {
             if (!_prototypeManager.TryIndex<StationGoalPrototype>(goalId, out var goal))
-                return;
+            {
+                Logger.Error($"Couldn't spawn station goal with ID {goalId}");
+                return false;
+            }
 
             _stationGoalPaperSystem.SpawnStationGoalPaper(goal);
-        }
-
-        public bool CreateStationGoalById(string stationGoalId)
-        {
-            if (!_prototypeManager.TryIndex(stationGoalId, out StationGoalPrototype? prototype))
-                return false;
-
-            _stationGoalPaperSystem.SpawnStationGoalPaper(_prototypeManager.Index<StationGoalPrototype>(stationGoalId));
             return true;
         }
+
+
     }
 }
