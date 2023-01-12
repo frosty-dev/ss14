@@ -119,3 +119,13 @@
   rules:
     - Pirates
     - BasicStationEventScheduler
+
+- type: gamePreset
+  id: SurvivalMeteor
+  alias:
+    - survivalmeteor
+  name: survivalmeteor-title
+  showInVote: true
+  description: survivalmeteor-description
+  rules:
+    - MeteorStationEventScheduler

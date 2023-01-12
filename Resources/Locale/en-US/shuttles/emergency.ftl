@@ -16,6 +16,7 @@ emergency-shuttle-launch-time = The emergency shuttle will launch in {$consoleAc
 emergency-shuttle-docked = The Emergency Shuttle has docked with the station on the {$direction} side. It will leave in {$time} seconds.
 emergency-shuttle-good-luck = The Emergency Shuttle is unable to find a station. Good luck.
 emergency-shuttle-nearby = The Emergency Shuttle is unable to find a valid docking port. It has warped in {$direction} of the station.
+emergency_shuttle_meteor_available = Connection to the Emergency Shuttle has been established. It now can be called.
 
 # Emergency shuttle console popup / announcement
 emergency-shuttle-console-no-early-launches = Early launch is disabled

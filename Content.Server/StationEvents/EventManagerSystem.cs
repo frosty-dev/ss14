@@ -71,6 +71,36 @@ public sealed class EventManagerSystem : EntitySystem
     }
 
     /// <summary>
+    /// Runs a certain event.
+    /// </summary>
+    public void RunCertainEvent(string eventId)
+    {
+        var certainEvent = PickCertainEvent(eventId);
+
+        if (certainEvent == null
+            || !_prototype.TryIndex<GameRulePrototype>(certainEvent.Id, out var proto))
+        {
+            var errStr = Loc.GetString("station-event-system-run-random-event-no-valid-events");
+            _sawmill.Error(errStr);
+            return;
+        }
+
+        GameTicker.AddGameRule(proto);
+        var str = Loc.GetString("station-event-system-run-event",("eventName", certainEvent.Id));
+        _sawmill.Info(str);
+    }
+
+    /// <summary>
+    /// Picks certain event.
+    /// </summary>
+    public StationEventRuleConfiguration? PickCertainEvent(string eventId)
+    {
+        var availableEvent = AvailableCertainEvent(eventId);
+        _sawmill.Info($"Picking from {availableEvent.Count} total available events");
+        return FindEvent(availableEvent);
+    }
+
+    /// <summary>
     /// Pick a random event from the available events at this time, also considering their weightings.
     /// </summary>
     /// <returns></returns>
@@ -193,5 +223,21 @@ public sealed class EventManagerSystem : EntitySystem
         }
 
         return true;
+    }
+
+    private List<StationEventRuleConfiguration> AvailableCertainEvent(string eventId)
+    {
+        var result = new List<StationEventRuleConfiguration>();
+
+        foreach (var stationEvent in AllEvents())
+        {
+            if (stationEvent.Id == eventId)
+            {
+                _sawmill.Debug($"Adding event {stationEvent.Id} to possibilities");
+                result.Add(stationEvent);
+            }
+        }
+
+        return result;
     }
 }
