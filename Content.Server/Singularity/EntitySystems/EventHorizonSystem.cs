@@ -1,4 +1,5 @@
 using Content.Server.Chat.Managers;
+using Content.Server.Construction.Completions;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Robust.Shared.Map;
@@ -9,9 +10,14 @@ using Content.Shared.Singularity.Components;
 using Content.Shared.Singularity.EntitySystems;
 
 using Content.Server.Ghost.Components;
+using Content.Server.Popups;
 using Content.Server.Station.Components;
 using Content.Server.Singularity.Components;
 using Content.Server.Singularity.Events;
+using Content.Shared.Coordinates;
+using Content.Shared.Popups;
+using Robust.Server.GameObjects;
+using Robust.Shared.Player;
 
 namespace Content.Server.Singularity.EntitySystems;
 
@@ -27,7 +33,10 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     [Dependency] private readonly IMapManager _mapMan = default!;
     [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
     [Dependency] private readonly IChatManager _chatManager = default!;
-#endregion Dependencies
+    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency] private readonly AudioSystem _audioSystem = default!;
+    [Dependency] private readonly IEntityManager _entityManager = default!;
+    #endregion Dependencies
 
     /// <summary>
     /// The maximum number of nested containers an event horizon is allowed to eat through in an attempt to get to the map.
@@ -133,6 +142,18 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
         EntityManager.QueueDeleteEntity(uid);
         RaiseLocalEvent(eventHorizon.Owner, new EntityConsumedByEventHorizonEvent(uid, eventHorizon, outerContainer));
         RaiseLocalEvent(uid, new EventHorizonConsumedEntityEvent(uid, eventHorizon, outerContainer));
+
+        if (TryComp<SingularityDestroyerComponent>(uid, out var destroyerComponent) && destroyerComponent.Active)
+        {
+            EntityManager.QueueDeleteEntity(eventHorizon.Owner);
+            RemComp<EventHorizonComponent>(eventHorizon.Owner);
+
+            var filter = Filter.Pvs(eventHorizon.Owner.ToCoordinates()).AddPlayersByPvs(eventHorizon.Owner, 40);
+            _audioSystem.Play("/Audio/Items/Toys/singularity_prolapse.ogg", filter, eventHorizon.Owner, false);
+
+            var toysingulo = Spawn("SingularityToy", eventHorizon.Owner.ToCoordinates().ToMap(_entityManager));
+            _popupSystem.PopupEntity(Loc.GetString("singularity-destroyer-component-trigger"), toysingulo, PopupType.LargeCaution);
+        }
     }
 
     /// <summary>

@@ -19,6 +19,7 @@
           Piercing: 4
         groups:
           Burn: 3
+    - type: SingularityDestroyer
   - !type:AddImplantSpecial
     implants: [ SadTromboneImplant ]
 
