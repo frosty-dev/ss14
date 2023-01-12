@@ -114,8 +114,10 @@ public sealed class MeteorStationEventSchedulerSystem : GameRuleSystem
     private void PickNextEventTime()
     {
         var mod = ChaosModifier;
+        // 1-4 minutes baseline. Will get faster over time as the chaos mod increases.
+        const float minTime = 60f;
+        const float maxTime = 240f;
 
-        // 4-12 minutes baseline. Will get faster over time as the chaos mod increases.
-        _timeUntilNextEvent = _random.NextFloat(60f / mod, 240f / mod);
+        _timeUntilNextEvent = _random.NextFloat(minTime / mod, maxTime / mod);
     }
 }

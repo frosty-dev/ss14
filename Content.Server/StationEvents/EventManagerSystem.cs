@@ -73,7 +73,7 @@ public sealed class EventManagerSystem : EntitySystem
     /// <summary>
     /// Runs a certain event.
     /// </summary>
-    public string RunCertainEvent(string eventId)
+    public void RunCertainEvent(string eventId)
     {
         var certainEvent = PickCertainEvent(eventId);
 
@@ -82,13 +82,12 @@ public sealed class EventManagerSystem : EntitySystem
         {
             var errStr = Loc.GetString("station-event-system-run-random-event-no-valid-events");
             _sawmill.Error(errStr);
-            return errStr;
+            return;
         }
 
         GameTicker.AddGameRule(proto);
         var str = Loc.GetString("station-event-system-run-event",("eventName", certainEvent.Id));
         _sawmill.Info(str);
-        return str;
     }
 
     /// <summary>
