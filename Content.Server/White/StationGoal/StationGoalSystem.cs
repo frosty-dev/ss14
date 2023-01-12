@@ -16,6 +16,8 @@ namespace Content.Server.White.StationGoal
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRobustRandom _random = default!;
 
+        private static readonly String _staticGoalId = "StationGoalMain";
+
         public override void Initialize()
         {
             base.Initialize();
@@ -24,7 +26,9 @@ namespace Content.Server.White.StationGoal
 
         private void OnRoundStarted(RoundStartedEvent ev)
         {
-            CreateRandomStationGoal();
+            // Goal will be static for now.
+            // CreateRandomStationGoal();
+            CreateStaticGoal(_staticGoalId);
         }
 
         public void CreateRandomStationGoal()
@@ -36,13 +40,18 @@ namespace Content.Server.White.StationGoal
             _stationGoalPaperSystem.SpawnStationGoalPaper(goal);
         }
 
-        public bool CreateStationGoalById(string stationGoalId)
+        public bool CreateStaticGoal(string goalId)
         {
-            if (!_prototypeManager.TryIndex(stationGoalId, out StationGoalPrototype? prototype))
+            if (!_prototypeManager.TryIndex<StationGoalPrototype>(goalId, out var goal))
+            {
+                Logger.Error($"Couldn't spawn station goal with ID {goalId}");
                 return false;
+            }
 
-            _stationGoalPaperSystem.SpawnStationGoalPaper(_prototypeManager.Index<StationGoalPrototype>(stationGoalId));
+            _stationGoalPaperSystem.SpawnStationGoalPaper(goal);
             return true;
         }
+
+
     }
 }
