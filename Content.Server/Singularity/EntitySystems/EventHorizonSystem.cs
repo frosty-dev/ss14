@@ -143,7 +143,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
         RaiseLocalEvent(eventHorizon.Owner, new EntityConsumedByEventHorizonEvent(uid, eventHorizon, outerContainer));
         RaiseLocalEvent(uid, new EventHorizonConsumedEntityEvent(uid, eventHorizon, outerContainer));
 
-        if (HasComp<SingularityDestroyerComponent>(uid))
+        if (TryComp<SingularityDestroyerComponent>(uid, out var destroyerComponent) && destroyerComponent.Active)
         {
             EntityManager.QueueDeleteEntity(eventHorizon.Owner);
             RemComp<EventHorizonComponent>(eventHorizon.Owner);
